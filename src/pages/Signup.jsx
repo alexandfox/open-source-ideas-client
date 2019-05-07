@@ -6,10 +6,14 @@ class Signup extends Component {
     super(props);
   }
 
+  sendToParent = (response) => {
+    this.props.getUser(response)
+  }
+
   render(){
     return(
       <div id="signup-container">
-        <LoginForm route="signup" />
+        <LoginForm route="signup" sendUser={(user) => this.sendToParent(user)} />
 			</div>
     )
   }

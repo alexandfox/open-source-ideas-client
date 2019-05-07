@@ -6,10 +6,14 @@ class Login extends Component {
     super(props);
   }
 
+  sendToParent = (response) => {
+    this.props.getUser(response)
+  }
+
   render(){
     return(
       <div id="login-container">
-        <LoginForm route="login" />
+        <LoginForm route="login" sendUser={(user) => this.sendToParent(user)}/>
 			</div>
     )
   }

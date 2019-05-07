@@ -23,7 +23,7 @@ class LoginForm extends Component {
 							name: "",
 							password: "",
 					});
-					this.props.getUser(response)
+					this.props.sendUser(response)
 			})
 			.catch( error => console.log(error) )
 		} else {
@@ -35,7 +35,7 @@ class LoginForm extends Component {
 								name: "",
 								password: "",
 						});
-						this.props.getUser(response)
+						this.props.sendUser(response)
 				})
 				.catch( error => console.log(error) )
 		}
