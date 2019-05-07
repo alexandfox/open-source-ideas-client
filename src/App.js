@@ -2,10 +2,12 @@ import React, { Component }  from 'react';
 import './App.css';
 import { Switch, Route } from "react-router-dom";
 import NavMain from "./components/NavMain";
+
 import Home from "./pages/Home"
 import Signup from "./pages/Signup"
 import Login from "./pages/Login"
 import CreateIdea from "./pages/CreateIdea"
+import IdeaPage from "./pages/IdeaPage"
 
 class App extends Component {
   constructor(props){
@@ -35,6 +37,7 @@ class App extends Component {
             <Route exact path="/signup" render={() => <Signup getUser={this.getUser}/>} />
             <Route exact path="/login" render={() => <Login getUser={this.getUser}/>} />
             <Route exact path="/create-idea" component={CreateIdea} />
+            <Route path="/idea/:id" component={IdeaPage} exact />
           </Switch>
         </main>
       </div>
