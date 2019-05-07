@@ -1,23 +1,25 @@
 import React, { Component } from 'react';
-import AuthService from '..api/auth-service';
+import AuthService from '../api/auth-service';
 
 class LoginForm extends Component {
   constructor(props){
     super(props);
-    this.state = { username: '', password: '' };
+    this.state = { username: "", name: "", password: "" };
 		this.service = new AuthService();
   }
 
   handleFormSubmit = (event) => {
 		event.preventDefault();
 		const username = this.state.username;
+		const name = this.state.name;
 		const password = this.state.password;
 
-		if (props.route === "signup") {
-			this.service.signup(username, password)
+		if (this.props.route === "signup") {
+			this.service.signup(username, name, password)
 			.then( response => {
 					this.setState({
 							username: "", 
+							name: "",
 							password: "",
 					});
 					this.props.getUser(response)
@@ -28,6 +30,7 @@ class LoginForm extends Component {
 				.then( response => {
 						this.setState({
 								username: "", 
+								name: "",
 								password: "",
 						});
 						this.props.getUser(response)
@@ -41,27 +44,27 @@ class LoginForm extends Component {
 		this.setState({[name]: value});
 	}
 			
-
 	render(){
 		return(
-			<div>
-				<form onSubmit={this.handleFormSubmit}>
-					<label>Username:</label>
-					<input type="text" name="username" value={this.state.username} onChange={ e => this.handleChange(e)}/>
-					
-					<label>Password:</label>
-					<textarea name="password" value={this.state.password} onChange={ e => this.handleChange(e)} />
-					
-					<input type="submit" value="Signup" />
-				</form>
+			<form className="loginForm" onSubmit={this.handleFormSubmit}>
+				<label>Email:</label>
+				<input type="text" name="username" value={this.state.username} onChange={ e => this.handleChange(e)}/>
 
-				<p>Already have account? 
-						<Link to={"/"}> Login</Link>
-				</p>
-
-			</div>
+				{
+					this.props.route === "signup" && 
+					<div className="nameInput">
+						<label>Username:</label>
+						<input type="text" name="name" value={this.state.name} onChange={ e => this.handleChange(e)} />
+					</div>
+				}
+				
+				<label>Password:</label>
+				<textarea name="password" value={this.state.password} onChange={ e => this.handleChange(e)} />
+				
+				<input type="submit" value="Signup" />
+			</form>
 		)
 	}
 }
 
-export default Signup;
+export default LoginForm;

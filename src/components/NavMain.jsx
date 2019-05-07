@@ -4,14 +4,14 @@ import { NavLink } from "react-router-dom";
 
 function NavMain() {
   return (
-    <nav>
-      <NavLink className="link home" activeClassName="is-active" to="/" exact>
+    <nav id="main-nav">
+      <NavLink className="navLink home" activeClassName="is-active" to="/" exact>
         Home
       </NavLink>
-      {/* <NavLink className="link home" activeClassName="is-active" to="/login" exact>
-        Login
-      </NavLink> */}
-      <NavLink  to="/create-idea" >
+      <NavLink className="navLink" activeClassName="is-active" to="/signup" exact>
+        Signup
+      </NavLink>
+      <NavLink className="navLink" to="/create-idea" >
         Share an Idea
       </NavLink>
     </nav>
