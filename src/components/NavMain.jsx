@@ -2,16 +2,17 @@ import React from "react"
 import { NavLink } from "react-router-dom";
 
 
-function NavMain() {
+function NavMain(props) {
   return (
-    <nav>
-      <NavLink className="link home" activeClassName="is-active" to="/" exact>
+    <nav id="main-nav">
+      <NavLink className="navLink home" activeClassName="is-active" to="/" exact>
         Home
       </NavLink>
-      {/* <NavLink className="link home" activeClassName="is-active" to="/login" exact>
+      {!props.loggedIn && <NavLink className="navLink" activeClassName="is-active" to="/signup" exact>Signu</NavLink>}
+      {!props.loggedIn && <NavLink className="navLink" activeClassName="is-active" to="/login" exact>
         Login
-      </NavLink> */}
-      <NavLink  to="/create-idea" >
+      </NavLink>}
+      <NavLink className="navLink" to="/create-idea" >
         Share an Idea
       </NavLink>
     </nav>
