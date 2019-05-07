@@ -7,22 +7,35 @@ class Home extends Component {
   constructor() {
     super()
     this.state = {
-      ideas : []
+      allIdeas : [],
+      filteredIdeas: []
     }
   }
   
   componentDidMount() {
     getAllIdeas()
       .then(res => {
-        console.log("res.data.ideas: ", res.data.ideas)
-        this.setState({ ideas: res.data.ideas}, 
-          console.log("state.ideas ", this.state.ideas)
+        this.setState({ allIdeas: res.data.ideas}, 
         );
       })
       .catch(err => {
         console.log(err.response);
       });
   }
+
+  exactMatch(string, object) {
+    var compString = string.toLowerCase()
+
+		for (var key in object) {
+			if (typeof(object[key]) !== "string" ) console.log("not a string.")
+			else {
+				var compObjectValue = object[key].toLowerCase()
+				if (compObjectValue.includes(compString)) return true;
+		}}
+
+		return false;
+  }
+
   
   searchFilter(searchTerm) {
 		// var filteredItems = this.state.ideas.filter( idea => 
@@ -39,7 +52,7 @@ class Home extends Component {
       <h1>Hello this is the home</h1>
       <Search updateHome={(term) => this.searchFilter(term)} />
       {
-				this.state.ideas.map( (idea, index) => (
+				this.state.allIdeas.map( (idea, index) => (
           <IdeaItem key={index} {...idea} />
 				))
 			}
