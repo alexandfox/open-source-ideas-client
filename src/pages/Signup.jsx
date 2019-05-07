@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import AuthService from '../api/auth-service';
 import LoginForm from "../components/LoginForm"
 
 class Signup extends Component {

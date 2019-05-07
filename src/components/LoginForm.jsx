@@ -17,6 +17,7 @@ class LoginForm extends Component {
 		if (this.props.route === "signup") {
 			this.service.signup(username, name, password)
 			.then( response => {
+					// THIS SHOULD CHANGE later --> (based on where came from, send to ie. Home)
 					this.setState({
 							username: "", 
 							name: "",
@@ -27,6 +28,7 @@ class LoginForm extends Component {
 			.catch( error => console.log(error) )
 		} else {
 			this.service.login(username, password)
+				// THIS SHOULD CHANGE later --> (based on where came from, send to ie. Home)
 				.then( response => {
 						this.setState({
 								username: "", 
@@ -61,7 +63,9 @@ class LoginForm extends Component {
 				<label>Password:</label>
 				<textarea name="password" value={this.state.password} onChange={ e => this.handleChange(e)} />
 				
-				<input type="submit" value="Signup" />
+				{this.props.route === "signup" && <input type="submit" value="Signup" />}
+				{this.props.route === "login" && <input type="submit" value="Login" />}
+				
 			</form>
 		)
 	}

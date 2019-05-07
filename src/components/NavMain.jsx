@@ -11,6 +11,9 @@ function NavMain() {
       <NavLink className="navLink" activeClassName="is-active" to="/signup" exact>
         Signup
       </NavLink>
+      <NavLink className="navLink" activeClassName="is-active" to="/login" exact>
+        Login
+      </NavLink>
       <NavLink className="navLink" to="/create-idea" >
         Share an Idea
       </NavLink>
