@@ -28,7 +28,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <NavMain />
+        <NavMain loggedIn={this.state.loggedIn} />
         <main>
           <Switch>
             <Route exact path="/" component={Home} />
