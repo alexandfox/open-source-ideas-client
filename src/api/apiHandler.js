@@ -5,6 +5,8 @@ const APIURL = "http://localhost:8888/api";
 
 //GET IDEAS METHODS-----------------------------------------------------------------
 
+export const getAllIdeas = () => axios.get(`${APIURL}/idea`);
+
 export const createOneIdea = (infos) => axios.post(`${APIURL}/idea/`, infos);
 
 export const getOneIdea = id => axios.get(`${APIURL}/idea/${id}`);
