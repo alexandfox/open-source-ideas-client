@@ -8,7 +8,7 @@ function NavMain(props) {
       <NavLink className="navLink home" activeClassName="is-active" to="/" exact>
         Home
       </NavLink>
-      {!props.loggedIn && <NavLink className="navLink" activeClassName="is-active" to="/signup" exact>Signu</NavLink>}
+      {!props.loggedIn && <NavLink className="navLink" activeClassName="is-active" to="/signup" exact>Signup</NavLink>}
       {!props.loggedIn && <NavLink className="navLink" activeClassName="is-active" to="/login" exact>
         Login
       </NavLink>}

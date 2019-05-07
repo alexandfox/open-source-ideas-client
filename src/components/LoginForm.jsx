@@ -17,25 +17,13 @@ class LoginForm extends Component {
 		if (this.props.route === "signup") {
 			this.service.signup(username, name, password)
 			.then( response => {
-					// THIS SHOULD CHANGE later --> (based on where came from, send to ie. Home)
-					this.setState({
-							username: "", 
-							name: "",
-							password: "",
-					});
-					this.props.sendUser(response)
+				this.props.sendUser(response)
 			})
 			.catch( error => console.log(error) )
 		} else {
 			this.service.login(username, password)
-				// THIS SHOULD CHANGE later --> (based on where came from, send to ie. Home)
 				.then( response => {
-						this.setState({
-								username: "", 
-								name: "",
-								password: "",
-						});
-						this.props.sendUser(response)
+					this.props.sendUser(response)
 				})
 				.catch( error => console.log(error) )
 		}

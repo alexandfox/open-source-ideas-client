@@ -1,6 +1,6 @@
 import React, { Component }  from 'react';
 import './App.css';
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import NavMain from "./components/NavMain";
 import Home from "./pages/Home"
 import Signup from "./pages/Signup"
@@ -33,7 +33,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/signup" render={() => <Signup getUser={this.getUser}/>} />
-            <Route exact path="/login" render={() => <Login getUser={this.getUser}/>} />
+            <Route exact path="/login" render={() => (this.loggedIn ? (<Redirect to="/" />) : (<Login getUser={this.getUser}/>))} />
             <Route exact path="/create-idea" component={CreateIdea} />
           </Switch>
         </main>
