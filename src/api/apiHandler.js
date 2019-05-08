@@ -5,6 +5,8 @@ const APIURL = "http://localhost:8888/api";
 
 export const getOneUser = id => axios.get(`${APIURL}/user/${id}`);
 
+export const getUserByName = name => axios.get(`${APIURL}/user/name/${name}`);
+
 export const updateOneUser = (id, infos) => axios.post(`${APIURL}/user/${id}`, infos);
 
 //GET IDEAS METHODS-----------------------------------------------------------------

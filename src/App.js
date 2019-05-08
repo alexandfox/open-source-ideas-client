@@ -9,7 +9,7 @@ import Signup from "./pages/Signup"
 import Login from "./pages/Login"
 import CreateIdea from "./pages/CreateIdea"
 import IdeaPage from "./pages/IdeaPage"
-import PrivateProfile from "./pages/PrivateProfile"
+import UserProfile from "./pages/UserProfile"
 
 class App extends Component {
   constructor(props){
@@ -55,7 +55,7 @@ class App extends Component {
             <Route exact path="/" component={Home} />
             <Route exact path="/signup" render={() => <Signup getUser={this.getUser}/>} />
             <Route exact path="/login" render={() => (this.loggedIn ? (<Redirect to="/" />) : (<Login getUser={this.getUser}/>))} />
-            <Route exact path="/@:name" render={(props) => <PrivateProfile loggedUser={this.state.loggedUser} {...props}/>} />
+            <Route exact path="/@:name" render={(props) => <UserProfile loggedUser={this.state.loggedUser} {...props}/>} />
 
             <Route exact path="/create-idea" component={CreateIdea} />
             <Route exact path="/idea/:id" render={(props) => <IdeaPage loggedUser={this.state.loggedUser} {...props} />} />
