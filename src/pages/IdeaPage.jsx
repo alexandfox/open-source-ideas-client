@@ -10,7 +10,6 @@ class IdeaPage extends Component{
       hasUpvoted: false,
       hasDownvoted: false,
     }
-    console.log("props.match: ", props)
   }
 
   //This method is to print the idea on screen and will be recalled each time we'll update idea
@@ -20,7 +19,8 @@ class IdeaPage extends Component{
       this.setState({ 
         idea: res.data.idea,
         upvotes: res.data.idea.upvotes,
-        downvotes: res.data.idea.downvotes
+        downvotes: res.data.idea.downvotes,
+        user: null
       });
     })
     .catch(err => {
@@ -30,19 +30,19 @@ class IdeaPage extends Component{
 
   componentDidMount(){
     this.printIdea();
+    console.log("here i am in componentDidMount")
   }
 
-  checkIfAlreadyUpvoted = (userId, ideaId, evt) => {
-    // 1. Get clicked idea_id (evt.target.idea_id / this.state.ideaId)
-    // 2. Get User_id 
-    // 3. Check if ideaId is in user upvoted array. ((userId.upvoted.includes(ideaId))
-
+  checkIfAlreadyUpvoted = (userId, idea) => {
+    var upvotedUsers = idea.upvotedUsers
+    if (!upvotedUsers) return false
+    return upvotedUsers.includes(userId)
   }
 
-  checkIfAlreadydownvoted = (userId, ideaId, evt) => {
-    // 1. Get clicked idea_id (evt.target.idea_id)
-    // 2. Get User_id 
-    // 3. Check if ideaId is in user downvoted array. ((userId.downvoted.includes(ideaId))
+  checkIfAlreadydownvoted = (userId, idea) => {
+    var downvotedUsers = idea.downvotedUsers
+    if (!downvotedUsers) return false
+    return downvotedUsers.includes(userId)
   }
 
   handleUpvote = (evt) => {
@@ -59,8 +59,13 @@ class IdeaPage extends Component{
     // });
   }
 
-  render(){
+  render() {
     const {idea} = this.state;
+    var user = null
+    console.log("user: ", this.state.user)
+
+    if (this.props.loggedUser) {
+      user = this.props.loggedUser;}
     return(
       <React.Fragment>
         <h1>{idea.title}</h1>
@@ -82,6 +87,10 @@ class IdeaPage extends Component{
         
         <h3>Comments</h3>
         {/* TODO : map the comment array and create comments */}
+
+        {/* <h3>Upvotes test</h3>
+        {this.checkIfAlreadyUpvoted(user._id, idea) && <p>yes, i've upvoted!</p>}
+        {!this.checkIfAlreadyUpvoted(user._id, idea) && <p>no, not upvoted.</p>} */}
       </React.Fragment>
     )
   }
