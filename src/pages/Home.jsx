@@ -12,10 +12,13 @@ class Home extends Component {
     }
   }
   
+  // GET ideas from API (database)
   componentDidMount() {
     getAllIdeas()
       .then(res => {
-        this.setState({ allIdeas: res.data.ideas}, 
+        this.setState({ 
+          allIdeas: res.data.ideas,
+          filteredIdeas: res.data.ideas }, 
         );
       })
       .catch(err => {
@@ -23,6 +26,7 @@ class Home extends Component {
       });
   }
 
+  // SEARCH FUNCTIONS
   exactMatch(string, object) {
     var compString = string.toLowerCase()
 
@@ -30,29 +34,30 @@ class Home extends Component {
 			if (typeof(object[key]) !== "string" ) console.log("not a string.")
 			else {
 				var compObjectValue = object[key].toLowerCase()
+        console.log("object value: ", compObjectValue)
 				if (compObjectValue.includes(compString)) return true;
 		}}
 
 		return false;
   }
 
-  
+  // SEARCH UPDATE (dynamic)  
   searchFilter(searchTerm) {
-		// var filteredItems = this.state.ideas.filter( idea => 
-		// 	this.objectContainsString(searchTerm, idea)
-		// )
-		// this.setState({"ideas" : filteredideas},
-		// )
+		var filteredIdeas = this.state.allIdeas.filter( idea => 
+			this.exactMatch(searchTerm, idea)
+		)
+		this.setState({"filteredIdeas" : filteredIdeas})
     console.log("here i am in home, searchTerm: ", searchTerm)
 	}
 
+  // RENDER
   render() {
     return (
     <div id="home-container">
       <h1>Hello this is the home</h1>
       <Search updateHome={(term) => this.searchFilter(term)} />
       {
-				this.state.allIdeas.map( (idea, index) => (
+				this.state.filteredIdeas.map( (idea, index) => (
           <IdeaItem key={index} {...idea} />
 				))
 			}
