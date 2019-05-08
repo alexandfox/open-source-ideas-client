@@ -11,11 +11,14 @@ class FormCreateIdea extends Component {
       title: "",
       description: "",
       redirect: false,
-      createdIdeaId: ""
+      createdIdeaId: "",
+      category: null,
+      // categories: []
     }
   }
 
   handleInput = (evt) => {
+    console.log(evt)
     this.setState({
       [evt.target.name] : evt.target.value
     })
@@ -58,7 +61,7 @@ class FormCreateIdea extends Component {
           placeholder="Description" 
           onChange= {this.handleInput} 
           />
-        <AddCategories />
+        <AddCategories sendCatToParent={this.handleInput}/>
         <Button button_name="Save"/>
         <div>{this.state.title}</div>
         <div>{this.state.description}</div>
