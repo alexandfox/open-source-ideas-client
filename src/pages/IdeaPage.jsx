@@ -10,6 +10,7 @@ class IdeaPage extends Component{
       hasUpvoted: false,
       hasDownvoted: false,
     }
+    console.log("props.match: ", props)
   }
 
   //This method is to print the idea on screen and will be recalled each time we'll update idea

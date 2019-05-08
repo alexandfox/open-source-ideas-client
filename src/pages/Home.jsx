@@ -4,8 +4,8 @@ import IdeaItem from "../components/IdeaListItem"
 import { getAllIdeas } from "../api/apiHandler";
 
 class Home extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       allIdeas : [],
       filteredIdeas: []
@@ -52,6 +52,7 @@ class Home extends Component {
 
   // RENDER
   render() {
+    console.log("props: ", this.props)
     return (
     <div id="home-container">
       <h1>Hello this is the home</h1>
@@ -61,7 +62,6 @@ class Home extends Component {
           <IdeaItem key={index} {...idea} />
 				))
 			}
-      
     </div>
   )}
 }

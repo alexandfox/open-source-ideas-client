@@ -2,6 +2,7 @@ import React, { Component }  from 'react';
 import './styles/scss/main.scss';
 import { Switch, Route, Redirect } from "react-router-dom";
 import NavMain from "./components/NavMain";
+import AuthService from './api/auth-service';
 
 import Home from "./pages/Home"
 import Signup from "./pages/Signup"
@@ -16,6 +17,23 @@ class App extends Component {
       loggedIn: false,
       loggedUser: null
     };
+    this.service = new AuthService();
+  }
+
+  fetchUser(){
+    if( this.state.loggedUser === null ){
+      this.service.loggedin()
+      .then(response =>{
+        this.setState({
+          loggedUser:  response
+        }) 
+      })
+      .catch( err =>{
+        this.setState({
+          loggedUser:  false
+        }) 
+      })
+    }
   }
 
   getUser= (userObj) => {
@@ -28,6 +46,7 @@ class App extends Component {
   }
 
   render() {
+    this.fetchUser()
     return (
       <div className="App">
         <NavMain loggedIn={this.state.loggedIn} />
@@ -37,7 +56,7 @@ class App extends Component {
             <Route exact path="/signup" render={() => <Signup getUser={this.getUser}/>} />
             <Route exact path="/login" render={() => (this.loggedIn ? (<Redirect to="/" />) : (<Login getUser={this.getUser}/>))} />
             <Route exact path="/create-idea" component={CreateIdea} />
-            <Route path="/idea/:id" component={IdeaPage} loggedUser={this.state.loggedUser} exact />
+            <Route exact path="/idea/:id" render={(props) => <IdeaPage loggedUser={this.state.loggedUser} {...props} />} />
           </Switch>
         </main>
       </div>
