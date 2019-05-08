@@ -17,15 +17,14 @@ class Home extends Component {
   // see if current user (browsing) is the user 
   componentDidMount() {
 		if (this.props.loggedUser) {
-			this.setState({current_user: this.props.loggedUser}, 
-        (this.current_user.name === this.user_name) ? 
-          this.setState({isMyProfile: true, user_page: this.current_user}) :
-          console.log("current user is not the page user: ", this.current_user.name)
-      )
+			this.setState({current_user: this.props.loggedUser}, () => {
+        this.props.loggedUser.name == this.props.match.params.name ? 
+          this.setState({isMyProfile: true, user_page: this.props.loggedUser}) :
+          console.log("current user is not the page user")
+      })
 		} else {
 			getUserByName(this.state.user_name)
       .then(res => {
-        console.log("here is the result: ", res)
         this.setState({ 
           user_page: res.data,
         });
@@ -37,12 +36,14 @@ class Home extends Component {
   }
 
   render() {
-    console.log("state ", this.state)
-    console.log("props: ", this.props)
+    // console.log("state ", this.state)
+
     return (
     <div id="private-profile-container">
 			<div className="profileDetails">
-				<h2 className="profileName">{this.state.user_page.name}</h2>
+				<h2 className="profileName">{this.state.user_name}</h2>
+        {this.state.isMyProfile && <p>this is my profile!</p>}
+        {!this.state.isMyProfile && <p>this is not my profile</p>}
 			</div>
       <h3 className="profileHeader">DRAFTS</h3>
       <h3 className="profileHeader">UPVOTES</h3>
