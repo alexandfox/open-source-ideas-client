@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import LoginForm from "../components/LoginForm"
 import { Redirect } from 'react-router'
+import Home from "./Home"
 
 class Login extends Component {
   constructor(props){
@@ -21,7 +22,7 @@ class Login extends Component {
   }
 
   render(){
-    if (this.state.loggedIn) return <Redirect to="/" loggedUser={this.state.loggedUser} /> 
+    if (this.state.loggedIn) return <Redirect exact to="/" render={() => <Home loggedUser={this.loggedUser}/>}/> 
     return(
       <div id="login-container">
         <LoginForm route="login" sendUser={(user) => this.sendToParent(user)}/>
