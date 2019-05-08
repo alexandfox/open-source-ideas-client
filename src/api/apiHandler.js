@@ -9,6 +9,8 @@ export const updateOneUser = (id, infos) => axios.post(`${APIURL}/user/${id}`, i
 
 //GET IDEAS METHODS-----------------------------------------------------------------
 
+export const getAllIdeas = () => axios.get(`${APIURL}/idea`);
+
 export const createOneIdea = (infos) => axios.post(`${APIURL}/idea/`, infos);
 
 export const getOneIdea = id => axios.get(`${APIURL}/idea/${id}`);
