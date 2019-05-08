@@ -65,7 +65,10 @@ class IdeaPage extends Component{
     console.log("user: ", this.state.user)
 
     if (this.props.loggedUser) {
-      user = this.props.loggedUser;}
+      user = this.props.loggedUser;
+      console.log(user)
+    }
+      
     return(
       <React.Fragment>
         <h1>{idea.title}</h1>

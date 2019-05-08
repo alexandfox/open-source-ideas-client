@@ -15,6 +15,9 @@ function NavMain(props) {
       <NavLink className="navLink" to="/create-idea" >
         Share an Idea
       </NavLink>
+      {props.loggedIn && <NavLink className="navLink" activeClassName="is-active" to={`/@${props.loggedUser.name}`} exact>
+        Profile
+      </NavLink>}
     </nav>
   )
 }
