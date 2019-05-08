@@ -21,5 +21,6 @@ export default {
   getOneIdea,
   createOneIdea,
   updateOneIdea,
+  updateOneUser,
   getOneUser
 }
