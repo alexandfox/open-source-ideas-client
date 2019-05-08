@@ -1,0 +1,40 @@
+Team Branching Model:
+
+NEW FEATURE
+1. 	(deprecate any previous branch)
+2. 	switch branch to master 
+		git checkout master
+
+3. 	get the latest changes from master
+		git pull
+
+	--> confirm that master has been update on local; check comments
+4. 	create a new branch (naming convention: featureName-yourname)
+		git branch exampleFeature-alex
+
+5. 	switch to your branch
+		git checkout exampleFeature-alex
+
+6. 	make ALL updates on your feature branch (commit often!)
+		try to PUSH your branch at least once before you're ready to push to master
+
+7.	WHEN YOU ARE READY TO MERGE TO MASTER, OR: NEED CHANGE FROM TEAM:
+		make final commit on your feature branch, and push
+		git push
+
+8. 	(REMOTE)
+		go to github --> create a pull request 
+		new PUll request:  master <-- featureBranch
+
+		if -server:  PAUL will resolve conflicts and confirm pull request
+		if -client: ALEX will resolve conflicts and confirm pull request
+
+9.  (LOCAL)
+		switch to master branch
+		git checkout master
+
+10. pull latest changes from master
+		git pull
+
+
+		---> SEE STEP 4!
