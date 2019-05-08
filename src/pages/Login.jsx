@@ -14,6 +14,7 @@ class Login extends Component {
 
   sendToParent = (response) => {
     this.props.getUser(response)
+    // console.log(response);
     this.setState(
       {loggedIn: true,
       loggedUser: response}
