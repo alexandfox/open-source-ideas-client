@@ -33,11 +33,11 @@ class App extends Component {
         <NavMain loggedIn={this.state.loggedIn} />
         <main>
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={Home}/>
             <Route exact path="/signup" render={() => <Signup getUser={this.getUser}/>} />
             <Route exact path="/login" render={() => (this.loggedIn ? (<Redirect to="/" />) : (<Login getUser={this.getUser}/>))} />
             <Route exact path="/create-idea" component={CreateIdea} />
-            <Route path="/idea/:id" component={IdeaPage} loggedUser={this.state.loggedUser} exact />
+            <Route exact path="/idea/:id" render={(props) => <IdeaPage loggedUser={this.state.loggedUser} {...props} />} />
           </Switch>
         </main>
       </div>
