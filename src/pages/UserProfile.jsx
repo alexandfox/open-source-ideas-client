@@ -8,22 +8,40 @@ class Home extends Component {
     this.state = {
       user_name: this.props.match.params.name,
       user_page: {},
-			current_user: {},
-      isMyProfile: false,
+			current_user: this.setLoggedUser(),
+      isMyProfile: this.setMyProfile(),
+      upvoted_ideas: [],
     }
   }
   
-  // GET user from API (database)
   // see if current user (browsing) is the user 
+  setLoggedUser() {
+    return this.props.loggedUser ? this.props.loggedUser : {}
+  }
+
+  setMyProfile() {
+    if (this.props.loggedUser) return this.props.loggedUser.name === this.props.match.params.name ? true : false;
+    return false
+  }
+
+  // GET user from API (database)
+  // getPageUser(name) {
+  //   getUserByName(name)
+  //     .then(res => {
+  //       console.log("res.data: ", res.data)
+  //       return res.data})
+  //     .catch(err => {
+  //       console.log(err.response);
+  //       return {};
+  //     });	
+  // }
+
+  getUpvotedIdeas() {
+    
+  }
+
   componentDidMount() {
-		if (this.props.loggedUser) {
-			this.setState({current_user: this.props.loggedUser}, () => {
-        this.props.loggedUser.name == this.props.match.params.name ? 
-          this.setState({isMyProfile: true, user_page: this.props.loggedUser}) :
-          console.log("current user is not the page user")
-      })
-		} else {
-			getUserByName(this.state.user_name)
+		getUserByName(this.state.user_name)
       .then(res => {
         this.setState({ 
           user_page: res.data,
@@ -31,12 +49,11 @@ class Home extends Component {
       })
       .catch(err => {
         console.log(err.response);
-      });
-    }		
+      });	
   }
 
   render() {
-    // console.log("state ", this.state)
+    console.log("state ", this.state)
 
     return (
     <div id="private-profile-container">
@@ -45,8 +62,21 @@ class Home extends Component {
         {this.state.isMyProfile && <p>this is my profile!</p>}
         {!this.state.isMyProfile && <p>this is not my profile</p>}
 			</div>
-      <h3 className="profileHeader">DRAFTS</h3>
+      {this.state.isMyProfile &&
+        <div id="profile-drafts">
+          <h3 className="profileHeader">DRAFTS</h3>
+        </div>
+      }
       <h3 className="profileHeader">UPVOTES</h3>
+      {this.state.user_page.upvotedIdeas && this.state.user_page.upvotedIdeas.length > 0 ? 
+        <div id="profile-upvoted">
+          <p>here are the upvoted:{this.state.user_page.upvotedIdeas[0]} </p>
+          {this.state.user_page.upvotedIdeas.map( (idea, index) => (
+            <IdeaItem key={index} {...idea} />
+          ))}
+        </div>
+        : <p>no upvoted ideas yet... browse some!</p>
+      }
     </div>
   )}
 }
