@@ -1,4 +1,6 @@
 import React from "react"
+import DraftEdit from "./DraftEdit"
+
 
 function ideaItem(props) {
   return (
@@ -6,8 +8,17 @@ function ideaItem(props) {
       <a className="listTitleLink" href={`/idea/${props._id}`}>{props.title}</a>
       <div className="listIdeaDescription">{props.description}</div>
 			{/* <p className="ideaCreator">Creator: <span>{props.creator.name}</span></p> */}
+
+      {/* add check for props.isPublished */}
+      <DraftEdit id={props._id} />
     </div>
   )
 }
 
 export default ideaItem
+
+// Props is an idea OBJECT
+
+// .isPublished is boolean true === "published", false === "draft"
+// if status === false:   --> displays DraftEdit component
+// if status === true:    --> displays Upvote component
