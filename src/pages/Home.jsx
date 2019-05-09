@@ -43,14 +43,11 @@ class Home extends Component {
 
   tagsMatch(string, object) {
     var compString = string.toLowerCase()
-    object.tags.forEach( tag => {
+    for (let i=0; i<object.tags.length; i++) {
+      var tag = object.tags[i];
       var tagString = tag.toLowerCase()
-      console.log("here's the tagString: ", tagString)
-      console.log("here's the compString: ", compString)
-      if (tagString.includes(compString) || compString.includes(tagString)){
-        console.log(" YESS!!!!!!!")
-        return true;}
-    })
+      if (tagString.includes(compString)) return true;
+    }
   }
 
   // SEARCH UPDATE (dynamic)  
