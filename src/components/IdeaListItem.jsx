@@ -3,7 +3,7 @@ import DraftEdit from "./DraftEdit"
 import UpvoteDownvote from "../components/UpvoteDownvote";
 
 function ideaItem(props) {
-  console.log("idea list item props ", props)
+  // console.log("idea list item props ", props)
   return (
     <div className="ideaItem">
       <a className="listTitleLink" href={`/idea/${props._id}`}>{props.title}</a>

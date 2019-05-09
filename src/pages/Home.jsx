@@ -35,20 +35,30 @@ class Home extends Component {
 			if (typeof(object[key]) !== "string" ) console.log("not a string.")
 			else {
 				var compObjectValue = object[key].toLowerCase()
-        console.log("object value: ", compObjectValue)
 				if (compObjectValue.includes(compString)) return true;
 		}}
 
 		return false;
   }
 
+  tagsMatch(string, object) {
+    var compString = string.toLowerCase()
+    object.tags.forEach( tag => {
+      var tagString = tag.toLowerCase()
+      console.log("here's the tagString: ", tagString)
+      console.log("here's the compString: ", compString)
+      if (tagString.includes(compString) || compString.includes(tagString)){
+        console.log(" YESS!!!!!!!")
+        return true;}
+    })
+  }
+
   // SEARCH UPDATE (dynamic)  
   searchFilter(searchTerm) {
 		var filteredIdeas = this.state.allIdeas.filter( idea => 
-			this.exactMatch(searchTerm, idea)
+			this.exactMatch(searchTerm, idea) || this.tagsMatch(searchTerm, idea)
 		)
 		this.setState({"filteredIdeas" : filteredIdeas})
-    console.log("here i am in home, searchTerm: ", searchTerm)
 	}
 
   // RENDER
