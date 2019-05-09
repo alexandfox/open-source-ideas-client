@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 import IdeaItem from "../components/IdeaListItem"
-import { getUserByName, getOneIdea } from "../api/apiHandler";
+import { getUserByName, getOneIdea, getAllIdeas } from "../api/apiHandler";
 
 class Home extends Component {
   constructor(props) {
@@ -8,11 +8,11 @@ class Home extends Component {
     this.state = {
       user_name: this.props.match.params.name,
       user_page: {},
-      // user_page: this.getUserPage(),
 			current_user: this.setLoggedUser(),
       isMyProfile: this.setMyProfile(),
       upvoted_ideas: [],
-      // draft_ideas: [],
+      draft_ideas: [],
+      public_ideas: [],
     }
     // console.log("user prof props: ", props)
   }
@@ -40,6 +40,7 @@ class Home extends Component {
   upvoted_ideas = [];
   draft_ideas = [];
   public_ideas = [];
+  my_ideas = [];
 
   addIdeaFromId(id, array) {
     getOneIdea(id)
@@ -66,6 +67,22 @@ class Home extends Component {
     })
   }
 
+  returnIdeasArrayFromIdArray(idArray) {
+    var ideasArray = []
+    idArray.forEach( id => {
+      getOneIdea(id)
+      .then( res => {
+        var idea = res.data.idea
+        ideasArray.push(idea)
+        console.log("here's the idea: ", idea)
+      })
+      .catch(err => {
+      console.log(err.response);
+      })
+    })
+    return ideasArray
+  }
+
   async componentDidMount() {
     var user_page = await getUserByName(this.state.user_name)
     user_page = user_page.data
@@ -74,14 +91,27 @@ class Home extends Component {
     user_page.upvotedIdeas.forEach( id => {
       this.addIdeaFromId(id, this.upvoted_ideas)
     })
+    
+    user_page.myIdeas.forEach( id => {
+      this.addIdeaFromId(id, this.my_ideas)
+    })
+
+    // idea.isPublic ? this.public_ideas.push(idea) : this.draft_ideas.push(idea)
+
+    // var myIdeas = this.returnIdeasArrayFromIdArray(user_page.myIdeas)
+    // console.log("myIdeas: ", myIdeas)
+    // var draft_ideas = myIdeas.filter( idea => !idea.isPublic )
+    // var public_ideas = myIdeas.filter( idea => idea.isPublic )
 
     this.setState({
       user_page,
-      upvoted_ideas
+      upvoted_ideas,
+      // draft_ideas,
+      // public_ideas
     })
 
 
-    // let pageUser = await getUserByName(this.state.user_name)
+    // getUserByName(this.state.user_name)
     //   .then(res => {
     //     this.setState({ 
     //       user_page: res.data,
@@ -99,10 +129,12 @@ class Home extends Component {
   }
 
   render() {
-    // console.log("state ", this.state)
-    console.log("this.upvoted_ideas", this.upvoted_ideas)
-    console.log("this.draft_ideas", this.draft_ideas)
+    console.log("state ", this.state)
+    // console.log("this.upvoted_ideas", this.upvoted_ideas)
+    // console.log("this.draft_ideas", this.draft_ideas)
     // console.log("this.public_ideas", this.public_ideas)
+
+    this.my_ideas.forEach(idea => idea.isPublic ? this.public_ideas.push(idea) : this.draft_ideas.push(idea))
 
     return (
     <div id="private-profile-container">
