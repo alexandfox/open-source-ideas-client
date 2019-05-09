@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { getOneIdea, updateOneIdea, updateOneUser } from "../api/apiHandler";
+import Moment from 'react-moment';
 
 class IdeaPage extends Component {
   constructor(props) {
@@ -31,6 +32,7 @@ class IdeaPage extends Component {
           hasUpvoted: (this.props.loggedUser && this.checkIfAlreadyUpvoted(this.state.user._id, res.data.idea)),
           hasDownvoted: (this.props.loggedUser && this.checkIfAlreadyDownvoted(this.state.user._id, res.data.idea))
         });
+        console.log(this.state.idea);
       })
       .catch(err => {
         console.log(err.response);
@@ -67,7 +69,7 @@ class IdeaPage extends Component {
   handleUpvote = () => {
     if(!this.state.hasUpvoted && !this.state.hasDownvoted) {
       this.setState({ 
-        upvotes: this.state.upvotes + 1, // Add +1 to idea upvotes in state
+        upvotes: this.state.upvotes + 1, // Add 1 to idea upvotes in state
         upvotedUsers: this.state.upvotedUsers.concat([this.state.user._id]), //Add user to current idea's upvotedUsers array in state
         upvotedIdeas: this.state.upvotedIdeas.concat([this.state.ideaId]), //Add idea to current user's upvotedIdeas array in state
     }, this.updateInDbAndRender);
@@ -79,8 +81,8 @@ class IdeaPage extends Component {
       }, this.updateInDbAndRender);
     } else if (!this.state.hasUpvoted && this.state.hasDownvoted){
       this.setState({ 
-        upvotes: this.state.upvotes + 1, // Add +1 to idea upvotes in state
-        downvotes: this.state.downvotes - 1, // Subtract -1 from idea downvotes in state
+        upvotes: this.state.upvotes + 1, // Add 1 to idea upvotes in state
+        downvotes: this.state.downvotes - 1, // Subtract 1 from idea downvotes in state
         upvotedUsers: this.state.upvotedUsers.concat([this.state.user._id]), //Add user to current idea's upvotedUsers array in state
         upvotedIdeas: this.state.upvotedIdeas.concat([this.state.ideaId]), //Add idea to current user's upvotedIdeas array in state
         downvotedUsers: this.state.downvotedUsers.filter(id => id !== this.state.user._id), //Remove user from current idea's downvotedUsers array in state
@@ -92,19 +94,19 @@ class IdeaPage extends Component {
   handleDownvote = () => {
     if(!this.state.hasDownvoted && !this.state.hasUpvoted) {
       this.setState({ 
-        downvotes: this.state.downvotes + 1, // Add +1 to idea downvotes in state
+        downvotes: this.state.downvotes + 1, // Add 1 to idea downvotes in state
         downvotedUsers: this.state.downvotedUsers.concat([this.state.user._id]), //Add user to current idea's downvotedUsers array in state
         downvotedIdeas: this.state.downvotedIdeas.concat([this.state.ideaId]), //Add idea to current user's downvotedIdeas array in state
     }, this.updateInDbAndRender);
     } else if (this.state.hasDownvoted && !this.state.hasUpvoted) {
       this.setState({ 
-        downvotes: this.state.downvotes - 1, // Subtract -1 to idea downvotes in state
+        downvotes: this.state.downvotes - 1, // Subtract 1 to idea downvotes in state
         downvotedUsers: this.state.downvotedUsers.filter(id => id !== this.state.user._id), //Remove user from current idea's downvotedUsers array in state
         downvotedIdeas: this.state.downvotedIdeas.filter(id => id !== this.state.ideaId), //Remove idea from current user's downvotedIdeas array in state
       }, this.updateInDbAndRender);
     } else if (!this.state.hasDownvoted && this.state.hasUpvoted) {
       this.setState({ 
-        downvotes: this.state.downvotes + 1, // Add +1 to idea downvotes in state
+        downvotes: this.state.downvotes + 1, // Add 1 to idea downvotes in state
         upvotes: this.state.upvotes - 1, // Subtract 1 to idea upvotes in state
         downvotedUsers: this.state.downvotedUsers.concat([this.state.user._id]), //Add user to current idea's downvotedUsers array in state
         downvotedIdeas: this.state.downvotedIdeas.concat([this.state.ideaId]), //Add idea to current user's downvotedIdeas array in state
@@ -114,29 +116,40 @@ class IdeaPage extends Component {
     }
   };
 
+  suggestLogin = () => {
+    alert("Oops! that option requires login :)")
+  }
+
   render() {
     const { idea } = this.state;
     return (
       <React.Fragment>
         <h1>{idea.title}</h1>
-        <h2>{idea.creator && idea.creator.name}</h2>{" "}
+        <h2>{idea.creator && idea.creator.name}</h2>
         {/* TODO : Populate creator in request */}
+
         <h3>Date</h3>
-        <p>{idea.created_at}</p>
+        <Moment date={idea.created_at} format="MMMM Do YYYY"/>
+
         <h3>Description</h3>
         <p>{idea.description}</p>
+        
         <h3>Votes</h3>
         <p>
           Upvotes:{idea.upvotes}
-          <button onClick={this.handleUpvote}>upvote!</button>
+          <button onClick={this.state.user ? this.handleUpvote : this.suggestLogin}>upvote!</button>
         </p>
         <p>
           Downvotes:{idea.downvotes}
-          <button onClick={this.handleDownvote}>downvote!</button>
+          <button onClick={this.state.user ? this.handleDownvote : this.suggestLogin}>downvote!</button>
         </p>
         {/* TODO : button should be a component */}
+
         <h3>Tags</h3>
-        {/* TODO : map the tags array and create tags */}
+        <p>{idea.tags && idea.tags.map((tag, index) => 
+          <span key={index}>{tag}</span>
+        )}</p>
+
         <h3>Comments</h3>
         {/* TODO : map the comment array and create comments */}
       </React.Fragment>
