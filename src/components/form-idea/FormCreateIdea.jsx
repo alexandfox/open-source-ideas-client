@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Button from "./Button";
 import AddCategories from "./AddCategories";
 import AddTags from "./../form-idea/AddTags"
-import {createOneIdea} from "../../api/apiHandler";
+import {createOneIdea, updateOneIdea, getOneIdea} from "../../api/apiHandler";
 import {Redirect} from "react-router-dom";
 
 
@@ -15,8 +15,10 @@ class FormCreateIdea extends Component {
       redirect: false,
       category: null,
       createdIdeaId: "",
-      tags: []
+      tags: [],
+      creator: props.loggedUser ? props.loggedUser.name : "",
     }
+    console.log("props: ", props)
   }
 
   handleInput = (evt) => {
@@ -28,8 +30,6 @@ class FormCreateIdea extends Component {
     })
   }
 
-  
-
   handleTags = (tags) => {
     console.log("parent!!!", tags)
     this.setState({
@@ -37,6 +37,11 @@ class FormCreateIdea extends Component {
     })
     // console.log(this.state)
   } 
+
+  handleSave = (evt) => {
+    evt.preventDefault();
+    updateOneIdea()
+  }
 
   handleSubmit = (evt) => {
     evt.preventDefault();
@@ -61,10 +66,7 @@ class FormCreateIdea extends Component {
     if (this.state.redirect) {return <Redirect to={`/idea/${this.state.createdIdeaId}`}/>}
     console.log(this.state)
     return (
-      <form
-        id="form_product"
-        className="form"
-        onSubmit={this.handleSubmit}>
+      <form id="form_product" className="form" >
         <label htmlFor="idea-title">Title</label>
         <input 
           value={this.state.title} 
@@ -83,7 +85,8 @@ class FormCreateIdea extends Component {
           />
         <AddCategories sendCatToParent={this.handleInput}/>
         <AddTags sendDataToParent={this.handleTags}/>
-        <Button button_name="Save"/>
+        <Button button_name="Save" onClick={this.handleSave} />
+        <Button button_name="Submit" onClick={this.handleSubmit} />
         <div>{this.state.title}</div>
         <div>{this.state.description}</div>
       </form>
