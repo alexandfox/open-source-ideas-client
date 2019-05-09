@@ -5,9 +5,15 @@ class UpvoteDownvote extends Component {
   constructor(props){
     super(props)
     this.state = {
-      idea: props.idea,
-      ideaId: props.idea._id,
+      ideaId: props.ideaId,
       user: props.loggedUser,
+      idea: {},
+      hasUpvoted: false,
+      hasDownvoted: false,
+      upvotedIdeas: props.loggedUser && props.loggedUser.upvotedIdeas,
+      downvotedIdeas: props.loggedUser && props.loggedUser.downvotedIdeas,
+      upvotedUsers: [],
+      downvotedUsers: [],
     }
   }
 
@@ -19,11 +25,11 @@ class UpvoteDownvote extends Component {
           idea: res.data.idea,
           upvotes: res.data.idea.upvotes,
           upvotedUsers: res.data.idea.upvotedUsers,
+          downvotedUsers: res.data.idea.downvotedUsers,
           downvotes: res.data.idea.downvotes,
           hasUpvoted: (this.props.loggedUser && this.checkIfAlreadyUpvoted(this.state.user._id, res.data.idea)),
           hasDownvoted: (this.props.loggedUser && this.checkIfAlreadyDownvoted(this.state.user._id, res.data.idea))
         });
-        console.log(this.state.idea);
       })
       .catch(err => {
         console.log(err.response);
@@ -112,8 +118,9 @@ class UpvoteDownvote extends Component {
   }
 
   render(){
-    <React.Fragment>
-      <h3>Votes</h3>
+    const { idea } = this.state;
+    return (
+      <React.Fragment>
       <p>
         Upvotes:{idea.upvotes}
         <button onClick={this.state.user ? this.handleUpvote : this.suggestLogin}>upvote!</button>
@@ -123,6 +130,7 @@ class UpvoteDownvote extends Component {
         <button onClick={this.state.user ? this.handleDownvote : this.suggestLogin}>downvote!</button>
       </p>
     </React.Fragment>
+    )
   }
 }
 
