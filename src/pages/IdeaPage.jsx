@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { getOneIdea } from "../api/apiHandler";
 import Moment from 'react-moment';
 import UpvoteDownvote from "../components/UpvoteDownvote";
-import Link from "react-router-dom";
+import {Link} from "react-router-dom";
 
 class IdeaPage extends Component {
   constructor(props) {
