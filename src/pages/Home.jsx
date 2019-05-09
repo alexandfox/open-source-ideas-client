@@ -53,7 +53,6 @@ class Home extends Component {
 
   // RENDER
   render() {
-    console.log("props: ", this.props)
     return (
     <div id="home-container">
       <h1>Hello this is the home</h1>
@@ -61,7 +60,7 @@ class Home extends Component {
       <Search updateHome={(term) => this.searchFilter(term)} />
       {
 				this.state.filteredIdeas.map( (idea, index) => (
-          <IdeaItem key={index} {...idea} />
+          <IdeaItem key={index} loggedUser={this.props.loggedUser} {...idea}  />
 				))
 			}
     </div>

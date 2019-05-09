@@ -1,23 +1,14 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import { getOneIdea, updateOneIdea, updateOneUser } from "../api/apiHandler";
-import Moment from 'react-moment';
 
-class IdeaPage extends Component {
-  constructor(props) {
-    super(props);
+class UpvoteDownvote extends Component {
+  constructor(props){
+    super(props)
     this.state = {
-      ideaId: props.match.params.id,
-      idea: {},
+      idea: props.idea,
+      ideaId: props.idea._id,
       user: props.loggedUser,
-      upvotes: 0,
-      downvotes: 0,
-      upvotedIdeas: props.loggedUser && props.loggedUser.upvotedIdeas,
-      downvotedIdeas: props.loggedUser && props.loggedUser.downvotedIdeas,
-      upvotedUsers: [],
-      downvotedUsers: [],
-      hasUpvoted: false,
-      hasDownvoted: false
-    };
+    }
   }
 
   //This method is to print the idea on screen and will be recalled each time we'll update idea
@@ -28,20 +19,20 @@ class IdeaPage extends Component {
           idea: res.data.idea,
           upvotes: res.data.idea.upvotes,
           upvotedUsers: res.data.idea.upvotedUsers,
-          downvotedUsers: res.data.idea.downvotedUsers,
           downvotes: res.data.idea.downvotes,
           hasUpvoted: (this.props.loggedUser && this.checkIfAlreadyUpvoted(this.state.user._id, res.data.idea)),
           hasDownvoted: (this.props.loggedUser && this.checkIfAlreadyDownvoted(this.state.user._id, res.data.idea))
         });
+        console.log(this.state.idea);
       })
       .catch(err => {
         console.log(err.response);
       });
   };
 
-  componentDidMount() {
+  componentDidMount(){
     this.printIdea();
-  }
+  }  
 
   checkIfAlreadyUpvoted = (userId, idea) => {
     var upvotedUsers = idea.upvotedUsers
@@ -120,41 +111,19 @@ class IdeaPage extends Component {
     alert("Oops! that option requires login :)")
   }
 
-  render() {
-    const { idea } = this.state;
-    return (
-      <React.Fragment>
-        <h1>{idea.title}</h1>
-        <h2>{idea.creator && idea.creator.name}</h2>
-        {/* TODO : Populate creator in request */}
-
-        <h3>Date</h3>
-        <Moment date={idea.created_at} format="MMMM Do YYYY"/>
-
-        <h3>Description</h3>
-        <p>{idea.description}</p>
-        
-        <h3>Votes</h3>
-        <p>
-          Upvotes:{idea.upvotes}
-          <button onClick={this.state.user ? this.handleUpvote : this.suggestLogin}>upvote!</button>
-        </p>
-        <p>
-          Downvotes:{idea.downvotes}
-          <button onClick={this.state.user ? this.handleDownvote : this.suggestLogin}>downvote!</button>
-        </p>
-        {/* TODO : button should be a component */}
-
-        <h3>Tags</h3>
-        <p>{idea.tags && idea.tags.map((tag, index) => 
-          <span key={index}>{tag}</span>
-        )}</p>
-
-        <h3>Comments</h3>
-        {/* TODO : map the comment array and create comments */}
-      </React.Fragment>
-    );
+  render(){
+    <React.Fragment>
+      <h3>Votes</h3>
+      <p>
+        Upvotes:{idea.upvotes}
+        <button onClick={this.state.user ? this.handleUpvote : this.suggestLogin}>upvote!</button>
+      </p>
+      <p>
+        Downvotes:{idea.downvotes}
+        <button onClick={this.state.user ? this.handleDownvote : this.suggestLogin}>downvote!</button>
+      </p>
+    </React.Fragment>
   }
 }
 
-export default IdeaPage;
+export default UpvoteDownvote;
