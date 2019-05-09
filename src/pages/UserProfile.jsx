@@ -8,11 +8,13 @@ class Home extends Component {
     this.state = {
       user_name: this.props.match.params.name,
       user_page: {},
+      // user_page: this.getUserPage(),
 			current_user: this.setLoggedUser(),
       isMyProfile: this.setMyProfile(),
-      // upvoted_ideas: [],
+      upvoted_ideas: [],
+      // draft_ideas: [],
     }
-    console.log("user prof props: ", props)
+    // console.log("user prof props: ", props)
   }
   // see if current user (browsing) is the user 
   setLoggedUser() {
@@ -24,25 +26,25 @@ class Home extends Component {
     return false
   }
 
-  // GET user from API (database)
-  // getPageUser(name) {
-  //   getUserByName(name)
-  //     .then(res => {
-  //       console.log("res.data: ", res.data)
-  //       return res.data})
-  //     .catch(err => {
-  //       console.log(err.response);
-  //       return {};
-  //     });	
-  // }
+  getUserPage() {
+    getUserByName(this.props.match.params.name)
+      .then(res => {
+        console.log("in getUserPage; res: ", res)
+        return res.data;
+      })
+      .catch(err => {
+        console.log(err.response);
+      });	
+  }
 
   upvoted_ideas = [];
+  draft_ideas = [];
+  public_ideas = [];
 
-  pushUpvotedIdea(id) {
+  addIdeaFromId(id, array) {
     getOneIdea(id)
     .then(res => {
-      console.log("get one idea res: ", res)
-      this.upvoted_ideas.push(res.data.idea);
+      array.push(res.data.idea);
       this.setState({});
     })
     .catch(err => {
@@ -50,26 +52,57 @@ class Home extends Component {
     })
   }
 
-  componentDidMount() {
-		getUserByName(this.state.user_name)
-      .then(res => {
-        this.setState({ 
-          user_page: res.data,
-        }, () => {
-          res.data.upvotedIdeas.forEach( id => {
-          console.log("here i am in res: ", id)
-          this.pushUpvotedIdea(id)
-        })}
-        );
+  getDraftsAndPublished(idArray) {
+    idArray.forEach( id => {
+      getOneIdea(id)
+      .then( res => {
+        var idea = res.data.idea
+        idea.isPublic ? this.public_ideas.push(idea) : this.draft_ideas.push(idea)
+        console.log("here's the idea: ", idea)
       })
       .catch(err => {
-        console.log(err.response);
-      });	
+      console.log(err.response);
+      })
+    })
+  }
+
+  async componentDidMount() {
+    var user_page = await getUserByName(this.state.user_name)
+    user_page = user_page.data
+    
+    var upvoted_ideas = []
+    user_page.upvotedIdeas.forEach( id => {
+      this.addIdeaFromId(id, this.upvoted_ideas)
+    })
+
+    this.setState({
+      user_page,
+      upvoted_ideas
+    })
+
+
+    // let pageUser = await getUserByName(this.state.user_name)
+    //   .then(res => {
+    //     this.setState({ 
+    //       user_page: res.data,
+    //     }, () => {
+    //       res.data.upvotedIdeas.forEach( id => {
+    //         this.addIdeaFromId(id, this.upvoted_ideas)
+    //       })
+    //       this.getDraftsAndPublished(res.data.myIdeas)
+    //     }
+    //     );
+    //   })
+    //   .catch(err => {
+    //     console.log(err.response);
+    //   });	
   }
 
   render() {
-    console.log("state ", this.state)
+    // console.log("state ", this.state)
     console.log("this.upvoted_ideas", this.upvoted_ideas)
+    console.log("this.draft_ideas", this.draft_ideas)
+    // console.log("this.public_ideas", this.public_ideas)
 
     return (
     <div id="private-profile-container">
@@ -81,9 +114,9 @@ class Home extends Component {
       {this.state.isMyProfile && (
         <div id="profile-drafts">
         <h3 className="profileHeader">DRAFTS</h3>
-        {this.state.user_page.drafts && this.state.user_page.drafts.length > 0 ?  <div className="draftsContainer">
-            <p>here are the drafts:{this.state.user_page.drafts[0]} </p>
-            {this.state.user_page.drafts.map( (idea, index) => (
+        {this.draft_ideas && this.draft_ideas.length > 0 ?  <div className="draftsContainer">
+            <p>here are the drafts:{this.draft_ideas[0]} </p>
+            {this.draft_ideas.map( (idea, index) => (
               <IdeaItem key={index} {...idea} />
             ))}
           </div>
@@ -94,7 +127,6 @@ class Home extends Component {
       <h3 className="profileHeader">UPVOTES</h3>
       {this.state.user_page.upvotedIdeas && this.state.user_page.upvotedIdeas.length > 0 ? 
         <div id="profile-upvoted">
-          <p>here are the upvoted:{this.upvoted_ideas} </p>
           {this.upvoted_ideas.map( (idea, index) => (
             <IdeaItem key={index} {...idea} />
           ))}
