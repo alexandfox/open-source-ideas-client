@@ -37,8 +37,6 @@ class Home extends Component {
       });	
   }
 
-  upvoted_ideas = [];
-
   addIdeaFromId(id, array) {
     getOneIdea(id)
     .then(res => {
@@ -50,80 +48,27 @@ class Home extends Component {
     })
   }
 
-  getDraftsAndPublished(idArray) {
-    idArray.forEach( id => {
-      getOneIdea(id)
-      .then( res => {
-        var idea = res.data.idea
-        idea.isPublic ? this.public_ideas.push(idea) : this.draft_ideas.push(idea)
-        console.log("here's the idea: ", idea)
-      })
-      .catch(err => {
-      console.log(err.response);
-      })
-    })
-  }
-
-  returnIdeasArrayFromIdArray(idArray) {
-    var ideasArray = []
-    idArray.forEach( id => {
-      getOneIdea(id)
-      .then( res => {
-        var idea = res.data.idea
-        ideasArray.push(idea)
-        console.log("here's the idea: ", idea)
-      })
-      .catch(err => {
-      console.log(err.response);
-      })
-    })
-    return ideasArray
-  }
-
   async componentDidMount() {
     var user_page = await getUserByName(this.state.user_name)
     user_page = user_page.data
     
     var upvoted_ideas = []
     user_page.upvotedIdeas.forEach( id => {
-      this.addIdeaFromId(id, this.upvoted_ideas)
+      this.addIdeaFromId(id, upvoted_ideas)
     })
     
     var myIdeas = user_page.myIdeas
-    // console.log("myIdeas: ", myIdeas)
-    // var draft_ideas = myIdeas.filter( idea => !idea.isPublic )
-    // var public_ideas = myIdeas.filter( idea => idea.isPublic )
 
     this.setState({
       user_page,
-      upvoted_ideas : this.upvoted_ideas,
+      upvoted_ideas : upvoted_ideas,
       myIdeas : myIdeas,
       draft_ideas : myIdeas.filter( idea => !idea.isPublic ),
       public_ideas : myIdeas.filter( idea => idea.isPublic ),
     })
-
-
-    // getUserByName(this.state.user_name)
-    //   .then(res => {
-    //     this.setState({ 
-    //       user_page: res.data,
-    //     }, () => {
-    //       res.data.upvotedIdeas.forEach( id => {
-    //         this.addIdeaFromId(id, this.upvoted_ideas)
-    //       })
-    //       this.getDraftsAndPublished(res.data.myIdeas)
-    //     }
-    //     );
-    //   })
-    //   .catch(err => {
-    //     console.log(err.response);
-    //   });	
   }
 
   render() {
-    console.log("state ", this.state)
-    console.log("this.upvoted_ideas", this.upvoted_ideas)
-
     return (
     <div id="private-profile-container">
 			<div className="profileDetails">
@@ -153,7 +98,7 @@ class Home extends Component {
       <h3 className="profileHeader">UPVOTES</h3>
       {this.state.user_page.upvotedIdeas && this.state.user_page.upvotedIdeas.length > 0 ? 
         <div id="profile-upvoted">
-          { this.upvoted_ideas.map( (idea, index) => (
+          { this.state.upvoted_ideas.map( (idea, index) => (
             <IdeaItem key={index} {...idea} />
           ))}
         </div>
