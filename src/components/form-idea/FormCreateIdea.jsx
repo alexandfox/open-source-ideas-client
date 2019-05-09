@@ -59,6 +59,11 @@ class FormCreateIdea extends Component {
     updateOneIdea()
   }
 
+  handleSave = (evt) => {
+    evt.preventDefault();
+    updateOneIdea()
+  }
+
   handleSubmit = (evt) => {
     evt.preventDefault();
     const { title, description, category, tags } = this.state;

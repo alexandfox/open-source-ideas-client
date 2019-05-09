@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 import IdeaItem from "../components/IdeaListItem"
-import { getUserByName } from "../api/apiHandler";
+import { getUserByName, getOneIdea, getAllIdeas } from "../api/apiHandler";
 
 class Home extends Component {
   constructor(props) {
@@ -11,9 +11,11 @@ class Home extends Component {
 			current_user: this.setLoggedUser(),
       isMyProfile: this.setMyProfile(),
       upvoted_ideas: [],
+      myIdeas: [],
+      draft_ideas: [],
+      public_ideas: [],
     }
   }
-  
   // see if current user (browsing) is the user 
   setLoggedUser() {
     return this.props.loggedUser ? this.props.loggedUser : {}
@@ -24,37 +26,49 @@ class Home extends Component {
     return false
   }
 
-  // GET user from API (database)
-  // getPageUser(name) {
-  //   getUserByName(name)
-  //     .then(res => {
-  //       console.log("res.data: ", res.data)
-  //       return res.data})
-  //     .catch(err => {
-  //       console.log(err.response);
-  //       return {};
-  //     });	
-  // }
-
-  getUpvotedIdeas() {
-    
-  }
-
-  componentDidMount() {
-		getUserByName(this.state.user_name)
+  getUserPage() {
+    getUserByName(this.props.match.params.name)
       .then(res => {
-        this.setState({ 
-          user_page: res.data,
-        });
+        console.log("in getUserPage; res: ", res)
+        return res.data;
       })
       .catch(err => {
         console.log(err.response);
       });	
   }
 
-  render() {
-    console.log("state ", this.state)
+  addIdeaFromId(id, array) {
+    getOneIdea(id)
+    .then(res => {
+      array.push(res.data.idea);
+      this.setState({hi: "hi"});
+    })
+    .catch(err => {
+      console.log(err.response);
+    })
+  }
 
+  async componentDidMount() {
+    var user_page = await getUserByName(this.state.user_name)
+    user_page = user_page.data
+    
+    var upvoted_ideas = []
+    user_page.upvotedIdeas.forEach( id => {
+      this.addIdeaFromId(id, upvoted_ideas)
+    })
+    
+    var myIdeas = user_page.myIdeas
+
+    this.setState({
+      user_page,
+      upvoted_ideas : upvoted_ideas,
+      myIdeas : myIdeas,
+      draft_ideas : myIdeas.filter( idea => !idea.isPublic ),
+      public_ideas : myIdeas.filter( idea => idea.isPublic ),
+    })
+  }
+
+  render() {
     return (
     <div id="private-profile-container">
 			<div className="profileDetails">
@@ -62,16 +76,29 @@ class Home extends Component {
         {this.state.isMyProfile && <p>this is my profile!</p>}
         {!this.state.isMyProfile && <p>this is not my profile</p>}
 			</div>
-      {this.state.isMyProfile &&
-        <div id="profile-drafts">
+      {this.state.isMyProfile && (
+        <div id="profile-ideas">
           <h3 className="profileHeader">DRAFTS</h3>
+          {this.state.draft_ideas && this.state.draft_ideas.length > 0 ?  <div className="draftsContainer">
+              {this.state.draft_ideas.map( (idea, index) => (
+                <IdeaItem key={index} {...idea} />
+              ))}
+            </div>
+          : <p>nothing in progress... share an idea!</p>}
+          <h3 className="profileHeader">SHARED IDEAS</h3>
+          {this.state.public_ideas && this.state.public_ideas.length > 0 ?  <div className="draftsContainer">
+              {this.state.public_ideas.map( (idea, index) => (
+                <IdeaItem key={index} {...idea} />
+              ))}
+            </div>
+          : <p>nothing yet... share an idea!</p>}
         </div>
+        )
       }
       <h3 className="profileHeader">UPVOTES</h3>
       {this.state.user_page.upvotedIdeas && this.state.user_page.upvotedIdeas.length > 0 ? 
         <div id="profile-upvoted">
-          <p>here are the upvoted:{this.state.user_page.upvotedIdeas[0]} </p>
-          {this.state.user_page.upvotedIdeas.map( (idea, index) => (
+          { this.state.upvoted_ideas.map( (idea, index) => (
             <IdeaItem key={index} {...idea} />
           ))}
         </div>
