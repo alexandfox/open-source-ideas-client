@@ -13,8 +13,8 @@ class FormCreateIdea extends Component {
       title: "",
       description: "",
       redirect: false,
-      createdIdeaId: "",
       category: null,
+      createdIdeaId: "",
       tags: []
     }
   }
@@ -28,17 +28,23 @@ class FormCreateIdea extends Component {
     })
   }
 
+  
+
   handleTags = (tags) => {
     console.log("parent!!!", tags)
     this.setState({
       tags : tags
     })
     // console.log(this.state)
-
   } 
 
   handleSubmit = (evt) => {
     evt.preventDefault();
+    const {title, description, category, tags} = this.state;
+    if (!title || !description || !category || !tags.length) {
+      return console.log("nope")
+    }
+
     createOneIdea(this.state)
     .then(res => {
       this.setState({ 

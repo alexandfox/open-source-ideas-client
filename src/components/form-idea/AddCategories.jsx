@@ -15,6 +15,7 @@ class AddCategories extends Component {
     return (
       <React.Fragment>
         <select name="category" id="categories-select" onChange={this.props.sendCatToParent}>
+          <option value="default">choose a category</option>
           {this.state.categories.map((category, index) =>
             (
               <option key={index} value={category}>
