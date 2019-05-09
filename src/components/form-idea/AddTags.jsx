@@ -6,7 +6,6 @@ class AddTags extends Component {
     super(props);
     // create a ref to store the textInput DOM element
     this.textInput = React.createRef();
-    // this.myRef = React.createRef();
     this.focusTextInput = this.focusTextInput.bind(this);
     this.state = {
       inputWidth: 2,
@@ -15,6 +14,15 @@ class AddTags extends Component {
 
     }
   }
+
+  componentWillReceiveProps(toto) {
+    this.setState({ tags: toto.tags });  
+  }
+
+  // componentDidMount() {
+  //   console.log("hello", this.props.tags)
+  //   this.setState({tags : this.props.tags})
+  // }
 
   focusTextInput() {
     // Explicitly focus the text input using the raw DOM API
