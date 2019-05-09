@@ -1,0 +1,49 @@
+.tags-big-wrapper {
+  margin: 20px 0 20px 0;
+  display: flex;
+  justify-content: center;
+
+  .tags-wrapper {
+    // height: 30px;
+    display: flex;
+    align-items: center;
+    border: 1px solid gray;
+    border-radius: 3px;
+    position: relative;
+    width: 25%;
+    padding: 4px 10px;
+    font-size: 0.85rem;
+
+    .tags-input-placeholder {
+      color: #999;
+      left: 29px;
+      position: absolute;
+      // top: 10px;
+    }
+
+    // margin: 0 auto;
+    .list.tags {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      .tag {
+        border: 1px solid;
+        padding: 1px;
+        margin-right: 5px;
+      }
+    }
+
+    .tags-input {
+      border: none;
+      outline: none;
+      box-sizing: content-box;
+      width: 2px;
+      padding: 2px;
+      // text-align: left;
+      min-width: 2px;
+    }
+  
+  }
+
+}
