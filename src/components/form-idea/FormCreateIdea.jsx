@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import Button from "./Button";
 import AddCategories from "./AddCategories";
+import AddTags from "./../form-idea/AddTags"
 import {createOneIdea} from "../../api/apiHandler";
 import {Redirect} from "react-router-dom";
+
 
 class FormCreateIdea extends Component {
   constructor(props){
@@ -13,16 +15,27 @@ class FormCreateIdea extends Component {
       redirect: false,
       createdIdeaId: "",
       category: null,
-      // categories: []
+      tags: []
     }
   }
 
   handleInput = (evt) => {
     console.log(evt)
+    console.log(this.state)
+
     this.setState({
-      [evt.target.name] : evt.target.value
+      [evt.target.name] : evt.target.value, 
     })
   }
+
+  handleTags = (tags) => {
+    console.log("parent!!!", tags)
+    this.setState({
+      tags : tags
+    })
+    // console.log(this.state)
+
+  } 
 
   handleSubmit = (evt) => {
     evt.preventDefault();
@@ -40,6 +53,7 @@ class FormCreateIdea extends Component {
 
   render() {
     if (this.state.redirect) {return <Redirect to={`/idea/${this.state.createdIdeaId}`}/>}
+    console.log(this.state)
     return (
       <form
         id="form_product"
@@ -62,13 +76,14 @@ class FormCreateIdea extends Component {
           onChange= {this.handleInput} 
           />
         <AddCategories sendCatToParent={this.handleInput}/>
+        <AddTags sendDataToParent={this.handleTags}/>
         <Button button_name="Save"/>
         <div>{this.state.title}</div>
         <div>{this.state.description}</div>
       </form>
     )
   }
-
+/// do the autoupvote
   componentWillUnmount(){
     this.setState({
 

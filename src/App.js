@@ -37,7 +37,7 @@ class App extends Component {
             <Route exact path="/signup" render={() => <Signup getUser={this.getUser}/>} />
             <Route exact path="/login" render={() => (this.loggedIn ? (<Redirect to="/" />) : (<Login getUser={this.getUser}/>))} />
             <Route exact path="/create-idea" component={CreateIdea} />
-            <Route path="/idea/:id" component={IdeaPage} exact />
+            <Route path="/idea/:id" component={IdeaPage} loggedUser={this.state.loggedUser} exact />
           </Switch>
         </main>
       </div>
