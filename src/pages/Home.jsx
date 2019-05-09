@@ -53,15 +53,16 @@ class Home extends Component {
 
   // RENDER
   render() {
-    console.log("props: ", this.props)
     return (
     <div id="home-container">
       <h1>Hello this is the home</h1>
       <NavLink to="/idea/5cd3e197782d4016a918272a">Test purpose idea</NavLink>
+      <NavLink to="/create-idea/5cd3fef110eb1a9f00b8a96e">Test purpose idea 1</NavLink>
+
       <Search updateHome={(term) => this.searchFilter(term)} />
       {
 				this.state.filteredIdeas.map( (idea, index) => (
-          <IdeaItem key={index} {...idea} />
+          <IdeaItem key={index} loggedUser={this.props.loggedUser} {...idea}  />
 				))
 			}
     </div>
