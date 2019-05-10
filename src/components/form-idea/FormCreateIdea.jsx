@@ -20,6 +20,7 @@ class FormCreateIdea extends Component {
       creator: props.loggedUser ? props.loggedUser._id : "",
       upvotedUsers: props.loggedUser ? [props.loggedUser._id] : "",
       existingIdea: false,
+      submit: false,
     }
     // console.log("form idea props: ", props)
   }
@@ -96,7 +97,8 @@ class FormCreateIdea extends Component {
       .then(res => {
         this.setState({
           redirect: true,
-          createdIdeaId: res.data.dbSuccess._id
+          createdIdeaId: res.data.dbSuccess._id,
+          submit: true,
         })
       })
       .catch(err => {
@@ -105,7 +107,8 @@ class FormCreateIdea extends Component {
   }
 
   render() {
-    if (this.state.redirect) { return <Redirect to={`/idea/${this.state.createdIdeaId}`} /> }
+    if (this.state.redirect && this.state.submit) {return <Redirect to={`/idea/${this.state.createdIdeaId}`} />}
+    else if (this.state.redirect && !this.state.submit) {return <Redirect to={`/@${this.state.creator_name}`} />}
     return (
       <form id="form_product" className="form" >
         <label htmlFor="idea-title">Title</label>
