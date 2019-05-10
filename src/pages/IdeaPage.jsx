@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { getOneIdea } from "../api/apiHandler";
 import Moment from 'react-moment';
 import UpvoteDownvote from "../components/UpvoteDownvote";
+import {Link} from "react-router-dom";
 
 class IdeaPage extends Component {
   constructor(props) {
@@ -45,11 +46,11 @@ class IdeaPage extends Component {
         
         <h3>Votes</h3>
         <UpvoteDownvote ideaId={this.state.ideaId} loggedUser={this.props.loggedUser}/>
-        {/* TODO : button should be a component */}
 
         <h3>Tags</h3>
         <p>{idea.tags && idea.tags.map((tag, index) => 
-          <span key={index}>{tag}</span>
+          <span key={index}><Link to="/?tag={tag}">{tag}</Link></span>
+          
         )}</p>
 
         <h3>Comments</h3>
