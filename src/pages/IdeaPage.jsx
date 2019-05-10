@@ -49,9 +49,10 @@ class IdeaPage extends Component {
         <UpvoteDownvote ideaId={this.state.ideaId} loggedUser={this.props.loggedUser} />
 
         <h3>Tags</h3>
-        <p>{idea.tags && idea.tags.map((tag, index) =>
-          <span key={index}><Link to="/?tag={tag}">{tag}</Link></span>
 
+        <p>{idea.tags && idea.tags.map((tag, index) => 
+          <span key={index}><Link to={`/search?tags=${tag}`}>{tag}</Link></span>
+          
         )}</p>
 
         <Comments {...this.props} />

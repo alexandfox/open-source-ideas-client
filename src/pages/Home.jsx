@@ -15,8 +15,10 @@ class Home extends Component {
   
   // GET ideas from API (database)
   componentDidMount() {
-    getAllIdeas()
+    const queryString = window.location.search;
+    getAllIdeas(queryString || "")
       .then(res => {
+        console.log("jsonObj: ", jsonObj)
         this.setState({ 
           allIdeas: res.data.ideas,
           filteredIdeas: res.data.ideas }, 
@@ -63,10 +65,10 @@ class Home extends Component {
     return (
     <div id="home-container">
       <h1>Hello this is the home</h1>
-      <Search updateHome={(term) => this.searchFilter(term)} />
+      <Search updateHome={(term) => this.searchFilter(term)}/>
       {
 				this.state.filteredIdeas.map( (idea, index) => (
-          <IdeaItem key={index} loggedUser={this.props.loggedUser} {...idea}  />
+          <IdeaItem key={index} loggedUser={this.props.loggedUser} {...idea} isMine={false} />
 				))
 			}
     </div>

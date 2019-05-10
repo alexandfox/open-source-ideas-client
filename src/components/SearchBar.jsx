@@ -4,7 +4,7 @@ class Search extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			"input" : "",
+			input : "",
 		}
 	}
 	
