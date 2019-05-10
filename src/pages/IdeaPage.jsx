@@ -35,8 +35,10 @@ class IdeaPage extends Component {
     return (
       <React.Fragment>
         <h1>{idea.title}</h1>
-        <h2>{idea.creator && idea.creator.name}</h2>
-        {/* TODO : Populate creator in request */}
+        <h2>Creator: {idea.creator && idea.creator.name}</h2>
+
+        <h3>Category</h3>
+        <p>{idea.category}</p>
 
         <h3>Date</h3>
         <Moment date={idea.created_at} format="MMMM Do YYYY"/>
@@ -50,7 +52,6 @@ class IdeaPage extends Component {
         <h3>Tags</h3>
         <p>{idea.tags && idea.tags.map((tag, index) => 
           <span key={index}><Link to={`/search?tags=${tag}`}>{tag}</Link></span>
-          
         )}</p>
 
         <h3>Comments</h3>
