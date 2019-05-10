@@ -12,7 +12,7 @@ class UpvoteDownvote extends Component {
       hasDownvoted: false,
       upvotedIdeas: props.loggedUser && props.loggedUser.upvotedIdeas,
       downvotedIdeas: props.loggedUser && props.loggedUser.downvotedIdeas,
-      upvotedUsers: [],
+      upvotedUsers: [1],
       downvotedUsers: [],
     }
   }
@@ -122,7 +122,7 @@ class UpvoteDownvote extends Component {
     return (
       <React.Fragment>
       <p>
-        Upvotes:{idea.upvotes}
+        Upvotes:{this.state.upvotedUsers.length}
         <button onClick={this.state.user ? this.handleUpvote : this.suggestLogin}>upvote!</button>
       </p>
       <p>

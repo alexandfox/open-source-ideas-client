@@ -17,7 +17,8 @@ class FormCreateIdea extends Component {
       createdIdeaId: checkId || "",
       tags: [],
       creator_name: props.loggedUser ? props.loggedUser.name : "",
-      creator: props.loggedUser ? props.loggedUser._id : ""
+      creator: props.loggedUser ? props.loggedUser._id : "",
+      upvotedUsers: props.loggedUser ? [props.loggedUser._id] : "",
     }
     // console.log("form idea props: ", props)
   }
@@ -67,7 +68,7 @@ class FormCreateIdea extends Component {
       return console.log("nope")
     }
 
-    createOneIdea(this.state)
+    createOneIdea({...this.state, isPublic: true})
       .then(res => {
         this.setState({
           redirect: true,
@@ -81,7 +82,6 @@ class FormCreateIdea extends Component {
 
   render() {
     if (this.state.redirect) { return <Redirect to={`/idea/${this.state.createdIdeaId}`} /> }
-    console.log("heyyyy", this.state.creator)
     return (
       <form id="form_product" className="form" >
         <label htmlFor="idea-title">Title</label>

@@ -66,7 +66,7 @@ class Home extends Component {
       <Search updateHome={(term) => this.searchFilter(term)} />
       {
 				this.state.filteredIdeas.map( (idea, index) => (
-          <IdeaItem key={index} loggedUser={this.props.loggedUser} {...idea}  />
+          <IdeaItem key={index} loggedUser={this.props.loggedUser} {...idea} isMine={false} />
 				))
 			}
     </div>
