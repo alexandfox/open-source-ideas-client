@@ -1,4 +1,4 @@
-import React, { Component }  from 'react';
+import React, { Component } from 'react';
 import './styles/scss/main.scss';
 import { Switch, Route, Redirect } from "react-router-dom";
 import NavMain from "./components/NavMain";
@@ -12,9 +12,9 @@ import IdeaPage from "./pages/IdeaPage"
 import UserProfile from "./pages/UserProfile"
 
 class App extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
-    this.state = { 
+    this.state = {
       loggedIn: false,
       loggedUser: null
     };
@@ -37,7 +37,7 @@ class App extends Component {
   //   }
   // }
 
-  getUser= (userObj) => {
+  getUser = (userObj) => {
     this.setState({
       loggedIn: true,
       loggedUser: userObj
@@ -52,17 +52,19 @@ class App extends Component {
         <NavMain {...this.state} />
         <main>
           <Switch>
-            <Route exact path="/" render={(props) => <Home loggedUser={this.state.loggedUser} {...props} />}/>
-            <Route exact path="/signup" render={() => <Signup getUser={this.getUser}/>} />
-            <Route exact path="/login" render={() => (this.loggedIn ? (<Redirect to="/" />) : (<Login getUser={this.getUser}/>))} />
-            <Route exact path="/@:name" render={(props) => <UserProfile loggedUser={this.state.loggedUser} {...props}/>} />
-            <Route exact path="/create-idea/" render={(props) => <CreateIdea loggedUser={this.state.loggedUser} {...props} />}/>
-            <Route exact path="/create-idea/:id" render={(props) => <CreateIdea loggedUser={this.state.loggedUser} {...props} />}/>
+            <Route exact path="/" render={(props) => <Home loggedUser={this.state.loggedUser} {...props} />} />
+            <Route exact path="/signup" render={() => <Signup getUser={this.getUser} />} />
+            <Route exact path="/login" render={() => (this.loggedIn ? (<Redirect to="/" />) : (<Login getUser={this.getUser} />))} />
+            <Route exact path="/@:name" render={(props) => <UserProfile loggedUser={this.state.loggedUser} {...props} />} />
+            <Route exact path="/create-idea/" render={(props) => (this.state.loggedIn ? (<CreateIdea loggedUser={this.state.loggedUser} {...props} />) : (<Login getUser={this.getUser} />))} />
+            <Route exact path="/create-idea" render={(props) => <CreateIdea loggedUser={this.state.loggedUser} {...props} />} />
+            <Route exact path="/create-idea/:id" render={(props) => <CreateIdea loggedUser={this.state.loggedUser} {...props} />} />
             <Route exact path="/idea/:id" render={(props) => <IdeaPage loggedUser={this.state.loggedUser} {...props} />} />
           </Switch>
         </main>
       </div>
-  )};
+    )
+  };
 }
 
 export default App;

@@ -1,6 +1,6 @@
 import React, {Component} from "react"
-import Button from "./form-idea/Button"
-import {updateOneIdea} from "../api/apiHandler";
+// import Button from "./form-idea/Button"
+// import {updateOneIdea} from "../api/apiHandler";
 import {Redirect} from "react-router-dom";
 
 // this component will render edit/ delete buttons
