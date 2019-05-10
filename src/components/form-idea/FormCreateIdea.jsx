@@ -92,7 +92,20 @@ class FormCreateIdea extends Component {
     // if (!title || !description || !category || !tags.length) {
     //   return console.log("nope")
     // }
-
+    this.state.existingIdea ? 
+    updateOneIdea(this.state.createdIdeaId, {...this.state, isPublic: true})
+    .then(res => {
+        console.log("successfully updated, here is the result: ", res)
+        this.setState({
+          redirect: true,
+          createdIdeaId: this.state.createdIdeaId,
+          submit: true,
+        })
+      })
+      .catch(err => {
+        console.log("error creating on save update", err.response);
+      }) 
+    :
     createOneIdea({...this.state, isPublic: true})
       .then(res => {
         this.setState({
