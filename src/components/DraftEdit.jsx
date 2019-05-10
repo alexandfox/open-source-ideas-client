@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 // import Button from "./form-idea/Button"
-// import {updateOneIdea} from "../api/apiHandler";
+import {deleteOneIdea} from "../api/apiHandler";
 import {Redirect} from "react-router-dom";
 
 // this component will render edit/ delete buttons
@@ -20,7 +20,6 @@ class editDelete extends Component {
   // should populate with idea page
   editSubmit = (e) => {
     e.preventDefault();
-    console.log("clicked ")
     this.setState({
       redirect: true,
       edit: true,
@@ -30,6 +29,16 @@ class editDelete extends Component {
   // should delete the idea from user and DB
   deleteSubmit = (e) => {
     e.preventDefault();
+    // axios delete method
+    deleteOneIdea(this.props.id)
+    .then(res => {
+      this.setState({
+        delete: true,
+      }, console.log("it has been deleted: ", res))
+    })
+    .catch(err => {
+      console.log("error creating on save create", err.response);
+    })
   }
 
   render() {
@@ -37,7 +46,7 @@ class editDelete extends Component {
     return (
       <div className="editDelete">
         <button className="iconButton edit" onClick={this.editSubmit} >Edit</button>
-        <button className="iconButton delete">Delete</button>
+        <button className="iconButton delete" onClick={this.deleteSubmit} >Delete</button>
       </div>
     )
   }
