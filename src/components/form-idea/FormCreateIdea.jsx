@@ -16,30 +16,30 @@ class FormCreateIdea extends Component {
       category: "",
       createdIdeaId: checkId || "",
       tags: [],
-      creator: props.loggedUser ? props.loggedUser.name : "",
+      creator: props.loggedUser ? props.loggedUser._id : "",
     }
-    // console.log("form idea props: ", props.match.params.id)
+    // console.log("form idea props: ", props)
   }
 
   componentDidMount() {
-    getOneIdea(this.state.createdIdeaId)
-      .then(res => {
-        console.log(res.data)
-        this.setState({
-          title: res.data.idea.title,
-          description: res.data.idea.description,
-          category: res.data.idea.category,
-          tags: res.data.idea.tags
+    !this.state.createdIdeaId ? console.log("no id in url") : (getOneIdea(this.state.createdIdeaId)
+        .then(res => {
+          console.log(res.data)
+          this.setState({
+            title: res.data.idea.title,
+            description: res.data.idea.description,
+            category: res.data.idea.category,
+            tags: res.data.idea.tags
+          })
+          // console.log(`state tags:`, this.state.tags)
         })
-        // console.log(`state tags:`, this.state.tags)
-      })
-      .catch(err => {
-        console.log("ici", err.response);
-      })
+        .catch(err => {
+          console.log("ici2", err.response);
+        }))
   }
 
   handleInput = (evt) => {
-    console.log(this.state)
+    // console.log(this.state)
 
     this.setState({
       [evt.target.name]: evt.target.value,
@@ -85,7 +85,7 @@ class FormCreateIdea extends Component {
 
   render() {
     if (this.state.redirect) { return <Redirect to={`/idea/${this.state.createdIdeaId}`} /> }
-    // console.log("heyyyy", this.state.category)
+    console.log("heyyyy", this.state.creator)
     return (
       <form id="form_product" className="form" >
         <label htmlFor="idea-title">Title</label>
@@ -105,7 +105,7 @@ class FormCreateIdea extends Component {
           onChange={this.handleInput}
         />
         <AddCategories sendCatToParent={this.handleInput} category={this.state.category} {...this.props} />
-        <AddTags sendDataToParent={this.handleTags} tags={this.state.tags}/>
+        <AddTags sendDataToParent={this.handleTags} tags={this.state.tags} />
         <Button button_name="Save" onClick={this.handleSave} />
         <Button button_name="Submit" onClick={this.handleSubmit} />
         <div>{this.state.title}</div>
@@ -113,12 +113,7 @@ class FormCreateIdea extends Component {
       </form>
     )
   }
-  /// do the autoupvote
-  componentWillUnmount() {
-    this.setState({
 
-    })
-  }
 }
 
 export default FormCreateIdea 

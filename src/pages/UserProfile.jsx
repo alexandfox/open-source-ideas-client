@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 import IdeaItem from "../components/IdeaListItem"
-import { getUserByName, getOneIdea, getAllIdeas } from "../api/apiHandler";
+import { getUserByName, getOneIdea} from "../api/apiHandler";
 
 class Home extends Component {
   constructor(props) {
