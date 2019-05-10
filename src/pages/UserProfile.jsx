@@ -68,6 +68,17 @@ class Home extends Component {
     })
   }
 
+  async removeDeletedDrafts(e) {
+    // triggers a setState to refresh for the deleted
+    var user_page = await getUserByName(this.state.user_name)
+    var myIdeas = user_page.data.myIdeas
+
+    this.setState({
+      myIdeas : myIdeas,
+      draft_ideas : myIdeas.filter( idea => !idea.isPublic ),
+    }, () => console.log("here's the new state: ", this.state))
+  }
+
   render() {
     return (
     <div id="private-profile-container">
@@ -81,12 +92,12 @@ class Home extends Component {
           <h3 className="profileHeader">DRAFTS</h3>
           {this.state.draft_ideas && this.state.draft_ideas.length > 0 ?  <div className="draftsContainer">
               {this.state.draft_ideas.map( (idea, index) => (
-                <IdeaItem key={index} {...idea} loggedUser={this.props.loggedUser}/>
+                <IdeaItem key={index} {...idea} loggedUser={this.props.loggedUser} onDelete={(e) => this.removeDeletedDrafts(e)} />
               ))}
             </div>
           : <p>nothing in progress... share an idea!</p>}
           <h3 className="profileHeader">SHARED IDEAS</h3>
-          {this.state.public_ideas && this.state.public_ideas.length > 0 ?  <div className="draftsContainer">
+          {this.state.public_ideas && this.state.public_ideas.length > 0 ?  <div className="myIdeasContainer">
               {this.state.public_ideas.map( (idea, index) => (
                 <IdeaItem key={index} {...idea} loggedUser={this.props.loggedUser} />
               ))}

@@ -14,6 +14,8 @@ import { NavLink } from "react-router-dom";
 // if status === false:   --> displays DraftEdit component
 // if status === true:    --> displays Upvote component
 
+// onDelete --> a function that updates the parent component (user)
+
 class ideaItem extends Component {
   constructor(props) {
     super(props)
@@ -21,6 +23,10 @@ class ideaItem extends Component {
       // isDraft : props.isPublic
     }
     // console.log("idea list item props ", props)
+  }
+
+  sendToParent = (e) => {
+    this.props.onDelete(e)
   }
   
   render() {
@@ -31,7 +37,7 @@ class ideaItem extends Component {
         <div className="draftItem">
           <NavLink className="listDraftLink" to={`/create-idea/${this.props._id}`}>{this.props.title}</NavLink>
           <div className="listIdeaDescription">{this.props.description}</div>
-          <DraftEdit id={this.props._id} creator_name={this.props.creator && this.props.creator.name} /> 
+          <DraftEdit id={this.props._id} creator_name={this.props.creator && this.props.creator.name} sendToParent={(e) => this.sendToParent(e)} /> 
           {console.log("this is a draft item.  this.props.isPublic: ", this.props.isPublic)}
         </div>
         : 
