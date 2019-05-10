@@ -26,7 +26,8 @@ class FormCreateIdea extends Component {
   }
 
   componentDidMount() {
-    !this.state.createdIdeaId ? console.log("no id in url") : (getOneIdea(this.state.createdIdeaId)
+    !this.state.createdIdeaId ? console.log("no id in url") : 
+    (getOneIdea(this.state.createdIdeaId)
         .then(res => {
           console.log(res.data)
           this.setState({
@@ -44,8 +45,6 @@ class FormCreateIdea extends Component {
   }
 
   handleInput = (evt) => {
-    // console.log(this.state)
-
     this.setState({
       [evt.target.name]: evt.target.value,
     })
@@ -66,6 +65,7 @@ class FormCreateIdea extends Component {
     this.state.existingIdea ? 
     updateOneIdea(this.state.createdIdeaId, {...this.state, isPublic: false})
     .then(res => {
+        console.log("successfully updated, here is the result: ", res)
         this.setState({
           redirect: true,
           createdIdeaId: this.state.createdIdeaId

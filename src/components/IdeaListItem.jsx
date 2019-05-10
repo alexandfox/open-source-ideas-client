@@ -1,6 +1,7 @@
 import React, {Component} from "react"
 import DraftEdit from "./DraftEdit"
 import UpvoteDownvote from "../components/UpvoteDownvote";
+import { NavLink } from "react-router-dom";
 
 // accepts props:
 // {...idea} --> directly reference any keys on "idea"
@@ -27,14 +28,14 @@ class ideaItem extends Component {
         {/* MY DRAFTS */}
         {!this.props.isPublic ? 
         <div className="draftItem">
-          <a className="listDraftLink" href={`/create-idea/${this.props._id}`}>{this.props.title}</a>
+          <NavLink className="listDraftLink" to={`/create-idea/${this.props._id}`}>{this.props.title}</NavLink>
           <div className="listIdeaDescription">{this.props.description}</div>
           <DraftEdit id={this.props._id} /> 
           {console.log("this is a draft item.  this.props.isPublic: ", this.props.isPublic)}
         </div>
         : 
         <div className="publicItem">
-          <a className="listTitleLink" href={`/idea/${this.props._id}`}>{this.props.title}</a>
+          <NavLink className="listTitleLink" to={`/idea/${this.props._id}`}>{this.props.title}</NavLink>
           <div className="listIdeaDescription">{this.props.description}</div>
           <p className="ideaCreator">Creator: <a href={`/@${this.props.creator && this.props.creator.name}`}>{this.props.creator && this.props.creator.name}</a></p>
           <UpvoteDownvote ideaId={this.props._id} loggedUser={this.props.loggedUser} />
