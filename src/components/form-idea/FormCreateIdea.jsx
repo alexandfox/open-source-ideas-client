@@ -17,7 +17,10 @@ class FormCreateIdea extends Component {
       createdIdeaId: checkId || "",
       tags: [],
       creator_name: props.loggedUser ? props.loggedUser.name : "",
-      creator: props.loggedUser ? props.loggedUser._id : ""
+      creator: props.loggedUser ? props.loggedUser._id : "",
+      upvotedUsers: props.loggedUser ? [props.loggedUser._id] : "",
+      existingIdea: false,
+      submit: false,
     }
     // console.log("form idea props: ", props)
   }
@@ -30,7 +33,8 @@ class FormCreateIdea extends Component {
             title: res.data.idea.title,
             description: res.data.idea.description,
             category: res.data.idea.category,
-            tags: res.data.idea.tags
+            tags: res.data.idea.tags,
+            existingIdea: true,
           })
           // console.log(`state tags:`, this.state.tags)
         })
@@ -57,21 +61,44 @@ class FormCreateIdea extends Component {
 
   handleSave = (evt) => {
     evt.preventDefault();
-    updateOneIdea()
+
+    // if its a new idea --> create; if it's an existing --> update
+    this.state.existingIdea ? 
+    updateOneIdea(this.state.createdIdeaId, {...this.state, isPublic: false})
+    .then(res => {
+        this.setState({
+          redirect: true,
+          createdIdeaId: this.state.createdIdeaId
+        })
+      })
+      .catch(err => {
+        console.log("error creating on save update", err.response);
+      }) 
+    : createOneIdea({...this.state, isPublic: false})
+    .then(res => {
+        this.setState({
+          redirect: true,
+          createdIdeaId: res.data.dbSuccess._id
+        })
+      })
+      .catch(err => {
+        console.log("error creating on save create", err.response);
+      })
   }
 
   handleSubmit = (evt) => {
     evt.preventDefault();
     const { title, description, category, tags } = this.state;
-    if (!title || !description || !category || !tags.length) {
-      return console.log("nope")
-    }
+    // if (!title || !description || !category || !tags.length) {
+    //   return console.log("nope")
+    // }
 
-    createOneIdea(this.state)
+    createOneIdea({...this.state, isPublic: true})
       .then(res => {
         this.setState({
           redirect: true,
-          createdIdeaId: res.data.dbSuccess._id
+          createdIdeaId: res.data.dbSuccess._id,
+          submit: true,
         })
       })
       .catch(err => {
@@ -80,8 +107,8 @@ class FormCreateIdea extends Component {
   }
 
   render() {
-    if (this.state.redirect) { return <Redirect to={`/idea/${this.state.createdIdeaId}`} /> }
-    console.log("heyyyy", this.state.creator)
+    if (this.state.redirect && this.state.submit) {return <Redirect to={`/idea/${this.state.createdIdeaId}`} />}
+    else if (this.state.redirect && !this.state.submit) {return <Redirect to={`/@${this.state.creator_name}`} />}
     return (
       <form id="form_product" className="form" >
         <label htmlFor="idea-title">Title</label>

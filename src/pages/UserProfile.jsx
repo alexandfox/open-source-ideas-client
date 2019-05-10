@@ -81,14 +81,14 @@ class Home extends Component {
           <h3 className="profileHeader">DRAFTS</h3>
           {this.state.draft_ideas && this.state.draft_ideas.length > 0 ?  <div className="draftsContainer">
               {this.state.draft_ideas.map( (idea, index) => (
-                <IdeaItem key={index} {...idea} />
+                <IdeaItem key={index} {...idea} loggedUser={this.props.loggedUser}/>
               ))}
             </div>
           : <p>nothing in progress... share an idea!</p>}
           <h3 className="profileHeader">SHARED IDEAS</h3>
           {this.state.public_ideas && this.state.public_ideas.length > 0 ?  <div className="draftsContainer">
               {this.state.public_ideas.map( (idea, index) => (
-                <IdeaItem key={index} {...idea} />
+                <IdeaItem key={index} {...idea} loggedUser={this.props.loggedUser} />
               ))}
             </div>
           : <p>nothing yet... share an idea!</p>}
@@ -99,7 +99,7 @@ class Home extends Component {
       {this.state.user_page.upvotedIdeas && this.state.user_page.upvotedIdeas.length > 0 ? 
         <div id="profile-upvoted">
           { this.state.upvoted_ideas.map( (idea, index) => (
-            <IdeaItem key={index} {...idea} />
+            <IdeaItem key={index} {...idea} loggedUser={this.props.loggedUser}/>
           ))}
         </div>
         : <p>no upvoted ideas yet... browse some!</p>
