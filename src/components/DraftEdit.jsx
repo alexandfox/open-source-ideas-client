@@ -11,13 +11,20 @@ class editDelete extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      redirect: false,
+      edit: false,
+      delete: false,
     }
   }
 
   // should populate with idea page
   editSubmit = (e) => {
     e.preventDefault();
-    return <Redirect to={`/idea/${this.props.id}`}/>
+    console.log("clicked ")
+    this.setState({
+      redirect: true,
+      edit: true,
+    })
   }
 
   // should delete the idea from user and DB
@@ -26,9 +33,10 @@ class editDelete extends Component {
   }
 
   render() {
+    if (this.state.redirect && this.state.edit) {return <Redirect to={`/create-idea/${this.props.id}`}/>}
     return (
       <div className="editDelete">
-        <button className="iconButton edit">Edit</button>
+        <button className="iconButton edit" onClick={this.editSubmit} >Edit</button>
         <button className="iconButton delete">Delete</button>
       </div>
     )

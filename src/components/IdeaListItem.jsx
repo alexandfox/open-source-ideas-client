@@ -19,7 +19,7 @@ class ideaItem extends Component {
     this.state = {
       // isDraft : props.isPublic
     }
-    console.log("idea list item props ", props)
+    // console.log("idea list item props ", props)
   }
   
   render() {
