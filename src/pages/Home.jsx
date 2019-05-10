@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 import Search from "../components/SearchBar"
-import {NavLink} from "react-router-dom"
+// import {NavLink} from "react-router-dom"
 import IdeaItem from "../components/IdeaListItem"
 import { getAllIdeas } from "../api/apiHandler";
 
