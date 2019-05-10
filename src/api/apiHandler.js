@@ -21,6 +21,9 @@ export const updateOneIdea = (id, infos) => axios.put(`${APIURL}/idea/${id}`, in
 
 //GET COMMENTS METHODS--------------------------------------------------------------
 
+export const createOneComment = (infos) => axios.post(`${APIURL}/comment/`, infos)
+
+
 export default {
   getOneIdea,
   createOneIdea,

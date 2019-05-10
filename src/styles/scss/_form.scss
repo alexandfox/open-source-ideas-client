@@ -1,0 +1,36 @@
+/* General style */
+.form {}
+
+/* Comment form style */
+
+[contenteditable="true"]:focus {
+  border: none;
+  outline: none;
+}
+
+#form_add_comments {
+  width: 500px;
+  margin: 0 auto;
+  .comments-placeholder-wrapper {
+    position: relative;
+
+    .comments-placeholder {
+      position: absolute;
+      color: lightslategray;
+      top: 8px;
+      left: 10px;
+    }
+  }
+
+
+
+  .input-comment-wrapper {
+    padding: 8px;
+    border: 1px solid grey;
+
+    .input-comment {
+      text-align: left;
+    }
+  }
+
+}

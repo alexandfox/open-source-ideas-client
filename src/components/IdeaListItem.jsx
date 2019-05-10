@@ -1,5 +1,5 @@
 import React from "react"
-import DraftEdit from "./DraftEdit"
+// import DraftEdit from "./DraftEdit"
 import UpvoteDownvote from "../components/UpvoteDownvote";
 
 function ideaItem(props) {
