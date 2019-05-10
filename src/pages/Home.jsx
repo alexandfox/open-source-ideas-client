@@ -18,7 +18,6 @@ class Home extends Component {
     const queryString = window.location.search;
     getAllIdeas(queryString || "")
       .then(res => {
-        console.log("jsonObj: ", jsonObj)
         this.setState({ 
           allIdeas: res.data.ideas,
           filteredIdeas: res.data.ideas }, 
