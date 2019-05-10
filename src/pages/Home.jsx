@@ -35,20 +35,27 @@ class Home extends Component {
 			if (typeof(object[key]) !== "string" ) console.log("not a string.")
 			else {
 				var compObjectValue = object[key].toLowerCase()
-        console.log("object value: ", compObjectValue)
 				if (compObjectValue.includes(compString)) return true;
 		}}
 
 		return false;
   }
 
+  tagsMatch(string, object) {
+    var compString = string.toLowerCase()
+    for (let i=0; i<object.tags.length; i++) {
+      var tag = object.tags[i];
+      var tagString = tag.toLowerCase()
+      if (tagString.includes(compString)) return true;
+    }
+  }
+
   // SEARCH UPDATE (dynamic)  
   searchFilter(searchTerm) {
 		var filteredIdeas = this.state.allIdeas.filter( idea => 
-			this.exactMatch(searchTerm, idea)
+			this.exactMatch(searchTerm, idea) || this.tagsMatch(searchTerm, idea)
 		)
 		this.setState({"filteredIdeas" : filteredIdeas})
-    console.log("here i am in home, searchTerm: ", searchTerm)
 	}
 
   // RENDER
@@ -56,9 +63,6 @@ class Home extends Component {
     return (
     <div id="home-container">
       <h1>Hello this is the home</h1>
-      <NavLink to="/idea/5cd3e197782d4016a918272a">Test purpose idea</NavLink>
-      <NavLink to="/create-idea/5cd3fef110eb1a9f00b8a96e">Test purpose idea 1</NavLink>
-
       <Search updateHome={(term) => this.searchFilter(term)} />
       {
 				this.state.filteredIdeas.map( (idea, index) => (

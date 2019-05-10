@@ -16,7 +16,8 @@ class FormCreateIdea extends Component {
       category: "",
       createdIdeaId: checkId || "",
       tags: [],
-      creator: props.loggedUser ? props.loggedUser._id : "",
+      creator_name: props.loggedUser ? props.loggedUser.name : "",
+      creator: props.loggedUser ? props.loggedUser._id : ""
     }
     // console.log("form idea props: ", props)
   }
@@ -52,11 +53,6 @@ class FormCreateIdea extends Component {
       tags: tags
     })
     // console.log(this.state)
-  }
-
-  handleSave = (evt) => {
-    evt.preventDefault();
-    updateOneIdea()
   }
 
   handleSave = (evt) => {
