@@ -49,7 +49,7 @@ class IdeaPage extends Component {
 
         <h3>Tags</h3>
         <p>{idea.tags && idea.tags.map((tag, index) => 
-          <span key={index}><Link to="/?tag={tag}">{tag}</Link></span>
+          <span key={index}><Link to={`/search?tags=${tag}`}>{tag}</Link></span>
           
         )}</p>
 

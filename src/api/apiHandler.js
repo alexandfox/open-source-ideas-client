@@ -11,7 +11,7 @@ export const updateOneUser = (id, infos) => axios.put(`${APIURL}/user/${id}`, in
 
 //IDEAS METHODS-----------------------------------------------------------------
 
-export const getAllIdeas = (obj) => axios.get(`${APIURL}/idea`, obj);
+export const getAllIdeas = queryString => axios.get(`${APIURL}/idea/${queryString}`);
 
 export const createOneIdea = (infos) => axios.post(`${APIURL}/idea/`, infos);
 
