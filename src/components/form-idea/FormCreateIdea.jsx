@@ -19,6 +19,7 @@ class FormCreateIdea extends Component {
       creator_name: props.loggedUser ? props.loggedUser.name : "",
       creator: props.loggedUser ? props.loggedUser._id : "",
       upvotedUsers: props.loggedUser ? [props.loggedUser._id] : "",
+      existingIdea: false,
     }
     // console.log("form idea props: ", props)
   }
@@ -31,7 +32,8 @@ class FormCreateIdea extends Component {
             title: res.data.idea.title,
             description: res.data.idea.description,
             category: res.data.idea.category,
-            tags: res.data.idea.tags
+            tags: res.data.idea.tags,
+            existingIdea: true,
           })
           // console.log(`state tags:`, this.state.tags)
         })
@@ -58,7 +60,29 @@ class FormCreateIdea extends Component {
 
   handleSave = (evt) => {
     evt.preventDefault();
-    updateOneIdea()
+
+    // if its a new idea --> create; if it's an existing --> update
+    this.state.existingIdea ? 
+    updateOneIdea(this.state.createdIdeaId, {...this.state, isPublic: false})
+    .then(res => {
+        this.setState({
+          redirect: true,
+          createdIdeaId: this.state.createdIdeaId
+        })
+      })
+      .catch(err => {
+        console.log("error creating on save update", err.response);
+      }) 
+    : createOneIdea({...this.state, isPublic: false})
+    .then(res => {
+        this.setState({
+          redirect: true,
+          createdIdeaId: res.data.dbSuccess._id
+        })
+      })
+      .catch(err => {
+        console.log("error creating on save create", err.response);
+      })
   }
 
   handleSubmit = (evt) => {

@@ -6,7 +6,7 @@ import UpvoteDownvote from "../components/UpvoteDownvote";
 // {...idea} --> directly reference any keys on "idea"
 // loggedUser  --> a user object that represents the *current* logged-in user
 // isMine      --> Boolean; if true && !props.isPublic --> show draft/edit
-            // --> if false --> show upvote/downvote
+            // else --> show upvote/downvote
 
 function ideaItem(props) {
   console.log("idea list item props ", props)
@@ -16,9 +16,9 @@ function ideaItem(props) {
       <div className="listIdeaDescription">{props.description}</div>
       <p className="ideaCreator">Creator: <a href={`/@${props.creator && props.creator.name}`}>{props.creator && props.creator.name}</a></p>
 
-      {!props.isMine && <UpvoteDownvote ideaId={props._id} loggedUser={props.loggedUser} />}
+      {/* {!props.isMine && <UpvoteDownvote ideaId={props._id} loggedUser={props.loggedUser} />} */}
 
-      {props.isMine && !props.isPublic && <DraftEdit id={props._id} />}
+      {(props.isMine && !props.isPublic) ? <DraftEdit id={props._id} /> : <UpvoteDownvote ideaId={props._id} loggedUser={props.loggedUser} />}
 
       {/* add check for props.isPublic */}
       {/* <DraftEdit id={props._id} /> */}

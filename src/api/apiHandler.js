@@ -11,7 +11,7 @@ export const updateOneUser = (id, infos) => axios.put(`${APIURL}/user/${id}`, in
 
 //DEAS METHODS-----------------------------------------------------------------
 
-export const getAllIdeas = () => axios.get(`${APIURL}/idea`);
+export const getAllIdeas = (obj) => axios.get(`${APIURL}/idea`, obj);
 
 export const createOneIdea = (infos) => axios.post(`${APIURL}/idea/`, infos);
 
