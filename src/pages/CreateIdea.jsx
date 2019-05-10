@@ -7,7 +7,6 @@ function CreateIdea(props) {
       <h1>Share your Idea</h1>
       <h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos eius, voluptate rerum excepturi harum perferendis neque atque explicabo obcaecati!</h3>
       <FormCreateIdea {...props} />
-      <FormCreateIdea {...props}/>
     </div>
   )
 }
