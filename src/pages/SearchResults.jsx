@@ -1,14 +1,16 @@
 import React, {Component} from "react"
 import Search from "../components/SearchBar"
 import IdeaItem from "../components/IdeaListItem"
-import { getAllIdeas } from "../api/apiHandler";
+import { getAllIdeas } from "../api/apiHandler"
+import FilteringTag from "../components/FilteringTag"
 
 class searchResults extends Component {
   constructor(props) {
     super(props)
     this.state = {
       allIdeas : [],
-      filteredIdeas: []
+      filteredIdeas: [],
+      filteringTag: window.location.search ? window.location.search.slice(1).split("=")[1] : "",
     }
   }
   
@@ -56,7 +58,7 @@ class searchResults extends Component {
 			this.exactMatch(searchTerm, idea) || this.tagsMatch(searchTerm, idea)
 		)
 		this.setState({"filteredIdeas" : filteredIdeas})
-	}
+  }
 
   // RENDER
   render() {
@@ -64,6 +66,7 @@ class searchResults extends Component {
     <div id="results-container">
       <h1>Hello this is the results</h1>
       <Search updateResults={(term) => this.searchFilter(term)}/>
+      {this.state.filteringTag ? <FilteringTag filteringTag={this.state.filteringTag} {...this.props}/> : ""}
       {
 				this.state.filteredIdeas.map( (idea, index) => (
           <IdeaItem key={index} loggedUser={this.props.loggedUser} {...idea} isMine={false} />
