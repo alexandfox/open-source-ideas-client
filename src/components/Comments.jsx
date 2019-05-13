@@ -1,6 +1,8 @@
 import React, { Component } from "react"
 import { createOneComment } from "./../api/apiHandler"
-import { getAllComments } from "./../api/apiHandler"
+import Moment from 'react-moment';
+import { updateOneIdea } from "./../api/apiHandler"
+import { getOneIdea } from "./../api/apiHandler"
 const placeHolder = document.getElementsByClassName("comments-placeholder-wrapper")
 
 class Comments extends Component {
@@ -13,7 +15,8 @@ class Comments extends Component {
       content: "",
       idea: props.match.params.id,
       creator: props.loggedUser ? props.loggedUser._id : "",
-      comments: []
+      comments: [],
+      commentsDisplay: []
     }
   }
 
@@ -31,12 +34,18 @@ class Comments extends Component {
     this.setState({ content: this.commentInput.current.textContent })
   }
 
+  pushIdArray = (arr) => {
+    var arrOfId = [];
+    for (let i = 0; i < arr.length; i++) {
+      arrOfId.push(arr[i]._id)
+    }
+    return arrOfId
+  }
+
   componentDidMount() {
-    // console.log(this.state.idea)
-    getAllComments(this.state.idea)
+    getOneIdea(this.state.idea)
       .then(res => {
-        this.setState({ comments: res.data.dbSuccess })
-        // console.log("state comment: ", this.state.comment)
+        this.setState({ commentsDisplay: res.data.idea.comments, comments: this.pushIdArray(res.data.idea.comments) })
       })
       .catch(err => console.log(err))
   }
@@ -47,31 +56,37 @@ class Comments extends Component {
     if (this.state.content.length > 0) {
       createOneComment(this.state)
         .then(res => {
-          this.setState({ content: "" })
+          this.setState({ content: "", comments: [...this.state.comments, res.data.dbSuccess._id] }, () => {
+            updateOneIdea(this.state.idea, { comments: this.state.comments })
+              .then(res => {
+                console.log("update res", res)
+              })
+              .catch(err => console.log(err))
+          })
           this.commentInput.current.textContent = ""
-          // this.commentInput.current.setAttribute("contenteditable", false);
           this.commentInput.current.blur()
           for (let i = 0; i < placeHolder.length; i++) {
             placeHolder[i].classList.remove("display-none")
           }
+
         })
         .catch(err => console.log(err))
     }
   }
 
   render() {
-    // const { comments } = this.state
-    console.log("state lol", this.state.comments)
     return (
       <React.Fragment>
-        {/* { console.log("main", main)} */}
         <h3>Comments</h3>
         <div>
-          <ul>
-            {this.state.comments.map((com, index) => (
-              <li key={index} className="comments">{com.content}</li> ))
-            }
-          </ul>
+          {this.state.commentsDisplay.map((com, index) => (
+            <div key={index}>
+              <div className="comments">{com.content}, {com.creator.username} </div>
+              <Moment fromNow>{com.created_at}</Moment>
+            </div>
+          ))
+          }
+
         </div>
         <form id="form_add_comments" className="form" onClick={this.focusCommentInput}>
           <div className="comments-placeholder-wrapper">

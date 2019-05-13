@@ -50,12 +50,12 @@ class IdeaPage extends Component {
 
         <h3>Tags</h3>
 
-        <p>{idea.tags && idea.tags.map((tag, index) => 
+        <p>{idea.tags && idea.tags.map((tag, index) =>
           <span key={index}><Link to={`/search?tags=${tag}`}>{tag}</Link></span>
-          
+
         )}</p>
 
-        <Comments {...this.props} />
+        <Comments ideaObj={this.state.idea} {...this.props} />
         {/* TODO : map the comment array and create comments */}
       </React.Fragment>
     );
