@@ -88,7 +88,7 @@ class Home extends Component {
         {!this.state.isMyProfile && <p>this is not my profile</p>}
 			</div>
       {this.state.isMyProfile && (
-        <div id="profile-ideas">
+        <div id="draft-ideas">
           <h3 className="profileHeader">DRAFTS</h3>
           {this.state.draft_ideas && this.state.draft_ideas.length > 0 ?  <div className="draftsContainer">
               {this.state.draft_ideas.map( (idea, index) => (
@@ -96,16 +96,28 @@ class Home extends Component {
               ))}
             </div>
           : <p>nothing in progress... share an idea!</p>}
-          <h3 className="profileHeader">SHARED IDEAS</h3>
-          {this.state.public_ideas && this.state.public_ideas.length > 0 ?  <div className="myIdeasContainer">
-              {this.state.public_ideas.map( (idea, index) => (
-                <IdeaItem key={index} {...idea} loggedUser={this.props.loggedUser} />
-              ))}
-            </div>
-          : <p>nothing yet... share an idea!</p>}
-        </div>
-        )
+        </div>)
       }
+      {/* show "Shared Ideas", on public or private */}
+      {this.state.public_ideas && this.state.public_ideas.length > 0 &&
+        (<div id="shared-ideas">
+          <h3 className="profileHeader">SHARED IDEAS</h3>
+          <div className="myIdeasContainer">
+            {this.state.public_ideas.map( (idea, index) => (
+              <IdeaItem key={index} {...idea} loggedUser={this.props.loggedUser} />
+            ))}
+          </div>
+        </div>
+      )}
+      {/* if private and no shared ideas, show link to share an idea: */}
+      {this.state.isMyProfile && this.state.public_ideas && this.state.public_ideas.length === 0 && (
+        <div id="shared-ideas">
+          <h3 className="profileHeader">SHARED IDEAS</h3>
+          <p>nothing shared yet... share an idea!</p>
+        </div>
+      )}
+
+      {/* show upvoted ideas */}
       <h3 className="profileHeader">UPVOTES</h3>
       {this.state.user_page.upvotedIdeas && this.state.user_page.upvotedIdeas.length > 0 ? 
         <div id="profile-upvoted">

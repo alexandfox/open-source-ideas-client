@@ -3,6 +3,9 @@ import Search from "../components/SearchBar"
 import IdeaItem from "../components/IdeaListItem"
 import { getAllIdeas } from "../api/apiHandler";
 
+// PROPS:
+// should accept "all ideas" from parent
+
 class searchResults extends Component {
   constructor(props) {
     super(props)
@@ -12,6 +15,8 @@ class searchResults extends Component {
     }
   }
   
+	// CHANGE:
+	// if query string --> get all ideas; if no query string --> take props from parent
   // GET ideas from API (database)
   componentDidMount() {
     const queryString = window.location.search;
@@ -62,10 +67,10 @@ class searchResults extends Component {
   render() {
     return (
     <div id="results-container">
-      <h1>Hello this is the results</h1>
       <Search updateResults={(term) => this.searchFilter(term)}/>
       {
 				this.state.filteredIdeas.map( (idea, index) => (
+					idea.isPublic &&
           <IdeaItem key={index} loggedUser={this.props.loggedUser} {...idea} isMine={false} />
 				))
 			}

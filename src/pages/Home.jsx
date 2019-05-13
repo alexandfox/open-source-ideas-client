@@ -9,7 +9,8 @@ class Home extends Component {
     super(props)
     this.state = {
       allIdeas : [],
-      filteredIdeas: []
+      sortedIdeas: [],
+      filteredIdeas: [],
     }
   }
   
@@ -19,14 +20,32 @@ class Home extends Component {
     getAllIdeas(queryString || "")
       .then(res => {
         this.setState({ 
-          allIdeas: res.data.ideas,
-          filteredIdeas: res.data.ideas }, 
-        );
+          allIdeas: this.sort(res.data.ideas, "upvotes"),
+          sortedIdeas: this.sort(res.data.ideas, "upvotes"),
+          filteredIdeas: this.sort(res.data.ideas, "upvotes"), 
+        });
       })
       .catch(err => {
         console.log(err.response);
       });
   }
+
+  // SORT --> currently either for TRENDING (upvotes), or NEWEST (createdAt)
+  compare(a, b, property) {
+		var A = a[property];
+		var B = b[property];
+
+		if (A > B) return -1;
+		else if (A == B) return 0;
+		else return 1;
+	}
+
+	sort = ( array, property ) => {
+		const sortedContacts = [...array]
+		sortedContacts.sort( (a,b) => this.compare(a, b, property))
+		return sortedContacts
+	}
+
 
   // SEARCH FUNCTIONS
   exactMatch(string, object) {
@@ -61,12 +80,14 @@ class Home extends Component {
 
   // RENDER
   render() {
+    // console.log("state: ", this.state)
     return (
     <div id="home-container">
       <h1>Hello this is the home</h1>
       <Search updateResults={(term) => this.searchFilter(term)}/>
       {
 				this.state.filteredIdeas.map( (idea, index) => (
+          idea.isPublic &&
           <IdeaItem key={index} loggedUser={this.props.loggedUser} {...idea} isMine={false} />
 				))
 			}
