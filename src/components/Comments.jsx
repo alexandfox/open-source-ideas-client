@@ -12,7 +12,8 @@ class Comments extends Component {
     this.state = {
       content: "",
       idea: props.match.params.id,
-      creator: props.loggedUser ? props.loggedUser._id : ""
+      creator: props.loggedUser ? props.loggedUser._id : "",
+      comments: []
     }
   }
 
@@ -25,19 +26,17 @@ class Comments extends Component {
 
   }
 
-  unfocusInput() {
-
-  }
 
   handleKey = (evt) => {
     this.setState({ content: this.commentInput.current.textContent })
   }
 
   componentDidMount() {
-    console.log(this.state.idea)
+    // console.log(this.state.idea)
     getAllComments(this.state.idea)
       .then(res => {
-        console.log("res", res.data.dbSuccess)
+        this.setState({ comments: res.data.dbSuccess })
+        // console.log("state comment: ", this.state.comment)
       })
       .catch(err => console.log(err))
   }
@@ -61,12 +60,19 @@ class Comments extends Component {
   }
 
   render() {
-
-
+    // const { comments } = this.state
+    console.log("state lol", this.state.comments)
     return (
       <React.Fragment>
         {/* { console.log("main", main)} */}
         <h3>Comments</h3>
+        <div>
+          <ul>
+            {this.state.comments.map((com, index) => (
+              <li key={index} className="comments">{com.content}</li> ))
+            }
+          </ul>
+        </div>
         <form id="form_add_comments" className="form" onClick={this.focusCommentInput}>
           <div className="comments-placeholder-wrapper">
             <div className="comments-placeholder">Your comment...</div>
