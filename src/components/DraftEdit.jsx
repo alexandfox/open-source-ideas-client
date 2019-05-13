@@ -32,12 +32,14 @@ class editDelete extends Component {
     // axios delete method
     deleteOneIdea(this.props.id)
     .then(res => {
-      this.setState({
-        delete: true,
-      }, console.log("it has been deleted: ", res))
+      // this.setState({
+      //   delete: true,
+      // }, console.log("it has been deleted: ", res))
+      console.log("it has been deleted: ", res);
+      this.props.sendToParent(e)
     })
     .catch(err => {
-      console.log("error creating on save create", err.response);
+      console.log("error on draft delete: ", err.response);
     })
   }
 

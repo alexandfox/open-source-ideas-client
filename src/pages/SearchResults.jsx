@@ -1,10 +1,9 @@
 import React, {Component} from "react"
 import Search from "../components/SearchBar"
-// import {NavLink} from "react-router-dom"
 import IdeaItem from "../components/IdeaListItem"
 import { getAllIdeas } from "../api/apiHandler";
 
-class Home extends Component {
+class searchResults extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -62,8 +61,8 @@ class Home extends Component {
   // RENDER
   render() {
     return (
-    <div id="home-container">
-      <h1>Hello this is the home</h1>
+    <div id="results-container">
+      <h1>Hello this is the results</h1>
       <Search updateResults={(term) => this.searchFilter(term)}/>
       {
 				this.state.filteredIdeas.map( (idea, index) => (
@@ -74,4 +73,4 @@ class Home extends Component {
   )}
 }
 
-export default Home
+export default searchResults
