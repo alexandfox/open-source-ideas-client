@@ -65,12 +65,27 @@ class searchResults extends Component {
 		this.setState({"filteredIdeas" : filteredIdeas})
   }
 
+  handleChildrenClick = () => {
+    getAllIdeas("")
+      .then(res => {
+        this.setState({ 
+          allIdeas: res.data.ideas,
+          filteredIdeas: res.data.ideas,
+          filteringTag: "" 
+        }, 
+      );
+      })
+      .catch(err => {
+        console.log(err.response);
+      });
+  }
+
   // RENDER
   render() {
     return (
     <div id="results-container">
       <Search updateResults={(term) => this.searchFilter(term)}/>
-      {this.state.filteringTag ? <FilteringTag filteringTag={this.state.filteringTag} {...this.props}/> : ""}
+      {this.state.filteringTag ? <FilteringTag filteringTag={this.state.filteringTag} handleClick={this.handleChildrenClick}{...this.props}/> : ""}
       {
 				this.state.filteredIdeas.map( (idea, index) => (
 					idea.isPublic &&
