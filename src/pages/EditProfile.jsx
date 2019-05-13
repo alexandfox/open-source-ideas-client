@@ -1,5 +1,7 @@
 import React, {Component} from "react"
 import { updateOneUser } from "../api/apiHandler";
+import { Redirect } from "react-router-dom";
+
 
 // PROPS
 // loggedUser --> user
@@ -8,6 +10,7 @@ class editProfile extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
+			redirect: false,
 			location: "",
 			bio: "",
 			contact_name: "",
@@ -50,18 +53,21 @@ class editProfile extends Component {
 				linkedIn
 			}
 		}
-		console.log("clicked!")
+
     updateOneUser(this.props.loggedUser._id, updateUser)
       .then(res => {
 				console.log("here's what was updated: ", updateUser)
-        console.log("res.data: ", res.data);
+        this.setState({
+					redirect: true,
+				})
       })
       .catch(err => console.error(err.response));
   };
 
 	render() {
-		console.log("new state: ", this.state)
 		var { contact_name, website, productHunt, twitter, linkedIn, bio, location} = this.state
+
+		if (this.state.redirect) return <Redirect to={`/@${this.props.loggedUser.name}`}/>
 
 		return(
 			<div id="edit-profile">
