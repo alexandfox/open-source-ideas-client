@@ -10,7 +10,7 @@ class Comments extends Component {
     super(props)
     this.commentInput = React.createRef();
     this.focusCommentInput = this.focusCommentInput.bind(this);
-    console.log(props)
+    // console.log(props)
     this.state = {
       content: "",
       idea: props.match.params.id,
@@ -21,7 +21,7 @@ class Comments extends Component {
   }
 
   focusCommentInput() {
-    console.log(placeHolder)
+    // console.log(placeHolder)
     for (let i = 0; i < placeHolder.length; i++) {
       placeHolder[i].classList.add("display-none")
     }
@@ -52,54 +52,67 @@ class Comments extends Component {
 
   handleClick = (evt) => {
     evt.preventDefault();
-    console.log(this.state)
+    // console.log(this.state)
+
     if (this.state.content.length > 0) {
       createOneComment(this.state)
         .then(res => {
-          this.setState({ content: "", comments: [...this.state.comments, res.data.dbSuccess._id] }, () => {
-            updateOneIdea(this.state.idea, { comments: this.state.comments })
-              .then(res => {
-                console.log("update res", res)
-              })
-              .catch(err => console.log(err))
-          })
-          this.commentInput.current.textContent = ""
-          this.commentInput.current.blur()
-          for (let i = 0; i < placeHolder.length; i++) {
-            placeHolder[i].classList.remove("display-none")
-          }
 
-        })
-        .catch(err => console.log(err))
+          console.log(res.data)
+          const comments = [...this.state.comments, res.data.dbSuccess._id]
+          updateOneIdea(this.state.idea, { comments: comments })
+            .then(res => {
+              console.log("yooo", res.data)
+              this.setState({ content: "", commentsDisplay: res.data.idea.comments }, () => {
+                this.commentInput.current.textContent = ""
+              })
+
+              })
+                .catch(err => console.log(err))
+              // })
+              // this.commentInput.current.textContent = ""
+              // this.commentInput.current.blur()
+              // for (let i = 0; i < placeHolder.length; i++) {
+              //   placeHolder[i].classList.remove("display-none")
+              // }
+
+            })
+            .catch(err => console.log(err))
+        }
+  }
+
+    render() {
+
+
+      // if(!this.state.commentsDisplay.length) return <p>Nothing to display</p>
+      return (
+        <React.Fragment>
+          <h3>Comments</h3>
+          <div>
+            {this.state.commentsDisplay.map((com, index) => (
+              <div key={index}>
+                <div className="comments">{com.content}, {com.creator.username} </div>
+                <Moment fromNow>{com.created_at}</Moment>
+              </div>
+            ))
+            }
+
+          </div>
+          <form id="form_add_comments" className="form" onClick={this.focusCommentInput}>
+            <div className="comments-placeholder-wrapper">
+              <div className="comments-placeholder">Your comment...</div>
+            </div>
+            <div className="input-comment-wrapper">
+              <div contentEditable="true" className="input-comment" id="input_comment" 
+                ref={this.commentInput} onKeyUp={this.handleKey}>
+               
+              </div>
+            </div>
+            <button onClick={this.handleClick}>Post</button>
+          </form>
+        </React.Fragment >
+      )
     }
   }
 
-  render() {
-    return (
-      <React.Fragment>
-        <h3>Comments</h3>
-        <div>
-          {this.state.commentsDisplay.map((com, index) => (
-            <div key={index}>
-              <div className="comments">{com.content}, {com.creator.username} </div>
-              <Moment fromNow>{com.created_at}</Moment>
-            </div>
-          ))
-          }
-
-        </div>
-        <form id="form_add_comments" className="form" onClick={this.focusCommentInput}>
-          <div className="comments-placeholder-wrapper">
-            <div className="comments-placeholder">Your comment...</div>
-          </div>
-          <div className="input-comment-wrapper">
-            <div contentEditable="true" className="input-comment" id="input_comment" ref={this.commentInput} onKeyUp={this.handleKey}></div>
-          </div>
-          <button onClick={this.handleClick}>Post</button>
-        </form>
-      </React.Fragment >
-    )
-  }
-}
-
-export default Comments 
+  export default Comments 
