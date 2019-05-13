@@ -80,7 +80,7 @@ class Home extends Component {
 
   // RENDER
   render() {
-    console.log("state: ", this.state)
+    // console.log("state: ", this.state)
     return (
     <div id="home-container">
       <h1>Hello this is the home</h1>
