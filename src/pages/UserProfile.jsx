@@ -1,11 +1,16 @@
 import React, {Component} from "react"
 import IdeaItem from "../components/IdeaListItem"
 import { getUserByName, getOneIdea} from "../api/apiHandler";
+import EditProfile from "./EditProfile"
+import {Redirect} from "react-router-dom";
+
 
 class Home extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      redirect: false,
+      edit: false,
       user_name: this.props.match.params.name,
       user_page: {},
 			current_user: this.setLoggedUser(),
@@ -48,6 +53,15 @@ class Home extends Component {
     })
   }
 
+  editProfile = (e) => {
+    e.preventDefault();
+    this.setState({
+      redirect: true,
+      edit: true,
+    })
+    // return <Redirect to={`/@${this.props.loggedUser.name}/edit`}/>
+  }
+
   async componentDidMount() {
     var user_page = await getUserByName(this.state.user_name)
     user_page = user_page.data
@@ -80,11 +94,14 @@ class Home extends Component {
   }
 
   render() {
+    if (this.state.redirect && this.state.edit) {return <Redirect to={`/@${this.props.loggedUser.name}/edit`}/>}
     return (
     <div id="private-profile-container">
 			<div className="profileDetails">
 				<h2 className="profileName">{this.state.user_name}</h2>
-        {this.state.isMyProfile && <p>this is my profile!</p>}
+        {this.state.isMyProfile && 
+          <button className="buttonEdit" onClick={this.editProfile}>Edit Profile</button>
+        }
         {!this.state.isMyProfile && <p>this is not my profile</p>}
 			</div>
       {this.state.isMyProfile && (
