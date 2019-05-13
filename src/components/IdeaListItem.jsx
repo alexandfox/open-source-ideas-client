@@ -48,11 +48,6 @@ class ideaItem extends Component {
           <UpvoteDownvote ideaId={this.props._id} loggedUser={this.props.loggedUser} />
         </div>
         }
-
-        {/* {!this.props.isMine && <UpvoteDownvote ideaId={this.props._id} loggedUser={this.props.loggedUser} />} */}
-
-        {/* add check for this.props.isPublic */}
-        {/* <DraftEdit id={this.props._id} /> */}
       </div>
     )
   }
