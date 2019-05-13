@@ -36,7 +36,7 @@ class Home extends Component {
 		var B = b[property];
 
 		if (A > B) return -1;
-		else if (A == B) return 0;
+		else if (A === B) return 0;
 		else return 1;
 	}
 

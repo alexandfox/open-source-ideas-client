@@ -71,7 +71,7 @@ class editProfile extends Component {
 
 		return(
 			<div id="edit-profile">
-				<img id="upload-profile" src="http://www.bagherra.eu/wp-content/uploads/2016/11/orionthemes-placeholder-image-1.png" alt="profile-picture"/>
+				<img id="upload-profile" src="http://www.bagherra.eu/wp-content/uploads/2016/11/orionthemes-placeholder-image-1.png" alt="profile"/>
 				<h3 className="username">@{this.props.loggedUser.name}</h3>
 
 				{/* User Details */}

@@ -1,8 +1,7 @@
 import React, {Component} from "react"
 import IdeaItem from "../components/IdeaListItem"
 import { getUserByName, getOneIdea} from "../api/apiHandler";
-import EditProfile from "./EditProfile"
-import {Link, Redirect} from "react-router-dom";
+import { Redirect} from "react-router-dom";
 
 
 class Home extends Component {
@@ -94,7 +93,7 @@ class Home extends Component {
   }
 
   render() {
-    console.log("state: ", this.state)
+    console.log("user profile state: ", this.state)
     var page = this.state.user_page
 
     if (this.state.redirect && this.state.edit) {return <Redirect to={`/@${this.props.loggedUser.name}/edit`}/>}
@@ -107,11 +106,11 @@ class Home extends Component {
         {page.bio && <p className="profileDetails">{page.bio}</p>}
         {page.social && 
           <div id="profile-links">
-            {page.social.website && <a target="_blank" href={page.social.website} className="socialLink">{page.social.website}</a>}
+            {page.social.website && <a target="_blank" rel="noopener noreferrer" href={page.social.website} className="socialLink">{page.social.website}</a>}
             <div id="social-links">
-              {page.social.twitter && <a target="_blank" href={`https://twitter.com/${page.social.twitter}`} className="socialLink">{page.social.twitter}</a>}
-              {page.social.linkedIn && <a target="_blank" href="" className="socialLink">{page.social.linkedIn}</a>}
-              {page.social.productHunt && <a target="_blank" href={`https://www.producthunt.com/@${page.social.productHunt}`} className="socialLink">{page.social.productHunt}</a>}
+              {page.social.twitter && <a target="_blank" rel="noopener noreferrer" href={`https://twitter.com/${page.social.twitter}`} className="socialLink">{page.social.twitter}</a>}
+              {page.social.linkedIn && <a target="_blank" rel="noopener noreferrer" href={`https://www.linkedin.com/in/${page.social.linkedIn}`} className="socialLink">{page.social.linkedIn}</a>}
+              {page.social.productHunt && <a target="_blank" rel="noopener noreferrer" href={`https://www.producthunt.com/@${page.social.productHunt}`} className="socialLink">{page.social.productHunt}</a>}
             </div>
           </div>
         }
