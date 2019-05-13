@@ -11,8 +11,11 @@
 #form_add_comments {
   width: 500px;
   margin: 0 auto;
+  
   .comments-placeholder-wrapper {
     position: relative;
+
+
 
     .comments-placeholder {
       position: absolute;
@@ -21,9 +24,6 @@
       left: 10px;
     }
   }
-
-
-
   .input-comment-wrapper {
     padding: 8px;
     border: 1px solid grey;
@@ -32,5 +32,8 @@
       text-align: left;
     }
   }
+}
 
+.comments-placeholder-wrapper.display-none {
+  display: none;
 }

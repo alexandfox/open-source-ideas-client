@@ -19,17 +19,21 @@ export const getOneIdea = id => axios.get(`${APIURL}/idea/${id}`);
 
 export const updateOneIdea = (id, infos) => axios.put(`${APIURL}/idea/${id}`, infos);
 
+// export const updateOneIdeaComments = (idIdea, idComment) => axios.put(`${APIURL}/idea/update-idea-comment/${idIdea}`, idComment);
+
 export const deleteOneIdea = (id) => axios.delete(`${APIURL}/idea/${id}`)
 
 //GET COMMENTS METHODS--------------------------------------------------------------
 
 export const createOneComment = (infos) => axios.post(`${APIURL}/comment/`, infos)
 
+export const getAllComments = (id) => axios.get(`${APIURL}/comment/${id}`)
 
 export default {
   getOneIdea,
   createOneIdea,
   updateOneIdea,
   updateOneUser,
-  getOneUser
+  getOneUser,
+  getAllComments
 }
