@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { createOneComment } from "./../api/apiHandler"
-
+import { getAllComments } from "./../api/apiHandler"
+const placeHolder = document.getElementsByClassName("comments-placeholder-wrapper")
 
 class Comments extends Component {
   constructor(props) {
@@ -13,42 +14,32 @@ class Comments extends Component {
       idea: props.match.params.id,
       creator: props.loggedUser ? props.loggedUser._id : ""
     }
-
   }
+
   focusCommentInput() {
-    const placeHolder = document.getElementsByClassName("comments-placeholder-wrapper")
     console.log(placeHolder)
     for (let i = 0; i < placeHolder.length; i++) {
-      placeHolder[i].style.display = "none"
+      placeHolder[i].classList.add("display-none")
     }
     this.commentInput.current.focus();
+
   }
 
- // handleKey = (evt) => {
-  //   // console.log(evt)
-  //   // const inputComment = document.getElementById("input_comment");
-  //   // console.log(inputComment.textContent.length)
-  //   this.setState({ content: this.commentInput.current.textContent }
-  //   )
-  //   console.log("state:", this.state)
-  //   if (evt.key === "Enter" && this.state.content.length > 0) {
-  //     console.log("send to db")
-  //     evt.preventDefault();
-  //     createOneComment(this.state.content)
-  //       .then(res => {
-  //         console.log(this.commentInput.current)
-  //         // this.commentInput.current.setAttribute("contenteditable", false);
-  //         // this.commentInput.blur()
-  //       })
-  //       .catch(err => console.log(err))
-  //       return false;
-  //   } else {
-  //     console.log("write a comment")
-  //   }
-  // }
+  unfocusInput() {
+
+  }
 
   handleKey = (evt) => {
     this.setState({ content: this.commentInput.current.textContent })
+  }
+
+  componentDidMount() {
+    console.log(this.state.idea)
+    getAllComments(this.state.idea)
+      .then(res => {
+        console.log("res", res.data.dbSuccess)
+      })
+      .catch(err => console.log(err))
   }
 
   handleClick = (evt) => {
@@ -57,28 +48,31 @@ class Comments extends Component {
     if (this.state.content.length > 0) {
       createOneComment(this.state)
         .then(res => {
-          console.log(res, this.commentInput.current)
-          this.setState({content: ""})
-          console.log(this.state.content)
+          this.setState({ content: "" })
           this.commentInput.current.textContent = ""
           // this.commentInput.current.setAttribute("contenteditable", false);
           this.commentInput.current.blur()
+          for (let i = 0; i < placeHolder.length; i++) {
+            placeHolder[i].classList.remove("display-none")
+          }
         })
         .catch(err => console.log(err))
     }
   }
 
-
   render() {
+
+
     return (
       <React.Fragment>
+        {/* { console.log("main", main)} */}
         <h3>Comments</h3>
         <form id="form_add_comments" className="form" onClick={this.focusCommentInput}>
           <div className="comments-placeholder-wrapper">
             <div className="comments-placeholder">Your comment...</div>
           </div>
           <div className="input-comment-wrapper">
-            <div contentEditable="true" className="input-comment" id="input_comment" ref={this.commentInput} onKeyDown={this.handleKey}></div>
+            <div contentEditable="true" className="input-comment" id="input_comment" ref={this.commentInput} onKeyUp={this.handleKey}></div>
           </div>
           <button onClick={this.handleClick}>Post</button>
         </form>
