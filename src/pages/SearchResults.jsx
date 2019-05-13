@@ -1,7 +1,8 @@
 import React, {Component} from "react"
 import Search from "../components/SearchBar"
 import IdeaItem from "../components/IdeaListItem"
-import { getAllIdeas } from "../api/apiHandler";
+import { getAllIdeas } from "../api/apiHandler"
+import FilteringTag from "../components/FilteringTag"
 
 // PROPS:
 // should accept "all ideas" from parent
@@ -11,7 +12,8 @@ class searchResults extends Component {
     super(props)
     this.state = {
       allIdeas : [],
-      filteredIdeas: []
+      filteredIdeas: [],
+      filteringTag: window.location.search ? window.location.search.slice(1).split("=")[1] : "",
     }
   }
   
@@ -61,13 +63,14 @@ class searchResults extends Component {
 			this.exactMatch(searchTerm, idea) || this.tagsMatch(searchTerm, idea)
 		)
 		this.setState({"filteredIdeas" : filteredIdeas})
-	}
+  }
 
   // RENDER
   render() {
     return (
     <div id="results-container">
       <Search updateResults={(term) => this.searchFilter(term)}/>
+      {this.state.filteringTag ? <FilteringTag filteringTag={this.state.filteringTag} {...this.props}/> : ""}
       {
 				this.state.filteredIdeas.map( (idea, index) => (
 					idea.isPublic &&
