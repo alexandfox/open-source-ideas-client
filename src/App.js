@@ -12,6 +12,7 @@ import IdeaPage from "./pages/IdeaPage"
 import UserProfile from "./pages/UserProfile"
 import SearchResults from "./pages/SearchResults"
 import EditProfile from "./pages/EditProfile"
+import Page404 from "./pages/Page404"
 
 class App extends Component {
   constructor(props) {
@@ -67,6 +68,7 @@ class App extends Component {
             <Route exact path="/create-idea" render={(props) => <CreateIdea loggedUser={this.state.loggedUser} {...props} />} />
             <Route exact path="/create-idea/:id" render={(props) => <CreateIdea loggedUser={this.state.loggedUser} {...props} />} />
             <Route exact path="/idea/:id" render={(props) => <IdeaPage loggedUser={this.state.loggedUser} {...props} />} />
+            <Route path="/*" render={() => <Page404 loggedUser={this.state.loggedUser} />} />
           </Switch>
         </main>
       </div>
