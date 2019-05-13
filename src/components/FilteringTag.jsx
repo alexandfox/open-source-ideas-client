@@ -6,7 +6,8 @@ class FilteringTag extends Component{
   }
 
   handleFilterClick = () => {
-    this.props.history.push(`/`);
+    this.props.history.push(`/search`);
+    this.props.handleClick();
   }
   render(){
     return(
