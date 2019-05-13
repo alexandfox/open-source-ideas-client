@@ -10,6 +10,7 @@ import Login from "./pages/Login"
 import CreateIdea from "./pages/CreateIdea"
 import IdeaPage from "./pages/IdeaPage"
 import UserProfile from "./pages/UserProfile"
+import SearchResults from "./pages/SearchResults"
 
 class App extends Component {
   constructor(props) {
@@ -53,7 +54,7 @@ class App extends Component {
         <main>
           <Switch>
             <Route exact path="/" render={(props) => <Home loggedUser={this.state.loggedUser} {...props} />} />
-            <Route path="/search" render={(props) => <Home loggedUser={this.state.loggedUser} {...props} />} />
+            <Route path="/search" render={(props) => <SearchResults loggedUser={this.state.loggedUser} {...props} />} />
             <Route exact path="/signup" render={() => <Signup getUser={this.getUser} />} />
             <Route exact path="/login" render={() => (this.loggedIn ? (<Redirect to="/" />) : (<Login getUser={this.getUser} />))} />
             <Route exact path="/@:name" render={(props) => <UserProfile loggedUser={this.state.loggedUser} {...props} />} />
