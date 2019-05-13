@@ -10,6 +10,9 @@ import Login from "./pages/Login"
 import CreateIdea from "./pages/CreateIdea"
 import IdeaPage from "./pages/IdeaPage"
 import UserProfile from "./pages/UserProfile"
+import SearchResults from "./pages/SearchResults"
+import EditProfile from "./pages/EditProfile"
+import Page404 from "./pages/Page404"
 
 class App extends Component {
   constructor(props) {
@@ -53,14 +56,19 @@ class App extends Component {
         <main>
           <Switch>
             <Route exact path="/" render={(props) => <Home loggedUser={this.state.loggedUser} {...props} />} />
-            <Route path="/search" render={(props) => <Home loggedUser={this.state.loggedUser} {...props} />} />
+            <Route path="/search" render={(props) => <SearchResults loggedUser={this.state.loggedUser} {...props} />} />
+
             <Route exact path="/signup" render={() => <Signup getUser={this.getUser} />} />
             <Route exact path="/login" render={() => (this.loggedIn ? (<Redirect to="/" />) : (<Login getUser={this.getUser} />))} />
+            
             <Route exact path="/@:name" render={(props) => <UserProfile loggedUser={this.state.loggedUser} {...props} />} />
+            <Route exact path="/@:name/edit" render={(props) => <EditProfile loggedUser={this.state.loggedUser} {...props} />} />
+
             <Route exact path="/create-idea/" render={(props) => (this.state.loggedIn ? (<CreateIdea loggedUser={this.state.loggedUser} {...props} />) : (<Login getUser={this.getUser} />))} />
             <Route exact path="/create-idea" render={(props) => <CreateIdea loggedUser={this.state.loggedUser} {...props} />} />
             <Route exact path="/create-idea/:id" render={(props) => <CreateIdea loggedUser={this.state.loggedUser} {...props} />} />
             <Route exact path="/idea/:id" render={(props) => <IdeaPage loggedUser={this.state.loggedUser} {...props} />} />
+            <Route path="/*" render={() => <Page404 loggedUser={this.state.loggedUser} />} />
           </Switch>
         </main>
       </div>

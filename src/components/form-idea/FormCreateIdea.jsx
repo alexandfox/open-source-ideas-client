@@ -74,11 +74,12 @@ class FormCreateIdea extends Component {
       .catch(err => {
         console.log("error creating on save update", err.response);
       }) 
-    : createOneIdea({...this.state, isPublic: false})
+    : 
+    createOneIdea({...this.state, isPublic: false})
     .then(res => {
         this.setState({
           redirect: true,
-          createdIdeaId: res.data.dbSuccess._id
+          // createdIdeaId: res.data.dbSuccess._id
         })
       })
       .catch(err => {

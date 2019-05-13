@@ -1,51 +1,38 @@
 import React, {Component} from "react"
 import Search from "../components/SearchBar"
-// import {NavLink} from "react-router-dom"
 import IdeaItem from "../components/IdeaListItem"
-import { getAllIdeas } from "../api/apiHandler";
+import { getAllIdeas } from "../api/apiHandler"
+import FilteringTag from "../components/FilteringTag"
 
-class Home extends Component {
+// PROPS:
+// should accept "all ideas" from parent
+
+class searchResults extends Component {
   constructor(props) {
     super(props)
     this.state = {
       allIdeas : [],
-      sortedIdeas: [],
       filteredIdeas: [],
+      filteringTag: window.location.search ? window.location.search.slice(1).split("=")[1] : "",
     }
   }
   
+	// CHANGE:
+	// if query string --> get all ideas; if no query string --> take props from parent
   // GET ideas from API (database)
   componentDidMount() {
     const queryString = window.location.search;
     getAllIdeas(queryString || "")
       .then(res => {
         this.setState({ 
-          allIdeas: this.sort(res.data.ideas, "upvotes"),
-          sortedIdeas: this.sort(res.data.ideas, "upvotes"),
-          filteredIdeas: this.sort(res.data.ideas, "upvotes"), 
-        });
+          allIdeas: res.data.ideas,
+          filteredIdeas: res.data.ideas }, 
+        );
       })
       .catch(err => {
         console.log(err.response);
       });
   }
-
-  // SORT --> currently either for TRENDING (upvotes), or NEWEST (createdAt)
-  compare(a, b, property) {
-		var A = a[property];
-		var B = b[property];
-
-		if (A > B) return -1;
-		else if (A === B) return 0;
-		else return 1;
-	}
-
-	sort = ( array, property ) => {
-		const sortedContacts = [...array]
-		sortedContacts.sort( (a,b) => this.compare(a, b, property))
-		return sortedContacts
-	}
-
 
   // SEARCH FUNCTIONS
   exactMatch(string, object) {
@@ -76,18 +63,32 @@ class Home extends Component {
 			this.exactMatch(searchTerm, idea) || this.tagsMatch(searchTerm, idea)
 		)
 		this.setState({"filteredIdeas" : filteredIdeas})
-	}
+  }
+
+  handleChildrenClick = () => {
+    getAllIdeas("")
+      .then(res => {
+        this.setState({ 
+          allIdeas: res.data.ideas,
+          filteredIdeas: res.data.ideas,
+          filteringTag: "" 
+        }, 
+      );
+      })
+      .catch(err => {
+        console.log(err.response);
+      });
+  }
 
   // RENDER
   render() {
-    // console.log("state: ", this.state)
     return (
-    <div id="home-container">
-      <h1>Hello this is the home</h1>
+    <div id="results-container">
       <Search updateResults={(term) => this.searchFilter(term)}/>
+      {this.state.filteringTag ? <FilteringTag filteringTag={this.state.filteringTag} handleClick={this.handleChildrenClick}{...this.props}/> : ""}
       {
 				this.state.filteredIdeas.map( (idea, index) => (
-          idea.isPublic &&
+					idea.isPublic &&
           <IdeaItem key={index} loggedUser={this.props.loggedUser} {...idea} isMine={false} />
 				))
 			}
@@ -95,4 +96,4 @@ class Home extends Component {
   )}
 }
 
-export default Home
+export default searchResults
