@@ -62,7 +62,8 @@ class UpvoteDownvote extends Component {
         downvotes: this.state.downvotes - 1, 
         upvotedUsers: [...this.state.upvotedUsers, this.state.loggedUser._id], 
 				downvotedUsers: this.state.downvotedUsers.filter(id => id !== this.state.loggedUser._id),
-				hasUpvoted: false,
+				hasUpvoted: true,
+				hasDownvoted: false,
     }, this.upvoteOne);
     }
   };
@@ -82,7 +83,14 @@ class UpvoteDownvote extends Component {
 				hasDownvoted: false
       }, this.downvoteOne);
     } else if (!this.state.hasDownvoted && this.state.hasUpvoted) {
-      //
+      this.setState({ 
+        downvotes: this.state.downvotes + 1, 
+        upvotes: this.state.upvotes - 1,
+        downvotedUsers: [...this.state.downvotedUsers, this.state.loggedUser._id],
+        upvotedUsers: this.state.upvotedUsers.filter(id => id !== this.state.loggedUser._id),
+				hasDownvoted: true,
+				hasUpvoted: false,
+    }, this.downvoteOne);
     }
   };
 
