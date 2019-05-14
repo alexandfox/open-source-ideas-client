@@ -4,6 +4,8 @@ import Moment from 'react-moment';
 import UpvoteDownvote from "../components/UpvoteDownvote";
 import { Link } from "react-router-dom";
 import Comments from "./../components/Comments"
+import UpvoteTest from "../components/UpvoteTest"
+
 
 class IdeaPage extends Component {
   constructor(props) {
@@ -14,25 +16,17 @@ class IdeaPage extends Component {
     };
   }
 
-  //This method is to print the idea on screen and will be recalled each time we'll update idea
-  printIdea = () => {
-    getOneIdea(this.state.ideaId)
-      .then(res => {
-        this.setState({
-          idea: res.data.idea,
-        });
-      })
-      .catch(err => {
-        console.log(err.response);
-      });
-  };
-
-  componentDidMount() {
-    this.printIdea();
+  async componentDidMount() {
+    var thisIdea = await getOneIdea(this.props.match.params.id)
+    thisIdea = thisIdea.data.idea
+    this.setState({
+      idea: thisIdea
+    })
   }
 
   render() {
     const { idea } = this.state;
+    console.log("state: ", this.state)
     return (
       <React.Fragment>
         <h1>{idea.title}</h1>
@@ -48,8 +42,8 @@ class IdeaPage extends Component {
         <p>{idea.description}</p>
 
         <h3>Votes</h3>
-        <UpvoteDownvote ideaId={this.state.ideaId} loggedUser={this.props.loggedUser} />
-
+        {/* <UpvoteDownvote ideaId={this.state.ideaId} loggedUser={this.props.loggedUser} /> */}
+        <UpvoteTest idea={idea} loggedUser={this.props.loggedUser} />
         <h3>Tags</h3>
 
         <p>{idea.tags && idea.tags.map((tag, index) => 

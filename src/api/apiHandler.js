@@ -21,6 +21,8 @@ export const getOneIdea = id => axios.get(`${APIURL}/idea/${id}`);
 
 export const updateOneIdea = (id, infos) => axios.put(`${APIURL}/idea/${id}`, infos);
 
+export const upvoteIdea = (id, infos) => axios.put(`${APIURL}/idea/upvote/${id}`, infos);
+
 export const deleteOneIdea = (id) => axios.delete(`${APIURL}/idea/${id}`);
 
 //GET COMMENTS METHODS--------------------------------------------------------------

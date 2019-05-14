@@ -12,6 +12,7 @@ class Home extends Component {
       allIdeas : [],
       filteredIdeas: [],
     }
+    console.log("props: ", props.history)
   }
   
   // GET ideas from API (database)
@@ -34,7 +35,7 @@ class Home extends Component {
   // SORT FUNCTIONS
   updateSort(sortMethod) {
     // ?tags=design
-    // this.context.router.push(`/search?sort=${sortMethod}`)
+    // window.history.pushState("", "", `/?sort=${sortMethod}`)
     var queryString = window.location.search;
     queryString ? queryString = queryString + `&sort=${sortMethod}` : queryString = `?sort=${sortMethod}`
 

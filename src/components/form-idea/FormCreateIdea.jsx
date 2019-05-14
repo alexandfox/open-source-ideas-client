@@ -18,6 +18,7 @@ class FormCreateIdea extends Component {
       tags: [],
       creator_name: props.loggedUser ? props.loggedUser.name : "",
       creator: props.loggedUser ? props.loggedUser._id : "",
+      upvotes: 1,
       upvotedUsers: props.loggedUser ? [props.loggedUser._id] : "",
       existingIdea: false,
       submit: false,
