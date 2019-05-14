@@ -38,7 +38,6 @@ class ideaItem extends Component {
           <Link className="listDraftLink" to={`/create-idea/${this.props._id}`}>{this.props.title}</Link>
           <div className="listIdeaDescription">{this.props.description}</div>
           <DraftEdit id={this.props._id} creator_name={this.props.creator && this.props.creator.name} sendToParent={(e) => this.sendToParent(e)} /> 
-          {console.log("this is a draft item.  this.props.isPublic: ", this.props.isPublic)}
         </div>
         : 
         <div className="publicItem">

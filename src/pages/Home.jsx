@@ -2,7 +2,7 @@ import React, {Component} from "react"
 import Search from "../components/SearchBar"
 // import {NavLink} from "react-router-dom"
 import IdeaItem from "../components/IdeaListItem"
-import { getAllIdeas } from "../api/apiHandler";
+import { getAllIdeas, getSortIdeas } from "../api/apiHandler";
 
 class Home extends Component {
   constructor(props) {
@@ -17,13 +17,20 @@ class Home extends Component {
   // GET ideas from API (database)
   componentDidMount() {
     const queryString = window.location.search;
+
     getAllIdeas(queryString || "")
       .then(res => {
         this.setState({ 
-          allIdeas: this.sort(res.data.ideas, "upvotes"),
-          sortedIdeas: this.sort(res.data.ideas, "upvotes"),
-          filteredIdeas: this.sort(res.data.ideas, "upvotes"), 
+          allIdeas: res.data.ideas,
+          sortedIdeas: res.data.ideas,
+          filteredIdeas: res.data.ideas, 
         });
+        // this.setState({ 
+        //   allIdeas: this.sort(res.data.ideas, "upvotes"),
+        //   sortedIdeas: this.sort(res.data.ideas, "upvotes"),
+        //   filteredIdeas: this.sort(res.data.ideas, "upvotes"), 
+        // });
+        console.log("get ideas res: ", res)
       })
       .catch(err => {
         console.log(err.response);

@@ -13,13 +13,15 @@ export const updateOneUser = (id, infos) => axios.put(`${APIURL}/user/${id}`, in
 
 export const getAllIdeas = queryString => axios.get(`${APIURL}/idea/${queryString}`);
 
+// export const getSortIdeas = () => axios.get(`${APIURL}/idea/filter`)
+
 export const createOneIdea = (infos) => axios.post(`${APIURL}/idea/`, infos);
 
 export const getOneIdea = id => axios.get(`${APIURL}/idea/${id}`);
 
 export const updateOneIdea = (id, infos) => axios.put(`${APIURL}/idea/${id}`, infos);
 
-export const deleteOneIdea = (id) => axios.delete(`${APIURL}/idea/${id}`)
+export const deleteOneIdea = (id) => axios.delete(`${APIURL}/idea/${id}`);
 
 //GET COMMENTS METHODS--------------------------------------------------------------
 
