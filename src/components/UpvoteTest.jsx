@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { upvoteIdea } from "../api/apiHandler";
+import { upvoteIdea, updateOneIdea } from "../api/apiHandler";
 
 class UpvoteDownvote extends Component {
   constructor(props){
@@ -18,8 +18,8 @@ class UpvoteDownvote extends Component {
 
   componentDidMount(){
     this.setState({
-			hasUpvoted: (this.props.loggedUser && this.checkIfAlreadyUpvoted(this.state.loggedUser._id, this.props.idea)),
-			hasDownvoted: (this.props.loggedUser && this.checkIfAlreadyDownvoted(this.state.loggedUser._id, this.props.idea))
+			hasUpvoted: (this.props.loggedUser && this.checkIfAlreadyUpvoted(this.props.loggedUser._id, this.props.idea)),
+			hasDownvoted: (this.props.loggedUser && this.checkIfAlreadyDownvoted(this.props.loggedUser._id, this.props.idea))
 		});
   }  
 
@@ -35,8 +35,12 @@ class UpvoteDownvote extends Component {
     return downvotedUsers.includes(userId)
   }
 
-  updateInDbAndRender = () => {
+  upvoteOne = () => {
     upvoteIdea(this.props.idea._id, this.state)
+  } 
+
+	downvoteOne = () => {
+    updateOneIdea(this.props.idea._id, this.state)
   } 
 
   handleUpvote = () => {
@@ -44,31 +48,41 @@ class UpvoteDownvote extends Component {
 			this.setState({ 
         upvotes: this.state.upvotes + 1, 
         upvotedUsers: [...this.state.upvotedUsers, this.state.loggedUser._id], 
-    	}, this.updateInDbAndRender);
+				hasUpvoted: true,
+    	}, this.upvoteOne);
     } else if (this.state.hasUpvoted && !this.state.hasDownvoted){
       this.setState({ 
         upvotes: this.state.upvotes - 1, 
         upvotedUsers: this.state.upvotedUsers.filter(id => id !== this.state.loggedUser._id), 
-      }, this.updateInDbAndRender);
+				hasUpvoted: false,
+      }, this.upvoteOne);
     } else if (!this.state.hasUpvoted && this.state.hasDownvoted){
-      // Add 1 to idea upvotes in state
-      // Subtract 1 from idea downvotes in state
-        
-				//Add user to current idea's upvotedUsers array in state
-        //Add idea to current user's upvotedIdeas array in state
-        
-				//Remove user from current idea's downvotedUsers array in state
-        //Remove idea from current user's downvotedIdeas array in state
+      this.setState({ 
+        upvotes: this.state.upvotes + 1, 
+        downvotes: this.state.downvotes - 1, 
+        upvotedUsers: [...this.state.upvotedUsers, this.state.loggedUser._id], 
+				downvotedUsers: this.state.downvotedUsers.filter(id => id !== this.state.loggedUser._id),
+				hasUpvoted: false,
+    }, this.upvoteOne);
     }
   };
 
   handleDownvote = () => {
     if(!this.state.hasDownvoted && !this.state.hasUpvoted) {
-		//
-    } else if (this.state.hasDownvoted) {
-		//
+      this.setState({ 
+        downvotes: this.state.downvotes + 1, 
+        downvotedUsers: [...this.state.downvotedUsers, 
+				this.state.loggedUser._id],
+				hasDownvoted: true,
+    }, this.downvoteOne);
+    } else if (this.state.hasDownvoted && !this.state.hasUpvoted) {
+      this.setState({ 
+        downvotes: this.state.downvotes - 1, 
+        downvotedUsers: this.state.downvotedUsers.filter(id => id !== this.state.loggedUser._id),
+				hasDownvoted: false
+      }, this.downvoteOne);
     } else if (!this.state.hasDownvoted && this.state.hasUpvoted) {
-		//
+      //
     }
   };
 
