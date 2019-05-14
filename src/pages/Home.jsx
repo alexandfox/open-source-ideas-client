@@ -35,7 +35,9 @@ class Home extends Component {
   updateSort(sortMethod) {
     // ?tags=design
     // this.context.router.push(`/search?sort=${sortMethod}`)
-    const queryString = `?sort=${sortMethod}`;
+    var queryString = window.location.search;
+    queryString ? queryString = queryString + `&sort=${sortMethod}` : queryString = `?sort=${sortMethod}`
+
     getAllIdeas(queryString || "")
       .then(res => {
         this.setState({ 

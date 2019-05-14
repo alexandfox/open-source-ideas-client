@@ -3,6 +3,7 @@ import Search from "../components/SearchBar"
 import IdeaItem from "../components/IdeaListItem"
 import { getAllIdeas } from "../api/apiHandler"
 import FilteringTag from "../components/FilteringTag"
+import FilterSort from "../components/SortFilter";
 
 // PROPS:
 // should accept "all ideas" from parent
@@ -22,13 +23,32 @@ class searchResults extends Component {
   // GET ideas from API (database)
   componentDidMount() {
     const queryString = window.location.search;
-    console.log("query string: ", queryString)
+    // console.log("query string: ", queryString)
     getAllIdeas(queryString || "")
       .then(res => {
         this.setState({ 
           allIdeas: res.data.ideas,
           filteredIdeas: res.data.ideas }, 
         );
+      })
+      .catch(err => {
+        console.log(err.response);
+      });
+  }
+
+  updateSort(sortMethod) {
+    // ?tags=design
+    // this.context.router.push(`/search?sort=${sortMethod}`)
+    var queryString = window.location.search;
+    queryString ? queryString = queryString + `&sort=${sortMethod}` : queryString = `?sort=${sortMethod}`
+
+    getAllIdeas(queryString || "")
+      .then(res => {
+        this.setState({ 
+          allIdeas: res.data.ideas,
+          filteredIdeas: res.data.ideas, 
+        });
+        // console.log("get ideas res: ", res)
       })
       .catch(err => {
         console.log(err.response);
@@ -86,6 +106,7 @@ class searchResults extends Component {
     return (
     <div id="results-container">
       <Search updateResults={(term) => this.searchFilter(term)}/>
+      <FilterSort updateSort={(sort) => this.updateSort(sort)} />
       {this.state.filteringTag ? <FilteringTag filteringTag={this.state.filteringTag} handleClick={this.handleChildrenClick}{...this.props}/> : ""}
       {
 				this.state.filteredIdeas.map( (idea, index) => (
