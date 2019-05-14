@@ -2,14 +2,14 @@ import React, {Component} from "react"
 import Search from "../components/SearchBar"
 // import {NavLink} from "react-router-dom"
 import IdeaItem from "../components/IdeaListItem"
-import { getAllIdeas, getSortIdeas } from "../api/apiHandler";
+import { getAllIdeas } from "../api/apiHandler";
+import FilterSort from "../components/SortFilter"
 
 class Home extends Component {
   constructor(props) {
     super(props)
     this.state = {
       allIdeas : [],
-      sortedIdeas: [],
       filteredIdeas: [],
     }
   }
@@ -22,37 +22,19 @@ class Home extends Component {
       .then(res => {
         this.setState({ 
           allIdeas: res.data.ideas,
-          sortedIdeas: res.data.ideas,
           filteredIdeas: res.data.ideas, 
         });
-        // this.setState({ 
-        //   allIdeas: this.sort(res.data.ideas, "upvotes"),
-        //   sortedIdeas: this.sort(res.data.ideas, "upvotes"),
-        //   filteredIdeas: this.sort(res.data.ideas, "upvotes"), 
-        // });
-        console.log("get ideas res: ", res)
+        // console.log("get ideas res: ", res)
       })
       .catch(err => {
         console.log(err.response);
       });
   }
 
-  // SORT --> currently either for TRENDING (upvotes), or NEWEST (createdAt)
-  compare(a, b, property) {
-		var A = a[property];
-		var B = b[property];
-
-		if (A > B) return -1;
-		else if (A === B) return 0;
-		else return 1;
-	}
-
-	sort = ( array, property ) => {
-		const sortedContacts = [...array]
-		sortedContacts.sort( (a,b) => this.compare(a, b, property))
-		return sortedContacts
-	}
-
+  // SORT FUNCTIONS
+  updateSort(sortMethod) {
+    console.log("here i am in the parent sort")
+  }
 
   // SEARCH FUNCTIONS
   exactMatch(string, object) {
@@ -92,6 +74,7 @@ class Home extends Component {
     <div id="home-container">
       <h1>Hello this is the home</h1>
       <Search updateResults={(term) => this.searchFilter(term)}/>
+      <FilterSort updateSort={(sort) => this.updateSort(sort)} />
       {
 				this.state.filteredIdeas.map( (idea, index) => (
           idea.isPublic &&
