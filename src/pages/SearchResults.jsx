@@ -22,6 +22,7 @@ class searchResults extends Component {
   // GET ideas from API (database)
   componentDidMount() {
     const queryString = window.location.search;
+    console.log("query string: ", queryString)
     getAllIdeas(queryString || "")
       .then(res => {
         this.setState({ 

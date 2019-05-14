@@ -3,7 +3,7 @@ import Search from "../components/SearchBar"
 // import {NavLink} from "react-router-dom"
 import IdeaItem from "../components/IdeaListItem"
 import { getAllIdeas } from "../api/apiHandler";
-import FilterSort from "../components/SortFilter"
+import FilterSort from "../components/SortFilter";
 
 class Home extends Component {
   constructor(props) {
@@ -33,7 +33,20 @@ class Home extends Component {
 
   // SORT FUNCTIONS
   updateSort(sortMethod) {
-    console.log("here i am in the parent sort")
+    // ?tags=design
+    // this.context.router.push(`/search?sort=${sortMethod}`)
+    const queryString = `?sort=${sortMethod}`;
+    getAllIdeas(queryString || "")
+      .then(res => {
+        this.setState({ 
+          allIdeas: res.data.ideas,
+          filteredIdeas: res.data.ideas, 
+        });
+        // console.log("get ideas res: ", res)
+      })
+      .catch(err => {
+        console.log(err.response);
+      });
   }
 
   // SEARCH FUNCTIONS
@@ -69,7 +82,7 @@ class Home extends Component {
 
   // RENDER
   render() {
-    // console.log("state: ", this.state)
+    console.log("state: ", this.state)
     return (
     <div id="home-container">
       <h1>Hello this is the home</h1>
