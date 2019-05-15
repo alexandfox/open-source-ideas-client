@@ -11,8 +11,9 @@ class Home extends Component {
     this.state = {
       allIdeas : [],
       filteredIdeas: [],
+      logout: false,
     }
-    // console.log("props: ", props.history)
+    console.log("home props: ", props)
   }
   
   // GET ideas from API (database)
@@ -31,6 +32,14 @@ class Home extends Component {
         console.log(err.response);
       });
   }
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (this.props.location.logout === true && this.state.logout === false) {
+  //     this.setState({
+  //       logout : true,
+  //     })
+  //   }
+  // }
 
   // SORT FUNCTIONS
   updateSort(sortMethod) {

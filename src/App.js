@@ -49,7 +49,6 @@ class App extends Component {
   }
 
   getUser = (userObj) => {
-    console.log("are u passing here ?")
     this.setState({
       loggedIn: this.state.loggedIn ? false : true,
       loggedUser: userObj,

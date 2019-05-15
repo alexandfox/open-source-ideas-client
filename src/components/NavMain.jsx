@@ -28,12 +28,12 @@ class NavMain extends Component {
   // }
 
   logoutUser = () =>{
+    this.activeBurger();
     this.service.logout()
     .then(() => {
       // this.setState({ loggedInUser: null });
       this.props.getUser(null);  
-      this.activeBurger();
-    })
+    }, this.props.history.push(`/`))
   }
 
   render(){
@@ -52,7 +52,10 @@ class NavMain extends Component {
           {!this.props.loggedIn && <NavLink className="navLinkExpanded" onClick={this.activeBurger} activeClassName="is-active" to="/login" exact>Login</NavLink>}
           <NavLink className="navLinkExpanded" onClick={this.activeBurger} to="/create-idea" >Share an Idea</NavLink>
           {this.props.loggedIn && <NavLink className="navLinkExpanded" onClick={this.activeBurger} activeClassName="is-active" to={`/@${this.props.loggedUser.name}`} exact>Profile</NavLink>}
-          {this.props.loggedIn && <NavLink className="navLinkExpanded" onClick={this.logoutUser} activeClassName="is-active" to="/" exact>Logout</NavLink>}
+          {this.props.loggedIn && <NavLink className="navLinkExpanded" onClick={this.logoutUser} activeClassName="is-active" to={{
+            pathname : "/",
+            logout : true,}} 
+            exact>Logout</NavLink>}
       </div>
       </React.Fragment>
     )
