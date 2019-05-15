@@ -14,6 +14,11 @@ import SearchResults from "./pages/SearchResults"
 import EditProfile from "./pages/EditProfile"
 import Page404 from "./pages/Page404"
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faPoo, faHeart } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faPoo, faHeart)
+
 class App extends Component {
   constructor(props) {
     super(props)

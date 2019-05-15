@@ -116,7 +116,7 @@ class Home extends Component {
         }
 
         {this.state.isMyProfile && 
-          <button className="buttonEdit" onClick={this.editProfile}>Edit Profile</button>
+          <button className="button secondary" onClick={this.editProfile}>Edit Profile</button>
         }
         {!this.state.isMyProfile && <p>this is not my profile</p>}
 			</div>

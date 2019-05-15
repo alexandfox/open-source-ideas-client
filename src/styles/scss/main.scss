@@ -1,10 +1,17 @@
 @import './_reset';
 @import './form';
+@import './nav';
 @import './tags';
+@import '../css/_fonts/fonts.css';
+@import './colors';
+@import './buttons';
+@import './upvotedownvote';
 
 .App {
   text-align: center;
+  font-family: 'Plain';
 }
+
 
 .App-header {
   background-color: #282c34;
@@ -19,14 +26,6 @@
 
 .App-link {
   color: #61dafb;
-}
-
-#main-nav {
-  margin: 50px;
-}
-
-.navLink {
-  padding: 0 20px;
 }
 
 .ideaItem {

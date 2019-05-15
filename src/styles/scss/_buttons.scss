@@ -1,0 +1,40 @@
+@import './colors';
+
+.button {
+  font-family: 'Plain';
+  font-weight: 500;
+  font-size: 0.85rem;
+  border: 0;
+  border-bottom: 0.2rem solid rgba(0,0,0,0.2);
+  filter: drop-shadow(0rem 0.1rem 0.15rem rgba(0,0,0,0.1));
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  transition: all 150ms ease-in;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.button:focus {
+  outline: none;
+}
+
+.button.primary {
+  color: $pureWhite;
+  background: $ultraViolet;
+}
+
+.button.primary:hover {
+  background: $darkUltraViolet;
+}
+
+.button.secondary {
+  color: $lightBlack;
+  background: $lightGrey;
+}
+
+.button.secondary:hover {
+  background: $lightGreyDarked;
+}
+

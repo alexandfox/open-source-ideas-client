@@ -144,8 +144,8 @@ class FormCreateIdea extends Component {
         />
         <AddCategories sendCatToParent={this.handleInput} category={this.state.category} {...this.props} />
         <AddTags sendDataToParent={this.handleTags} tags={this.state.tags} />
-        <Button button_name="Save" onClick={this.handleSave} />
-        <Button button_name="Submit" onClick={this.handleSubmit} />
+        <Button className="button secondary" button_name="Save draft" onClick={this.handleSave} />
+        <Button className="button primary" button_name="Publish" onClick={this.handleSubmit} />
         <div>{this.state.title}</div>
         <div>{this.state.description}</div>
       </form>

@@ -1,5 +1,56 @@
+@charset "UTF-8";
+@import url(../css/_fonts/fonts.css);
 ul, li {
   list-style-type: none; }
+
+a {
+  text-decoration: none;
+  color: inherit; }
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0; }
+
+/* General style */
+/* Comment form style */
+[contenteditable="true"]:focus {
+  border: none;
+  outline: none; }
+
+#form_add_comments {
+  width: 500px;
+  margin: 0 auto; }
+  #form_add_comments .comments-placeholder-wrapper {
+    position: relative; }
+    #form_add_comments .comments-placeholder-wrapper .comments-placeholder {
+      position: absolute;
+      color: lightslategray;
+      top: 8px;
+      left: 10px; }
+  #form_add_comments .input-comment-wrapper {
+    padding: 8px;
+    border: 1px solid grey; }
+    #form_add_comments .input-comment-wrapper .input-comment {
+      text-align: left; }
+
+.comments-placeholder-wrapper.display-none {
+  display: none; }
+
+.mainNav {
+  background-color: #7F63FF;
+  color: #ffffff;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1.5px solid #684ce2; }
+
+.navLink {
+  padding: 0 10px;
+  height: 1.5rem; }
+
+.navLink.home {
+  font-weight: bold; }
 
 .tags-big-wrapper {
   margin: 20px 0 20px 0;
@@ -35,8 +86,51 @@ ul, li {
       padding: 2px;
       min-width: 2px; }
 
+.button {
+  font-family: 'Plain';
+  font-weight: 500;
+  font-size: 0.85rem;
+  border: 0;
+  border-bottom: 0.2rem solid rgba(0, 0, 0, 0.2);
+  filter: drop-shadow(0rem 0.1rem 0.15rem rgba(0, 0, 0, 0.1));
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  transition: all 150ms ease-in; }
+
+.button:hover {
+  cursor: pointer; }
+
+.button:focus {
+  outline: none; }
+
+.button.primary {
+  color: #ffffff;
+  background: #7F63FF; }
+
+.button.primary:hover {
+  background: #684ce2; }
+
+.button.secondary {
+  color: #272728;
+  background: #F8F9FA; }
+
+.button.secondary:hover {
+  background: #ededee; }
+
+.upvoteDownvoteWrapper {
+  display: flex;
+  flex-direction: column;
+  color: red; }
+
+.upvoteComponent  {
+  color: red; }
+
+.downvoteComponent {
+  border-radius: 0.25rem; }
+
 .App {
-  text-align: center; }
+  text-align: center;
+  font-family: 'Plain'; }
 
 .App-header {
   background-color: #282c34;
@@ -51,11 +145,8 @@ ul, li {
 .App-link {
   color: #61dafb; }
 
-#main-nav {
-  margin: 50px; }
-
-.navLink {
-  padding: 0 20px; }
-
 .ideaItem {
   margin: 20px; }
+
+#upload-profile {
+  width: 150px; }
