@@ -12,6 +12,7 @@ import IdeaPage from "./pages/IdeaPage"
 import UserProfile from "./pages/UserProfile"
 import SearchResults from "./pages/SearchResults"
 import EditProfile from "./pages/EditProfile"
+import ProfileArchives from "./pages/ProfileArchives"
 import Page404 from "./pages/Page404"
 
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -24,31 +25,17 @@ class App extends Component {
     super(props)
     this.state = {
       loggedIn: false,
-      loggedUser: null
+      loggedUser: null,
+      archivedIdeas: []
     };
     this.service = new AuthService();
   }
 
-  // fetchUser(){
-  //   if( this.state.loggedUser === null ){
-  //     this.service.loggedin()
-  //     .then(response =>{
-  //       this.setState({
-  //         loggedUser:  response
-  //       }) 
-  //     })
-  //     .catch( err =>{
-  //       this.setState({
-  //         loggedUser:  false
-  //       }) 
-  //     })
-  //   }
-  // }
-
   getUser = (userObj) => {
     this.setState({
       loggedIn: true,
-      loggedUser: userObj
+      loggedUser: userObj,
+      archivedIdeas: userObj.myIdeas.filter(idea => idea.isArchived)
     }, () => {
       console.log("User is logged in! state: ", this.state)
     })
@@ -68,6 +55,7 @@ class App extends Component {
             
             <Route exact path="/@:name" render={(props) => <UserProfile loggedUser={this.state.loggedUser} {...props} />} />
             <Route exact path="/@:name/edit" render={(props) => <EditProfile loggedUser={this.state.loggedUser} {...props} />} />
+            <Route exact path="/@:name/archive" render={(props) => <ProfileArchives loggedUser={this.state.loggedUser} {...props} />} />
 
             <Route exact path="/create-idea/" render={(props) => (this.state.loggedIn ? (<CreateIdea loggedUser={this.state.loggedUser} {...props} />) : (<Login getUser={this.getUser} />))} />
             <Route exact path="/create-idea" render={(props) => <CreateIdea loggedUser={this.state.loggedUser} {...props} />} />

@@ -1,9 +1,8 @@
-
 import React, {Component} from "react"
 import DraftEdit from "./DraftEdit"
-import UpvoteDownvote from "../components/UpvoteDownvote";
 import { Link } from "react-router-dom";
 import UpvoteTest from "../components/UpvoteTest"
+import SharedOptions from "../components/myIdeaOptions"
 
 // accepts props:
 // {...idea} --> directly reference any keys on "idea"
@@ -49,8 +48,8 @@ class ideaItem extends Component {
           {/* <UpvoteDownvote ideaId={this.props._id} loggedUser={this.props.loggedUser} /> */}
           {/* <UpvoteTest id={this.props._id} loggedUser={this.props.loggedUser} /> */}
           <UpvoteTest idea={idea} loggedUser={this.props.loggedUser} />
-        </div>
-        }
+          <SharedOptions id={this.props._id} sendToParent={(e) => this.sendToParent(e)}/>
+        </div>}
       </div>
     )
   }

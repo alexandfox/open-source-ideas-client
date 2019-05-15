@@ -7,6 +7,7 @@ class UpvoteDownvote extends Component {
     super(props)
     this.state = {
       loggedUser: props.loggedUser,
+      idea: props.idea,
 			upvotes: props.idea.upvotes,
 			downvotes: props.idea.downvotes,
       hasUpvoted: false,
@@ -14,7 +15,21 @@ class UpvoteDownvote extends Component {
       upvotedUsers: props.idea.upvotedUsers,
       downvotedUsers: props.idea.downvotedUsers,
     }
-		console.log("props: ", props)
+		// console.log("props: ", props)
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.idea !== prevProps.idea) {
+      this.setState({
+        idea: this.props.idea,
+        upvotes: this.props.idea.upvotes,
+			  downvotes: this.props.idea.downvotes,
+        upvotedUsers: this.props.idea.upvotedUsers,
+        downvotedUsers: this.props.idea.downvotedUsers,
+        hasUpvoted: (this.props.loggedUser && this.checkIfAlreadyUpvoted(this.props.loggedUser._id, this.props.idea)),
+			  hasDownvoted: (this.props.loggedUser && this.checkIfAlreadyDownvoted(this.props.loggedUser._id, this.props.idea))
+      })
+    }
   }
 
   componentDidMount(){
