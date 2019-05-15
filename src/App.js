@@ -45,7 +45,7 @@ class App extends Component {
     return (
       <div className="App">
         <NavMain {...this.state} />
-        <main>
+        <main id="main">
           <Switch>
             <Route exact path="/" render={(props) => <Home loggedUser={this.state.loggedUser} {...props} />} />
             <Route path="/search" render={(props) => <SearchResults loggedUser={this.state.loggedUser} {...props} />} />
