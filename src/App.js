@@ -31,17 +31,32 @@ class App extends Component {
     this.service = new AuthService();
   }
 
+  fetchUser = () => {
+    // if( this.state.loggedUser === null ){
+      this.service.loggedin()
+      .then(response =>{
+        this.setState({
+          loggedUser:  response
+        }, console.log("fetched user: ", response)) 
+      })
+      .catch( err =>{
+        this.setState({
+          loggedUser:  false
+        }, console.log("fetch user failed")) 
+      })
+    // }
+    console.log("fetch called.")
+  }
+
   getUser = (userObj) => {
     this.setState({
       loggedIn: true,
       loggedUser: userObj,
-      archivedIdeas: userObj.myIdeas.filter(idea => idea.isArchived)
-    }, () => {
-      console.log("User is logged in! state: ", this.state)
     })
   }
 
   render() {
+    // this.fetchUser()
     return (
       <div className="App">
         <NavMain {...this.state} />
@@ -57,8 +72,8 @@ class App extends Component {
             <Route exact path="/@:name/edit" render={(props) => <EditProfile loggedUser={this.state.loggedUser} {...props} />} />
             <Route exact path="/@:name/archive" render={(props) => <ProfileArchives loggedUser={this.state.loggedUser} {...props} />} />
 
-            <Route exact path="/create-idea/" render={(props) => (this.state.loggedIn ? (<CreateIdea loggedUser={this.state.loggedUser} {...props} />) : (<Login getUser={this.getUser} />))} />
-            <Route exact path="/create-idea" render={(props) => <CreateIdea loggedUser={this.state.loggedUser} {...props} />} />
+            <Route exact path="/create-idea/" render={(props) => (this.state.loggedIn ? (<CreateIdea loggedUser={this.state.loggedUser} {...props} updateApp={() => this.fetchUser} />) : (<Login getUser={this.getUser} />))} />
+
             <Route exact path="/create-idea/:id" render={(props) => <CreateIdea loggedUser={this.state.loggedUser} {...props} />} />
             <Route exact path="/idea/:id" render={(props) => <IdeaPage loggedUser={this.state.loggedUser} {...props} />} />
             <Route path="/*" render={() => <Page404 loggedUser={this.state.loggedUser} />} />

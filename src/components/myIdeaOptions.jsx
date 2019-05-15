@@ -1,6 +1,5 @@
 import React, {Component} from "react"
 import {deleteOneIdea, updateOneIdea} from "../api/apiHandler";
-import {Redirect} from "react-router-dom";
 
 // this component will render a dropdown option
 // ARCHIVE --> idea is removed from public (user can access in archives)
