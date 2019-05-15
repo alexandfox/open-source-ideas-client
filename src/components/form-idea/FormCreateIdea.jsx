@@ -90,7 +90,7 @@ class FormCreateIdea extends Component {
 
   handleSubmit = (evt) => {
     evt.preventDefault();
-    const { title, description, category, tags } = this.state;
+    // const { title, description, category, tags } = this.state;
     // if (!title || !description || !category || !tags.length) {
     //   return console.log("nope")
     // }
