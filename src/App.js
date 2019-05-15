@@ -25,7 +25,8 @@ class App extends Component {
     super(props)
     this.state = {
       loggedIn: false,
-      loggedUser: null
+      loggedUser: null,
+      archivedIdeas: []
     };
     this.service = new AuthService();
   }
@@ -33,7 +34,8 @@ class App extends Component {
   getUser = (userObj) => {
     this.setState({
       loggedIn: true,
-      loggedUser: userObj
+      loggedUser: userObj,
+      archivedIdeas: userObj.myIdeas.filter(idea => idea.isArchived)
     }, () => {
       console.log("User is logged in! state: ", this.state)
     })

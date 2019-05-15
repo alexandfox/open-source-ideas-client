@@ -10,6 +10,7 @@ class Home extends Component {
     this.state = {
       redirect: false,
       edit: false,
+      archives: false,
       user_name: this.props.match.params.name,
       user_page: {},
 			current_user: this.setLoggedUser(),
@@ -18,6 +19,7 @@ class Home extends Component {
       myIdeas: [],
       draft_ideas: [],
       public_ideas: [],
+      archived_ideas: [],
     }
   }
   // see if current user (browsing) is the user 
@@ -61,6 +63,14 @@ class Home extends Component {
     // return <Redirect to={`/@${this.props.loggedUser.name}/edit`}/>
   }
 
+  goToArchives = (e) => {
+    e.preventDefault();
+    this.setState({
+      redirect: true,
+      archives: true,
+    })
+  }
+
   async componentDidMount() {
     var user_page = await getUserByName(this.state.user_name)
     user_page = user_page.data
@@ -77,7 +87,8 @@ class Home extends Component {
       upvoted_ideas : upvoted_ideas,
       myIdeas : myIdeas,
       draft_ideas : myIdeas.filter( idea => !idea.isPublic ),
-      public_ideas : myIdeas.filter( idea => (idea.isPublic && !idea.isArchived) ),
+      public_ideas : myIdeas.filter( idea => (idea.isPublic && !idea.isArchived)),
+      archived_ideas : myIdeas.filter(idea => idea.isArchived),
     })
   }
 
@@ -98,6 +109,8 @@ class Home extends Component {
     var page = this.state.user_page
 
     if (this.state.redirect && this.state.edit) {return <Redirect to={`/@${this.props.loggedUser.name}/edit`}/>}
+
+    if (this.state.redirect && this.state.archives) {return <Redirect to={`/@${this.props.loggedUser.name}/archive`} />}
 
     return (
     <div id="private-profile-container">
@@ -162,7 +175,7 @@ class Home extends Component {
         : <p>no upvoted ideas yet... browse some!</p>
       }
 
-      {this.props.loggedUser && <Link to={`/@${this.props.loggedUser.name}/archive`}>Archived Ideas</Link>}
+      {this.state.isMyProfile && <button className="button secondary" onClick={this.goToArchives}>View Archived Ideas</button>}
     </div>
   )}
 }

@@ -7,7 +7,7 @@ import { arch } from "os";
 
 function myArchives(props) {
 	console.log("props: ", props)
-	var archivedIdeas = 
+	var archivedIdeas = props.loggedUser.myIdeas.filter(idea => idea.isArchived)
 
 	console.log("archived ideas: ", archivedIdeas)
 	return(
