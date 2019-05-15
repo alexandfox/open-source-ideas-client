@@ -53,7 +53,15 @@ class UpvoteDownvote extends Component {
   }
 
   updateInDbAndRender = () => {
-    updateOneUser(this.state.user._id, this.state) //Update User in db with new values from state
+    updateOneUser(this.state.user._id, this.state)
+    .then(res => {
+        this.printIdea(); 
+      })
+      .catch(err => {
+        console.log(err.response);
+      });
+    
+     //Update User in db with new values from state
     updateOneIdea(this.state.ideaId, this.state) //Update Idea in db with new values from state
       .then(res => {
         this.printIdea(); // Rerender idea
@@ -69,13 +77,13 @@ class UpvoteDownvote extends Component {
         upvotes: this.state.upvotes + 1, // Add 1 to idea upvotes in state
         upvotedUsers: [...this.state.upvotedUsers, this.state.user._id], //Add user to current idea's upvotedUsers array in state
         upvotedIdeas: [...this.state.upvotedIdeas, this.state.ideaId], //Add idea to current user's upvotedIdeas array in state
-    }, () => this.updateInDbAndRender);
+    }, this.updateInDbAndRender);
     } else if (this.state.hasUpvoted && !this.state.hasDownvoted){
       this.setState({ 
         upvotes: this.state.upvotes - 1, // Subtract 1 to idea upvotes in state
         upvotedUsers: this.state.upvotedUsers.filter(id => id !== this.state.user._id), //Remove user from current idea's upvotedUsers array in state
         upvotedIdeas: this.state.upvotedIdeas.filter(id => id !== this.state.ideaId), //Remove idea from current user's upvotedIdeas array in state
-      }, () => this.updateInDbAndRender);
+      }, this.updateInDbAndRender);
     } else if (!this.state.hasUpvoted && this.state.hasDownvoted){
       this.setState({ 
         upvotes: this.state.upvotes + 1, // Add 1 to idea upvotes in state
@@ -84,7 +92,7 @@ class UpvoteDownvote extends Component {
         upvotedIdeas: [...this.state.upvotedIdeas, this.state.ideaId], //Add idea to current user's upvotedIdeas array in state
         downvotedUsers: this.state.downvotedUsers.filter(id => id !== this.state.user._id), //Remove user from current idea's downvotedUsers array in state
         downvotedIdeas: this.state.downvotedIdeas.filter(id => id !== this.state.ideaId), //Remove idea from current user's downvotedIdeas array in state
-    }, () => this.updateInDbAndRender);
+    }, this.updateInDbAndRender);
     }
   };
 
@@ -94,13 +102,13 @@ class UpvoteDownvote extends Component {
         downvotes: this.state.downvotes + 1, // Add 1 to idea downvotes in state
         downvotedUsers: [...this.state.downvotedUsers, this.state.user._id], //Add user to current idea's downvotedUsers array in state
         downvotedIdeas: [...this.state.downvotedIdeas, this.state.ideaId], //Add idea to current user's downvotedIdeas array in state
-    }, () => this.updateInDbAndRender);
+    }, this.updateInDbAndRender);
     } else if (this.state.hasDownvoted && !this.state.hasUpvoted) {
       this.setState({ 
         downvotes: this.state.downvotes - 1, // Subtract 1 to idea downvotes in state
         downvotedUsers: this.state.downvotedUsers.filter(id => id !== this.state.user._id), //Remove user from current idea's downvotedUsers array in state
         downvotedIdeas: this.state.downvotedIdeas.filter(id => id !== this.state.ideaId), //Remove idea from current user's downvotedIdeas array in state
-      }, () => this.updateInDbAndRender);
+      }, this.updateInDbAndRender);
     } else if (!this.state.hasDownvoted && this.state.hasUpvoted) {
       this.setState({ 
         downvotes: this.state.downvotes + 1, // Add 1 to idea downvotes in state
@@ -109,7 +117,7 @@ class UpvoteDownvote extends Component {
         downvotedIdeas: [...this.state.downvotedIdeas, this.state.ideaId], //Add idea to current user's downvotedIdeas array in state
         upvotedUsers: this.state.upvotedUsers.filter(id => id !== this.state.user._id), //Remove user from current idea's upvotedUsers array in state
         upvotedIdeas: this.state.upvotedIdeas.filter(id => id !== this.state.ideaId), //Remove idea from current user's upvotedIdeas array in state
-    }, () => this.updateInDbAndRender);
+    }, this.updateInDbAndRender);
     }
   };
 
@@ -135,3 +143,4 @@ class UpvoteDownvote extends Component {
 }
 
 export default UpvoteDownvote;
+

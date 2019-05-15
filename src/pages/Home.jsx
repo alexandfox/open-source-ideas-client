@@ -3,49 +3,54 @@ import Search from "../components/SearchBar"
 // import {NavLink} from "react-router-dom"
 import IdeaItem from "../components/IdeaListItem"
 import { getAllIdeas } from "../api/apiHandler";
+import FilterSort from "../components/SortFilter";
 
 class Home extends Component {
   constructor(props) {
     super(props)
     this.state = {
       allIdeas : [],
-      sortedIdeas: [],
       filteredIdeas: [],
     }
+    console.log("props: ", props.history)
   }
   
   // GET ideas from API (database)
   componentDidMount() {
     const queryString = window.location.search;
+
     getAllIdeas(queryString || "")
       .then(res => {
         this.setState({ 
-          allIdeas: this.sort(res.data.ideas, "upvotes"),
-          sortedIdeas: this.sort(res.data.ideas, "upvotes"),
-          filteredIdeas: this.sort(res.data.ideas, "upvotes"), 
+          allIdeas: res.data.ideas,
+          filteredIdeas: res.data.ideas, 
         });
+        // console.log("get ideas res: ", res)
       })
       .catch(err => {
         console.log(err.response);
       });
   }
 
-  // SORT --> currently either for TRENDING (upvotes), or NEWEST (createdAt)
-  compare(a, b, property) {
-		var A = a[property];
-		var B = b[property];
+  // SORT FUNCTIONS
+  updateSort(sortMethod) {
+    // ?tags=design
+    // window.history.pushState("", "", `/?sort=${sortMethod}`)
+    var queryString = window.location.search;
+    queryString ? queryString = queryString + `&sort=${sortMethod}` : queryString = `?sort=${sortMethod}`
 
-		if (A > B) return -1;
-		else if (A === B) return 0;
-		else return 1;
-	}
-
-	sort = ( array, property ) => {
-		const sortedContacts = [...array]
-		sortedContacts.sort( (a,b) => this.compare(a, b, property))
-		return sortedContacts
-	}
-
+    getAllIdeas(queryString || "")
+      .then(res => {
+        this.setState({ 
+          allIdeas: res.data.ideas,
+          filteredIdeas: res.data.ideas, 
+        });
+        // console.log("get ideas res: ", res)
+      })
+      .catch(err => {
+        console.log(err.response);
+      });
+  }
 
   // SEARCH FUNCTIONS
   exactMatch(string, object) {
@@ -80,11 +85,12 @@ class Home extends Component {
 
   // RENDER
   render() {
-    // console.log("state: ", this.state)
+    console.log("state: ", this.state)
     return (
     <div id="home-container">
       <h1>Hello this is the home</h1>
       <Search updateResults={(term) => this.searchFilter(term)}/>
+      <FilterSort updateSort={(sort) => this.updateSort(sort)} />
       {
 				this.state.filteredIdeas.map( (idea, index) => (
           idea.isPublic &&

@@ -93,7 +93,7 @@ class Home extends Component {
   }
 
   render() {
-    console.log("user profile state: ", this.state)
+    // console.log("user profile state: ", this.state)
     var page = this.state.user_page
 
     if (this.state.redirect && this.state.edit) {return <Redirect to={`/@${this.props.loggedUser.name}/edit`}/>}

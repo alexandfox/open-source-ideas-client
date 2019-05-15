@@ -3,6 +3,7 @@ import React, {Component} from "react"
 import DraftEdit from "./DraftEdit"
 import UpvoteDownvote from "../components/UpvoteDownvote";
 import { Link } from "react-router-dom";
+import UpvoteTest from "../components/UpvoteTest"
 
 // accepts props:
 // {...idea} --> directly reference any keys on "idea"
@@ -30,6 +31,7 @@ class ideaItem extends Component {
   }
   
   render() {
+    var idea = {...this.props}
     return (
       <div className="ideaItem">
         {/* MY DRAFTS */}
@@ -38,14 +40,15 @@ class ideaItem extends Component {
           <Link className="listDraftLink" to={`/create-idea/${this.props._id}`}>{this.props.title}</Link>
           <div className="listIdeaDescription">{this.props.description}</div>
           <DraftEdit id={this.props._id} creator_name={this.props.creator && this.props.creator.name} sendToParent={(e) => this.sendToParent(e)} /> 
-          {console.log("this is a draft item.  this.props.isPublic: ", this.props.isPublic)}
         </div>
         : 
         <div className="publicItem">
           <Link className="listTitleLink" to={`/idea/${this.props._id}`}>{this.props.title}</Link>
           <div className="listIdeaDescription">{this.props.description}</div>
           <p className="ideaCreator">Creator: <Link className="listPublicLink" to={`/@${this.props.creator && this.props.creator.name}`}>{this.props.creator && this.props.creator.name}</Link></p>
-          <UpvoteDownvote ideaId={this.props._id} loggedUser={this.props.loggedUser} />
+          {/* <UpvoteDownvote ideaId={this.props._id} loggedUser={this.props.loggedUser} /> */}
+          {/* <UpvoteTest id={this.props._id} loggedUser={this.props.loggedUser} /> */}
+          <UpvoteTest idea={idea} loggedUser={this.props.loggedUser} />
         </div>
         }
       </div>
