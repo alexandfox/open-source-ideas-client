@@ -22,6 +22,7 @@ class FormCreateIdea extends Component {
       upvotedUsers: props.loggedUser ? [props.loggedUser._id] : "",
       existingIdea: false,
       submit: false,
+      passUser: null,
     }
     console.log("form idea props: ", props)
   }
@@ -79,6 +80,8 @@ class FormCreateIdea extends Component {
     createOneIdea({...this.state, isPublic: false})
     .then(res => {
         this.props.sendToParent();
+        console.log("create one idea save, response: ", res)
+
         this.setState({
           redirect: true,
           createdIdeaId: this.state.createdIdeaId
@@ -124,7 +127,9 @@ class FormCreateIdea extends Component {
 
   render() {
     if (this.state.redirect && this.state.submit) {return <Redirect to={`/idea/${this.state.createdIdeaId}`} />}
-    else if (this.state.redirect && !this.state.submit) {return <Redirect to={`/@${this.state.creator_name}`} />}
+    else if (this.state.redirect && !this.state.submit) {return <Redirect to={{
+      pathname : `/@${this.state.creator_name}`,
+      loggedUser : {name: "THEATEALTJSTLKJWERJWEIRAER"}}} />}
 
     return (
       <form id="form_product" className="form" >
