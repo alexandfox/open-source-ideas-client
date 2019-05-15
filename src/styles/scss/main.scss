@@ -12,7 +12,6 @@
   font-family: 'Plain';
 }
 
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -34,4 +33,9 @@
 
 #upload-profile {
   width: 150px;
+}
+
+#main {
+  position: relative;
+  top: 50px
 }

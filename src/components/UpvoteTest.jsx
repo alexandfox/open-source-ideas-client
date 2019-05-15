@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { upvoteIdea, updateOneIdea } from "../api/apiHandler";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class UpvoteDownvote extends Component {
   constructor(props){
@@ -100,16 +101,16 @@ class UpvoteDownvote extends Component {
 
   render(){
     return (
-      <React.Fragment>
-      <p>
-        Upvotes:{this.state.upvotes}
-        <button onClick={this.state.loggedUser ? this.handleUpvote : this.suggestLogin}>upvote!</button>
-      </p>
-      <p>
-        Downvotes:{this.state.downvotes}
-        <button onClick={this.state.loggedUser ? this.handleDownvote : this.suggestLogin}>downvote!</button>
-      </p>
-    </React.Fragment>
+      <div className="upvDownvWrapper">
+        <div className={`upvDownvComponent ${this.state.hasUpvoted ? "active" : ""}`} onClick={this.state.loggedUser ? this.handleUpvote : this.suggestLogin}>
+          <FontAwesomeIcon icon="heart" />
+          <p className="upvoteCount">{this.state.upvotes}</p>
+        </div>
+        <div className={`upvDownvComponent ${this.state.hasDownvoted ? "active" : ""}`} onClick={this.state.loggedUser ? this.handleDownvote : this.suggestLogin}>
+          <FontAwesomeIcon icon="poo" />
+          <p className="downvoteCount">{this.state.downvotes}</p>
+        </div>
+    </div>
     )
   }
 }

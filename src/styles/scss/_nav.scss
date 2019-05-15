@@ -6,14 +6,113 @@
   height: 50px;
   display: flex;
   align-items: center;
-  border-bottom: 1.5px solid $darkUltraViolet
+  justify-content: space-between;
+  border-bottom: 1.5px solid $darkUltraViolet;
+  z-index: 10;
+  position: fixed;
+  width: 100%;
+  padding: 0 5%;
+  transition: all 500ms ease-in-out;
 }
 
-.navLink {
-  padding: 0 10px;
-  height: 1.5rem;
+.noBorderBottom {
+  border-bottom: 1.5px solid $ultraViolet;
 }
 
-.navLink.home {
-  font-weight: bold;
+.navLogo {
+  font-weight: 500;
+}
+
+// EXPANDING NAV----------------------------------------------------------
+
+.expandingNav {
+  width: 100%;
+  height: calc(100vh / 2 - 80px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  background-color: $ultraViolet;
+  position: fixed;
+  padding: 0 5%;
+  top: calc(-100vh / 2 - 50px);
+  transition: all 500ms ease-in-out;
+  z-index: 5;
+}
+
+.navLinkExpanded {
+  color: $pureWhite;
+  font-family: "Self Modern";
+  font-size: 3rem;
+  border-bottom: 1px solid $pureWhite;
+  padding: 0.8rem 0;
+}
+
+.navLinkExpanded:hover {
+  cursor: pointer;
+}
+
+.navLinkExpanded:nth-child(1) {
+  padding-top: 0;
+}
+
+.navLinkExpanded:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+  margin-bottom: 0.5rem;
+}
+
+.visibleNav {
+  top: 50px; 
+}
+
+// BURGER MENU------------------------------------------------------------
+
+.burgerMenu {
+  position: relative;
+  height: 20px; 
+  width: 22px;
+}
+
+.burgerMenu:hover {
+  cursor: pointer;
+}
+
+.burgerItem {
+  width: 21px;
+  height: 2px;
+  background: $pureWhite;
+}
+
+.burgerItem.bar1 {
+  transition: all 0.5s;
+}
+
+.burgerItem.bar2 {
+  position: absolute;
+  top: 9px;
+  opacity: 1;
+  transition: all 0.3s;
+}
+
+.burgerItem.bar3 {
+  position: absolute;
+  top: 18px;
+  transition: all 0.3s;
+}
+
+.burgerItem.bar1.croix {
+  width: 25px;
+  transform: rotate(45deg);
+  transform-origin: 0% 25%;
+}
+
+.burgerItem.bar2.croix {
+  opacity: 0;
+} 
+
+.burgerItem.bar3.croix {
+  width: 25px;
+  transform: rotate(-45deg) ;
+  transform-origin: 0% 75%;
 }
