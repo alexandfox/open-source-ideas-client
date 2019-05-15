@@ -48,7 +48,7 @@ class ideaItem extends Component {
           {/* <UpvoteDownvote ideaId={this.props._id} loggedUser={this.props.loggedUser} /> */}
           {/* <UpvoteTest id={this.props._id} loggedUser={this.props.loggedUser} /> */}
           <UpvoteTest idea={idea} loggedUser={this.props.loggedUser} />
-          <SharedOptions id={this.props._id} sendToParent={(e) => this.sendToParent(e)}/>
+          {/* <SharedOptions id={this.props._id} sendToParent={(e) => this.sendToParent(e)}/> */}
         </div>}
       </div>
     )

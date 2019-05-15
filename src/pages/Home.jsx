@@ -83,6 +83,7 @@ class Home extends Component {
 		this.setState({"filteredIdeas" : filteredIdeas})
 	}
 
+
   // RENDER
   render() {
     // console.log("state: ", this.state)

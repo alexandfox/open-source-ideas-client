@@ -33,7 +33,7 @@ class App extends Component {
 
   fetchUser = () => {
     // if( this.state.loggedUser === null ){
-      this.service.loggedin()
+    this.service.loggedin()
       .then(response =>{
         this.setState({
           loggedUser:  response
@@ -49,17 +49,26 @@ class App extends Component {
   }
 
   getUser = (userObj) => {
+    console.log("are u passing here ?")
     this.setState({
-      loggedIn: true,
+      loggedIn: this.state.loggedIn ? false : true,
       loggedUser: userObj,
     })
   }
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (this.props.loggedUser !== prevProps.loggedUser) {
+  //     this.setState({
+  //       hello: "hi",
+  //     })
+  //   }
+  // }
 
   render() {
     // this.fetchUser()
     return (
       <div className="App">
-        <NavMain {...this.state} />
+        <NavMain {...this.state} getUser={this.getUser} />
         <main id="main">
           <Switch>
             <Route exact path="/" render={(props) => <Home loggedUser={this.state.loggedUser} {...props} />} />
@@ -72,7 +81,7 @@ class App extends Component {
             <Route exact path="/@:name/edit" render={(props) => <EditProfile loggedUser={this.state.loggedUser} {...props} />} />
             <Route exact path="/@:name/archive" render={(props) => <ProfileArchives loggedUser={this.state.loggedUser} {...props} />} />
 
-            <Route exact path="/create-idea/" render={(props) => (this.state.loggedIn ? (<CreateIdea loggedUser={this.state.loggedUser} {...props} updateApp={() => this.fetchUser} />) : (<Login getUser={this.getUser} />))} />
+            <Route exact path="/create-idea/" render={(props) => (this.state.loggedIn ? (<CreateIdea loggedUser={this.state.loggedUser} {...props} updateApp={this.fetchUser} />) : (<Login getUser={this.getUser} />))} />
 
             <Route exact path="/create-idea/:id" render={(props) => <CreateIdea loggedUser={this.state.loggedUser} {...props} />} />
             <Route exact path="/idea/:id" render={(props) => <IdeaPage loggedUser={this.state.loggedUser} {...props} />} />
