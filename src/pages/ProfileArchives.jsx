@@ -6,17 +6,14 @@ import { arch } from "os";
 // gets loggedUser from props
 
 function myArchives(props) {
-	console.log("props: ", props)
-	var archivedIdeas = props.loggedUser.myIdeas.filter(idea => idea.isArchived)
+	console.log("archive props: ", props)
 
-	console.log("archived ideas: ", archivedIdeas)
 	return(
 		<div>
-			this is the archives
 			<h3>ARCHIVED IDEAS</h3>
 			<div>
-				{archivedIdeas.map( (idea, index) => (
-					<IdeaItem key={index} {...idea} loggedUser={this.props.loggedUser} />
+				{props.location.archives.map( (idea, index) => (
+					<IdeaItem key={index} {...idea} loggedUser={props.location.loggedUser} />
 				))}
 			</div>
 		</div>

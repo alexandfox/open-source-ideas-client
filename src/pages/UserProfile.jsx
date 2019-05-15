@@ -2,7 +2,6 @@ import React, {Component} from "react"
 import IdeaItem from "../components/IdeaListItem"
 import { getUserByName, getOneIdea} from "../api/apiHandler";
 import { Redirect, Link } from "react-router-dom";
-import ProfileArchives from "../pages/ProfileArchives"
 
 class Home extends Component {
   constructor(props) {
@@ -10,7 +9,6 @@ class Home extends Component {
     this.state = {
       redirect: false,
       edit: false,
-      archives: false,
       user_name: this.props.match.params.name,
       user_page: {},
 			current_user: this.setLoggedUser(),
@@ -63,14 +61,6 @@ class Home extends Component {
     // return <Redirect to={`/@${this.props.loggedUser.name}/edit`}/>
   }
 
-  goToArchives = (e) => {
-    e.preventDefault();
-    this.setState({
-      redirect: true,
-      archives: true,
-    })
-  }
-
   async componentDidMount() {
     var user_page = await getUserByName(this.state.user_name)
     user_page = user_page.data
@@ -105,12 +95,10 @@ class Home extends Component {
   }
 
   render() {
-    // console.log("user profile state: ", this.state)
+    console.log("user profile state: ", this.state)
     var page = this.state.user_page
 
     if (this.state.redirect && this.state.edit) {return <Redirect to={`/@${this.props.loggedUser.name}/edit`}/>}
-
-    if (this.state.redirect && this.state.archives) {return <Redirect to={`/@${this.props.loggedUser.name}/archive`} />}
 
     return (
     <div id="private-profile-container">
@@ -175,7 +163,11 @@ class Home extends Component {
         : <p>no upvoted ideas yet... browse some!</p>
       }
 
-      {this.state.isMyProfile && <button className="button secondary" onClick={this.goToArchives}>View Archived Ideas</button>}
+      {this.props.loggedUser && <Link to={{
+        pathname : `/@${this.props.loggedUser.name}/archive`,
+        archives : this.state.archived_ideas,
+        loggedUser : this.state.current_user,
+      }}>Archived Ideas</Link>}
     </div>
   )}
 }
