@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { getOneIdea } from "../api/apiHandler";
 import Moment from 'react-moment';
-import UpvoteDownvote from "../components/UpvoteDownvote";
 import { Link } from "react-router-dom";
 import Comments from "./../components/Comments"
 import UpvoteTest from "../components/UpvoteTest"

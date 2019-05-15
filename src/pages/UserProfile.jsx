@@ -1,8 +1,8 @@
 import React, {Component} from "react"
 import IdeaItem from "../components/IdeaListItem"
 import { getUserByName, getOneIdea} from "../api/apiHandler";
-import { Redirect} from "react-router-dom";
-
+import { Redirect, Link } from "react-router-dom";
+import ProfileArchives from "../pages/ProfileArchives"
 
 class Home extends Component {
   constructor(props) {
@@ -77,7 +77,7 @@ class Home extends Component {
       upvoted_ideas : upvoted_ideas,
       myIdeas : myIdeas,
       draft_ideas : myIdeas.filter( idea => !idea.isPublic ),
-      public_ideas : myIdeas.filter( idea => idea.isPublic ),
+      public_ideas : myIdeas.filter( idea => (idea.isPublic && !idea.isArchived) ),
     })
   }
 
@@ -89,6 +89,7 @@ class Home extends Component {
     this.setState({
       myIdeas : myIdeas,
       draft_ideas : myIdeas.filter( idea => !idea.isPublic ),
+      public_ideas : myIdeas.filter( idea => (idea.isPublic && !idea.isArchived)),
     }, () => console.log("here's the new state: ", this.state))
   }
 
@@ -137,7 +138,7 @@ class Home extends Component {
           <h3 className="profileHeader">SHARED IDEAS</h3>
           <div className="myIdeasContainer">
             {this.state.public_ideas.map( (idea, index) => (
-              <IdeaItem key={index} {...idea} loggedUser={this.props.loggedUser} />
+              <IdeaItem key={index} {...idea} loggedUser={this.props.loggedUser} onDelete={(e) => this.removeDeletedDrafts(e)} />
             ))}
           </div>
         </div>
@@ -160,6 +161,8 @@ class Home extends Component {
         </div>
         : <p>no upvoted ideas yet... browse some!</p>
       }
+
+      {this.props.loggedUser && <Link to={`/@${this.props.loggedUser.name}/archive`}>Archived Ideas</Link>}
     </div>
   )}
 }
