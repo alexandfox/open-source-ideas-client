@@ -1,6 +1,5 @@
 import React from "react"
 import IdeaItem from "../components/IdeaListItem"
-import { arch } from "os";
 
 // this is the user's archived ideas
 // gets loggedUser from props

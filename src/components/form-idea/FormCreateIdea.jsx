@@ -23,11 +23,11 @@ class FormCreateIdea extends Component {
       existingIdea: false,
       submit: false,
     }
-    // console.log("form idea props: ", props)
+    console.log("form idea props: ", props)
   }
 
   componentDidMount() {
-    !this.state.createdIdeaId ? console.log("no id in url") : 
+    !this.state.createdIdeaId ? console.log("") : 
     (getOneIdea(this.state.createdIdeaId)
         .then(res => {
           console.log(res.data)
@@ -66,7 +66,7 @@ class FormCreateIdea extends Component {
     this.state.existingIdea ? 
     updateOneIdea(this.state.createdIdeaId, {...this.state, isPublic: false})
     .then(res => {
-        console.log("successfully updated, here is the result: ", res)
+        // console.log("successfully updated, here is the result: ", res)
         this.setState({
           redirect: true,
           createdIdeaId: this.state.createdIdeaId
@@ -78,9 +78,10 @@ class FormCreateIdea extends Component {
     : 
     createOneIdea({...this.state, isPublic: false})
     .then(res => {
+        this.props.sendToParent();
         this.setState({
           redirect: true,
-          // createdIdeaId: res.data.dbSuccess._id
+          createdIdeaId: this.state.createdIdeaId
         })
       })
       .catch(err => {
@@ -124,6 +125,7 @@ class FormCreateIdea extends Component {
   render() {
     if (this.state.redirect && this.state.submit) {return <Redirect to={`/idea/${this.state.createdIdeaId}`} />}
     else if (this.state.redirect && !this.state.submit) {return <Redirect to={`/@${this.state.creator_name}`} />}
+
     return (
       <form id="form_product" className="form" >
         <label htmlFor="idea-title">Title</label>

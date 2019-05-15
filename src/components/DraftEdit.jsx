@@ -34,8 +34,7 @@ class editDelete extends Component {
     .then(res => {
       // this.setState({
       //   delete: true,
-      // }, console.log("it has been deleted: ", res))
-      console.log("it has been deleted: ", res);
+      // },
       this.props.sendToParent(e)
     })
     .catch(err => {

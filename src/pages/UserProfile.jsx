@@ -33,7 +33,7 @@ class Home extends Component {
   getUserPage() {
     getUserByName(this.props.match.params.name)
       .then(res => {
-        console.log("in getUserPage; res: ", res)
+        // console.log("in getUserPage; res: ", res)
         return res.data;
       })
       .catch(err => {
@@ -91,11 +91,11 @@ class Home extends Component {
       myIdeas : myIdeas,
       draft_ideas : myIdeas.filter( idea => !idea.isPublic ),
       public_ideas : myIdeas.filter( idea => (idea.isPublic && !idea.isArchived)),
-    }, () => console.log("here's the new state: ", this.state))
+    })
   }
 
   render() {
-    console.log("user profile state: ", this.state)
+    // console.log("user profile state: ", this.state)
     var page = this.state.user_page
 
     if (this.state.redirect && this.state.edit) {return <Redirect to={`/@${this.props.loggedUser.name}/edit`}/>}
