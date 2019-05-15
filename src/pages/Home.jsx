@@ -93,7 +93,7 @@ class Home extends Component {
       <FilterSort updateSort={(sort) => this.updateSort(sort)} />
       {
 				this.state.filteredIdeas.map( (idea, index) => (
-          idea.isPublic &&
+          (idea.isPublic && !idea.isArchived) &&
           <IdeaItem key={index} loggedUser={this.props.loggedUser} {...idea} isMine={false} />
 				))
 			}

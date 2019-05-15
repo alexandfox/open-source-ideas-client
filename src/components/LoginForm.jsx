@@ -4,7 +4,11 @@ import AuthService from '../api/auth-service';
 class LoginForm extends Component {
   constructor(props){
     super(props);
-    this.state = { username: "paul", name: "paul", password: "paul" };
+    this.state = { 
+			username: "", 
+			name: "", 
+			password: "",
+		};
 		this.service = new AuthService();
   }
 
@@ -49,7 +53,7 @@ class LoginForm extends Component {
 				}
 				
 				<label>Password:</label>
-				<textarea name="password" value={this.state.password} onChange={ e => this.handleChange(e)} />
+				<input type="password" name="password" value={this.state.password} onChange={ e => this.handleChange(e)} />
 				
 				{this.props.route === "signup" && <input type="submit" value="Signup" />}
 				{this.props.route === "login" && <input type="submit" value="Login" />}

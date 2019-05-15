@@ -1,8 +1,7 @@
 import React, {Component} from "react"
 import IdeaItem from "../components/IdeaListItem"
 import { getUserByName, getOneIdea} from "../api/apiHandler";
-import { Redirect} from "react-router-dom";
-
+import { Redirect, Link } from "react-router-dom";
 
 class Home extends Component {
   constructor(props) {
@@ -18,6 +17,7 @@ class Home extends Component {
       myIdeas: [],
       draft_ideas: [],
       public_ideas: [],
+      archived_ideas: [],
     }
   }
   // see if current user (browsing) is the user 
@@ -77,7 +77,8 @@ class Home extends Component {
       upvoted_ideas : upvoted_ideas,
       myIdeas : myIdeas,
       draft_ideas : myIdeas.filter( idea => !idea.isPublic ),
-      public_ideas : myIdeas.filter( idea => idea.isPublic ),
+      public_ideas : myIdeas.filter( idea => (idea.isPublic && !idea.isArchived)),
+      archived_ideas : myIdeas.filter(idea => idea.isArchived),
     })
   }
 
@@ -89,11 +90,12 @@ class Home extends Component {
     this.setState({
       myIdeas : myIdeas,
       draft_ideas : myIdeas.filter( idea => !idea.isPublic ),
+      public_ideas : myIdeas.filter( idea => (idea.isPublic && !idea.isArchived)),
     }, () => console.log("here's the new state: ", this.state))
   }
 
   render() {
-    // console.log("user profile state: ", this.state)
+    console.log("user profile state: ", this.state)
     var page = this.state.user_page
 
     if (this.state.redirect && this.state.edit) {return <Redirect to={`/@${this.props.loggedUser.name}/edit`}/>}
@@ -137,7 +139,7 @@ class Home extends Component {
           <h3 className="profileHeader">SHARED IDEAS</h3>
           <div className="myIdeasContainer">
             {this.state.public_ideas.map( (idea, index) => (
-              <IdeaItem key={index} {...idea} loggedUser={this.props.loggedUser} />
+              <IdeaItem key={index} {...idea} loggedUser={this.props.loggedUser} onDelete={(e) => this.removeDeletedDrafts(e)} />
             ))}
           </div>
         </div>
@@ -160,6 +162,12 @@ class Home extends Component {
         </div>
         : <p>no upvoted ideas yet... browse some!</p>
       }
+
+      {this.props.loggedUser && <Link to={{
+        pathname : `/@${this.props.loggedUser.name}/archive`,
+        archives : this.state.archived_ideas,
+        loggedUser : this.state.current_user,
+      }}>Archived Ideas</Link>}
     </div>
   )}
 }
