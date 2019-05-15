@@ -1,0 +1,19 @@
+@import './colors';
+
+.mainNav {
+  background-color: $ultraViolet;
+  color: $pureWhite;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1.5px solid $darkUltraViolet
+}
+
+.navLink {
+  padding: 0 10px;
+  height: 1.5rem;
+}
+
+.navLink.home {
+  font-weight: bold;
+}
