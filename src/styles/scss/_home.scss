@@ -21,7 +21,7 @@
   display: flex;
   flex-wrap: wrap;
   max-width: 1100px;
-  margin: 25px auto 0;
+  margin: 1rem auto 0;
 
   .publicItem{
     width: calc(50% - 0.75rem);
@@ -104,6 +104,21 @@
 
   .publicItem:nth-child(odd){
     margin-right: 0.75rem;
+  }
+}
+
+.sortOptions{
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align:left;
+  color: $ultraViolet;
+  font-size: 0.65rem;
+  font-weight: 500;
+
+  .sortOptionsDropdown{
+    font-size: 0.65rem;
+    height: 1.5rem;
+    margin-left: 0.3rem;
   }
 }
 
