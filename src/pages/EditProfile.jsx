@@ -88,7 +88,7 @@ class editProfile extends Component {
 				<div id="edit-social-details">
 					<label htmlFor="website" className="label">Website</label>
 					<input id="website" name="website" value={website} type="text" className="input" onChange={this.handleInput}/>
-					<label htmlFor="twitter" className="label">twitter</label>
+					<label htmlFor="twitter" className="label">http://twitter.com/@</label>
 					<input id="twitter" name="twitter" value={twitter} type="text" className="input" onChange={this.handleInput}/>
 					<label htmlFor="linkedin" className="label">linkedin</label>
 					<input id="linkedin" name="linkedin" value={linkedIn} type="text" className="input" onChange={this.handleInput}/>

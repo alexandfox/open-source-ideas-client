@@ -11,8 +11,9 @@ class Home extends Component {
     this.state = {
       allIdeas : [],
       filteredIdeas: [],
+      logout: false,
     }
-    console.log("props: ", props.history)
+    console.log("home props: ", props)
   }
   
   // GET ideas from API (database)
@@ -31,6 +32,14 @@ class Home extends Component {
         console.log(err.response);
       });
   }
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (this.props.location.logout === true && this.state.logout === false) {
+  //     this.setState({
+  //       logout : true,
+  //     })
+  //   }
+  // }
 
   // SORT FUNCTIONS
   updateSort(sortMethod) {
@@ -83,20 +92,26 @@ class Home extends Component {
 		this.setState({"filteredIdeas" : filteredIdeas})
 	}
 
+
   // RENDER
   render() {
-    console.log("state: ", this.state)
+    // console.log("state: ", this.state)
     return (
     <div id="home-container">
-      <h1>Hello this is the home</h1>
+      <div className="titleContainer">
+        <h3 className="mainTagline">Great ideas worth sharing.</h3>
+        <h1 className="mainTitle">Open source ideas<br/>in every field you<br/>could possibly think of</h1>
+      </div>
       <Search updateResults={(term) => this.searchFilter(term)}/>
       <FilterSort updateSort={(sort) => this.updateSort(sort)} />
-      {
-				this.state.filteredIdeas.map( (idea, index) => (
-          idea.isPublic &&
-          <IdeaItem key={index} loggedUser={this.props.loggedUser} {...idea} isMine={false} />
-				))
-			}
+      <div className="ideaListContainer">
+        {
+          this.state.filteredIdeas.map( (idea, index) => (
+            (idea.isPublic && !idea.isArchived) &&
+            <IdeaItem key={index} loggedUser={this.props.loggedUser} {...idea} isMine={false} />
+          ))
+        }
+      </div>
     </div>
   )}
 }

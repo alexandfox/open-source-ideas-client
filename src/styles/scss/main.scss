@@ -6,12 +6,13 @@
 @import './colors';
 @import './buttons';
 @import './upvotedownvote';
+@import './home';
+@import './search';
 
 .App {
   text-align: center;
   font-family: 'Plain';
 }
-
 
 .App-header {
   background-color: #282c34;
@@ -34,4 +35,11 @@
 
 #upload-profile {
   width: 150px;
+}
+
+#main {
+  position: relative;
+  top: 50px;
+  width: 90%;
+  margin: 0 auto 50px;
 }

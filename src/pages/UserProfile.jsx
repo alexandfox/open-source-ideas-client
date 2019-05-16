@@ -1,10 +1,11 @@
 import React, { Component } from "react"
 import IdeaItem from "../components/IdeaListItem"
 import { getUserByName, getOneIdea, updateAvatar } from "../api/apiHandler";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 // import { faMapMarkerAlt, faHeart } from '@fortawesome/free-solid-svg-icons'
+
 
 class Home extends Component {
   constructor(props) {
@@ -21,6 +22,7 @@ class Home extends Component {
       draft_ideas: [],
       public_ideas: [],
       avatar: null
+      archived_ideas: [],
     }
     this.fileInput = React.createRef();
   }
@@ -37,7 +39,7 @@ class Home extends Component {
   getUserPage() {
     getUserByName(this.props.match.params.name)
       .then(res => {
-        console.log("in getUserPage; res: ", res)
+        // console.log("in getUserPage; res: ", res)
         return res.data;
       })
       .catch(err => {
@@ -102,10 +104,11 @@ class Home extends Component {
 
     this.setState({
       user_page,
-      upvoted_ideas: upvoted_ideas,
-      myIdeas: myIdeas,
-      draft_ideas: myIdeas.filter(idea => !idea.isPublic),
-      public_ideas: myIdeas.filter(idea => idea.isPublic),
+      upvoted_ideas : upvoted_ideas,
+      myIdeas : myIdeas,
+      draft_ideas : myIdeas.filter( idea => !idea.isPublic ),
+      public_ideas : myIdeas.filter( idea => (idea.isPublic && !idea.isArchived)),
+      archived_ideas : myIdeas.filter(idea => idea.isArchived),
     })
   }
 
@@ -115,13 +118,15 @@ class Home extends Component {
     var myIdeas = user_page.data.myIdeas
 
     this.setState({
-      myIdeas: myIdeas,
-      draft_ideas: myIdeas.filter(idea => !idea.isPublic),
-    }, () => console.log("here's the new state: ", this.state))
+      myIdeas : myIdeas,
+      draft_ideas : myIdeas.filter( idea => !idea.isPublic ),
+      public_ideas : myIdeas.filter( idea => (idea.isPublic && !idea.isArchived)),
+    })
   }
 
   render() {
     // console.log("user profile state: ", this.state)
+    console.log("user profile props: ", this.props)
     var page = this.state.user_page
 
     if (this.state.redirect && this.state.edit) { return <Redirect to={`/@${this.props.loggedUser.name}/edit`} /> }
@@ -219,7 +224,7 @@ class Home extends Component {
                 <h3 className="profileHeader smallCapTitle">SHARED IDEAS</h3>
                 <div className="myIdeasContainer">
                   {this.state.public_ideas.map((idea, index) => (
-                    <IdeaItem key={index} {...idea} loggedUser={this.props.loggedUser} />
+                    <IdeaItem key={index} {...idea} loggedUser={this.props.loggedUser} onDelete={(e) => this.removeDeletedDrafts(e)/>
                   ))}
                 </div>
               </div>
@@ -245,8 +250,11 @@ class Home extends Component {
               </div> : <p>no upvoted ideas yet... browse some!</p>
             }
           </section>
-
-
+        {this.props.loggedUser && <Link to={{
+        pathname : `/@${this.props.loggedUser.name}/archive`,
+        archives : this.state.archived_ideas,
+        loggedUser : this.state.current_user,
+      }}>Archived Ideas</Link>}
         </div>
         {/* show upvoted ideas */}
 
