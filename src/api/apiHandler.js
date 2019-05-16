@@ -26,11 +26,19 @@ export const upvoteIdea = (id, infos) => axios.put(`${APIURL}/idea/upvote/${id}`
 export const deleteOneIdea = (id) => axios.delete(`${APIURL}/idea/${id}`);
 
 
-//GET COMMENTS METHODS--------------------------------------------------------------
+//COMMENTS METHODS--------------------------------------------------------------
 
 export const createOneComment = (infos) => axios.post(`${APIURL}/comment/`, infos)
 
 export const getAllComments = (id) => axios.get(`${APIURL}/comment/${id}`)
+
+//COMMENTS METHODS--------------------------------------------------------------
+
+export const updateAvatar = (img) => axios.patch(`${APIURL}/user/add-avatar/`, img, { headers: {
+  "Content-Type":  "multipart/form-data"
+}}) //route should be from cloudInary ?
+
+
 
 export default {
   getOneIdea,
@@ -38,5 +46,6 @@ export default {
   updateOneIdea,
   updateOneUser,
   getOneUser,
-  getAllComments
+  getAllComments,
+  updateAvatar 
 }

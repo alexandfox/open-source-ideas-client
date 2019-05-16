@@ -4,7 +4,7 @@ import AuthService from '../api/auth-service';
 class LoginForm extends Component {
   constructor(props){
     super(props);
-    this.state = { username: "paul", name: "paul", password: "paul" };
+    this.state = { username: "Anne-sophie@idea.com", name: "Anne-sophie@idea.com", password: "12345" };
 		this.service = new AuthService();
   }
 
