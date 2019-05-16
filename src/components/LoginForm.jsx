@@ -42,24 +42,19 @@ class LoginForm extends Component {
 			
 	render(){
 		return(
-			<div className="modal-content">
-				<form className="loginForm" onSubmit={this.handleFormSubmit}>
-					<label>Email:</label>
-					<input type="text" name="username" value={this.state.username} onChange={ e => this.handleChange(e)}/>
+			<div className="loginContainer">
+				<form className="form loginForm" onSubmit={this.handleFormSubmit}>
+					<input className="textInput short" type="text" name="username" value={this.state.username} onChange={ e => this.handleChange(e)} placeholder="email" />
 
 					{
 						this.props.route === "signup" && 
-						<div className="nameInput">
-							<label>Username:</label>
-							<input type="text" name="name" value={this.state.name} onChange={ e => this.handleChange(e)} />
-						</div>
+						<input className="textInput short" type="text" name="name" value={this.state.name} onChange={ e => this.handleChange(e)} placeholder="username" />
 					}
 					
-					<label>Password:</label>
-					<input type="password" name="password" value={this.state.password} onChange={ e => this.handleChange(e)} />
+					<input className="textInput short" type="password" name="password" value={this.state.password} onChange={ e => this.handleChange(e)} placeholder="password" />
 					
-					{this.props.route === "signup" && <input type="submit" value="Signup" />}
-					{this.props.route === "login" && <input type="submit" value="Login" />}
+					{this.props.route === "signup" && <input className="button primary" type="submit" value="Signup" />}
+					{this.props.route === "login" && <input className="button primary" type="submit" value="Login" />}
 					
 				</form>
 			</div>

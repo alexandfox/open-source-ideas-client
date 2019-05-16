@@ -50,45 +50,23 @@ class Signup extends Component {
     // if (this.state.loggedIn) return <Redirect to="/" /> 
 		console.log("here's the state: ", this.state)
     return ReactDOM.createPortal(
-			<div
-					style={{
-						position: 'absolute',
-						top: '0',
-						bottom: '0',
-						left: '0',
-						right: '0',
-						display: 'grid',
-						justifyContent: 'center',
-						alignItems: 'center',
-						backgroundColor: 'rgba(0,0,0,0.3)',
-					}}
-					// onClick={this.props.onClose}
+			<div className="modal"
+					onClick={this.props.onClose} data-backdrop="true"
 				>
-					<div
-						style={{
-							padding: 20,
-							background: '#fff',
-							borderRadius: '2px',
-							display: 'inline-block',
-							minHeight: '300px',
-							margin: '1rem',
-							position: 'relative',
-							minWidth: '300px',
-							boxShadow: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
-							justifySelf: 'center',
-						}}
-					>
+					<div className="modal-main">
+						<div className="modalHeading">
+							<h1 className="signupHeading">Welcome</h1>
+							<h4 className="signupDescription">Create an account to follow your favorite idea-makers and topics. We're a community excited to share and discover new, interesting things.</h4>
+						</div>
+
             { this.state.route === "signup" ?
               <LoginForm route="signup" closeModal={this.props.onClose} /> :
               <LoginForm route="login" closeModal={this.props.onClose} /> }
 
             { this.state.route === "signup" ?
-              <p>already have an account?<span onClick={this.changeToLogin} value="login">Login</span></p> :
-              <p>don't have an account? <span onClick={this.changeToSignup} value="signup">Signup</span></p>
+              <div className="modalFootnote" >Already have an account?<span className="link" onClick={this.changeToLogin} value="login">Login</span></div> :
+              <div className="modalFootnote">Don't have an account? <span className="link" onClick={this.changeToSignup} value="signup">Signup</span></div>
             }
-
-						<hr />
-						<button onClick={this.props.onClose}>Close</button>
 					</div>
 				</div>
 		, this.div);

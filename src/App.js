@@ -70,7 +70,7 @@ class App extends Component {
   // }
 
   render() {
-    this.fetchUser()
+    // this.fetchUser()
     return (
       <div className="App">
       <NavMain {...this.state} getUser={this.getUser} />
