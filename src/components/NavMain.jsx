@@ -22,11 +22,6 @@ class NavMain extends Component {
     mainNav.classList.toggle("noBorderBottom");
   }
 
-  // handleNavLinkClick = () => {
-  //   var expandingNav = document.querySelector(".expandingNav");
-  //   expandingNav.classList.toggle("visibleNav");
-  // }
-
   logoutUser = () =>{
     this.activeBurger();
     this.service.logout()
@@ -42,9 +37,9 @@ class NavMain extends Component {
       <nav className="mainNav">
         <NavLink className="navLogo" onClick={this.activeBurger} activeClassName="is-active" to="/" exact>OpenSource&mdash;Ideas</NavLink>
         <div id="container" className="burgerMenu" onClick={this.activeBurger}>
-          <div class="burgerItem bar1"></div>
-          <div class="burgerItem bar2"></div>
-          <div class="burgerItem bar3"></div>
+          <div className="burgerItem bar1"></div>
+          <div className="burgerItem bar2"></div>
+          <div className="burgerItem bar3"></div>
         </div>
       </nav>
       <div className="expandingNav">

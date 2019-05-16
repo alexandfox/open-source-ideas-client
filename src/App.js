@@ -16,9 +16,9 @@ import ProfileArchives from "./pages/ProfileArchives"
 import Page404 from "./pages/Page404"
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faPoo, faHeart } from '@fortawesome/free-solid-svg-icons'
+import { faPoo, faHeart, faSearch, faComment } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faPoo, faHeart)
+library.add(faPoo, faHeart, faSearch, faComment)
 
 class App extends Component {
   constructor(props) {

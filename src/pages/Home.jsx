@@ -98,15 +98,20 @@ class Home extends Component {
     // console.log("state: ", this.state)
     return (
     <div id="home-container">
-      <h1>Hello this is the home</h1>
+      <div className="titleContainer">
+        <h3 className="mainTagline">Great ideas worth sharing.</h3>
+        <h1 className="mainTitle">Open source ideas<br/>in every field you<br/>could possibly think of</h1>
+      </div>
       <Search updateResults={(term) => this.searchFilter(term)}/>
       <FilterSort updateSort={(sort) => this.updateSort(sort)} />
-      {
-				this.state.filteredIdeas.map( (idea, index) => (
-          (idea.isPublic && !idea.isArchived) &&
-          <IdeaItem key={index} loggedUser={this.props.loggedUser} {...idea} isMine={false} />
-				))
-			}
+      <div className="ideaListContainer">
+        {
+          this.state.filteredIdeas.map( (idea, index) => (
+            (idea.isPublic && !idea.isArchived) &&
+            <IdeaItem key={index} loggedUser={this.props.loggedUser} {...idea} isMine={false} />
+          ))
+        }
+      </div>
     </div>
   )}
 }
