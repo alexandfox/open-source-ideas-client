@@ -49,7 +49,9 @@ class FormCreateIdea extends Component {
   handleInput = (evt) => {
     this.setState({
       [evt.target.name]: evt.target.value,
-    })
+    }, this.props.updatePreview({
+      [evt.target.name]: evt.target.value,
+    }))
   }
 
   handleTags = (tags) => {
@@ -171,10 +173,6 @@ class FormCreateIdea extends Component {
           <Button className="button secondary" button_name="Save draft" onClick={this.handleSave} />
           <Button className="button primary" button_name="Publish" onClick={this.handleSubmit} />
         </div>
-        
-
-        <div>{this.state.title}</div>
-        <div>{this.state.description}</div>
       </form>
     )
   }

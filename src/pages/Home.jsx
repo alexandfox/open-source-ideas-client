@@ -19,10 +19,8 @@ class Home extends Component {
     }
   }
   
-  // GET ideas from API (database)
-  componentDidMount() {
+  loadIdeas() {
     const queryString = window.location.search;
-
     getAllIdeas(queryString || "")
       .then(res => {
         this.setState({ 
@@ -36,14 +34,16 @@ class Home extends Component {
         console.log(err.response);
       });
   }
+  // GET ideas from API (database)
+  componentDidMount() {
+    this.loadIdeas()
+  }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (this.props.loggedUser !== prevProps.loggedUser) {
-  //     this.setState({
-  //       logout : true,
-  //     })
-  //   }
-  // }
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.loggedUser !== prevProps.loggedUser) {
+      this.loadIdeas()
+    }
+  }
 
   // SORT FUNCTIONS
   updateSort(sortMethod) {

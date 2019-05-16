@@ -22,6 +22,11 @@
   padding: 5px;
 }
 
+.textInput.short {
+  padding: 5px;
+  margin: 5px 0;
+}
+
 .areaInput {
   height: 200px;
 }
@@ -74,4 +79,16 @@
 
 .comments-placeholder-wrapper.display-none {
   display: none;
+}
+
+//Desktop and larger screens
+@media screen and (min-width: 960px){
+  // .form {
+  //   width: 60%;
+  //   margin: 0 auto;
+  // }
+
+  .inputGroup {
+    width: 100%;
+  }
 }
