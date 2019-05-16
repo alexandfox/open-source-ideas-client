@@ -7,6 +7,7 @@
 
 .upvDownvComponent {
   user-select: none;
+  text-align: center;
   width: 57px;
   color: $ultraViolet;
   background-color: $pureWhite;
@@ -46,33 +47,7 @@
 
 //Mobile
 @media screen and (max-width: 479px){
-  // .upvDownvWrapper {
-  //   flex-direction: row;
-  //   justify-content: center;
-  // }
 
-  // .upvDownvComponent:nth-child(1){
-  //   margin-right: 0.3rem;
-  //   margin-bottom: 0;
-  // }
-  
-  // .upvDownvComponent:nth-child(2){
-  //   margin-left: 0.3rem;
-  //   margin-top: 0;
-  // }
-
-  // .upvDownvComponent{
-  //   display:flex;
-  //   flex-direction: row;
-  //   align-items: center;
-  //   justify-content: center;
-  //   height: 2rem;
-  // }
-
-  // .upvoteCount, .downvoteCount {
-  //   height: 1.25rem;
-  //   margin-left: 0.3rem;
-  // }
 }
 
 //Phablet
@@ -89,3 +64,31 @@
 @media screen and (min-width: 960px){
   
 }
+
+  // .upvDownvWrapper.horizontal {
+  //   flex-direction: row;
+  //   justify-content: center;
+  // }
+
+  // .upvDownvComponent.horizontal:nth-child(1){
+  //   margin-right: 0.3rem;
+  //   margin-bottom: 0;
+  // }
+  
+  // .upvDownvComponent.horizontal:nth-child(2){
+  //   margin-left: 0.3rem;
+  //   margin-top: 0;
+  // }
+
+  // .upvDownvComponent.horizontal{
+  //   display:flex;
+  //   flex-direction: row;
+  //   align-items: center;
+  //   justify-content: center;
+  //   height: 2rem;
+  // }
+
+  // .upvoteCount.horizontal, .downvoteCount.horizontal {
+  //   height: 1.25rem;
+  //   margin-left: 0.3rem;
+  // }
