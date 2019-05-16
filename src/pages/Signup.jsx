@@ -51,7 +51,7 @@ class Signup extends Component {
 		console.log("here's the state: ", this.state)
     return ReactDOM.createPortal(
 			<div className="modal"
-					onClick={this.props.onClose}
+					// onClick={this.props.onClose}
 				>
 					<div className="modal-main">
 						<div className="modalHeading">
