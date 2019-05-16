@@ -27,22 +27,25 @@ class IdeaPage extends Component {
     const { idea } = this.state;
     console.log("state: ", this.state)
     return (
-      <React.Fragment>
-        <h1>{idea.title}</h1>
-        <h2>Creator: {idea.creator && idea.creator.name}</h2>
+      <div className="ideaPageContainer">
 
-        <h3>Category</h3>
-        <p>{idea.category}</p>
-
-        <h3>Date</h3>
-        <Moment date={idea.created_at} format="MMMM Do YYYY" />
+        <section className="ideaTitleInfos">
+          <p className="ideaPageCat">CATEGORY / <span className="ideaPageCatName">{idea.category}</span></p>
+          <h1 className="ideaMainTitle">{idea.title}</h1>
+          <div className="ideaCreatorInfos">
+            <p className="ideaPageCreator">{idea.creator && idea.creator.name}</p>
+            <Moment className="ideaPageDate" date={idea.created_at} format="MMMM Do YYYY"/>
+          </div>
+          <UpvoteTest idea={idea} loggedUser={this.props.loggedUser} />
+        </section>
+      
+        
 
         <h3>Description</h3>
         <p>{idea.description}</p>
 
-        <h3>Votes</h3>
-        {/* <UpvoteDownvote ideaId={this.state.ideaId} loggedUser={this.props.loggedUser} /> */}
-        <UpvoteTest idea={idea} loggedUser={this.props.loggedUser} />
+        
+        
         <h3>Tags</h3>
 
         <p>{idea.tags && idea.tags.map((tag, index) =>
@@ -50,8 +53,7 @@ class IdeaPage extends Component {
         )}</p>
 
         <Comments ideaObj={this.state.idea} {...this.props} />
-        {/* TODO : map the comment array and create comments */}
-      </React.Fragment>
+      </div>
     );
   }
 }

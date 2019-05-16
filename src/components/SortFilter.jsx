@@ -14,11 +14,14 @@ class filterSort extends Component {
 
 	render() {
 		return(
-			<select id="select-sort" onChange={(e) => this.handleChange(e)}>
-				<option value="upvotes">popular</option>
-				<option value="created_at">newest</option>
-				<option value="netvotes">controversial</option>
-			</select>
+			<div className="sortOptions">
+				<label>SORT BY:</label>
+				<select className="sortOptionsDropdown outlineButton" onChange={(e) => this.handleChange(e)}>
+					<option value="upvotes">Popular</option>
+					<option value="created_at">Newest</option>
+					<option value="netvotes">Controversial</option>
+				</select>
+			</div>
 		)
 	}
 }
