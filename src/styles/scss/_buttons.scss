@@ -48,13 +48,14 @@
   border-radius: 0.25rem;
   padding: 0.3rem 0.8rem 0.48rem 0.8rem;
   transition: all 150ms ease-in;
-  background: transparent;
+  background: none;
 
   &:focus {
     outline: none;
   }
+
   &:hover {
-    color: $darkUltraViolet;
-    border: 1px solid $darkUltraViolet;
+    color: $pureWhite;
+    background: $ultraViolet;
   }
 }

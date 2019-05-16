@@ -21,13 +21,8 @@
   display: flex;
   flex-wrap: wrap;
   max-width: 1100px;
-  margin: 1rem auto 0;
-
-  .publicItem.visible {
-    opacity: 1;
-    transform: translate3d(0,0,0);
-  }
-
+  margin: 25px auto 0;
+text-align:center;
   .publicItem{
     width: calc(50% - 0.75rem);
     height: 210px;
@@ -40,9 +35,6 @@
     display:flex;
     justify-content: space-between;
     align-items: center;
-    opacity: 0;
-    transition: all 600ms ease-out;
-    transform: translate3d(0,25px,0) scale(0.95);
   
     .publicItemTitle{
       font-family: "Self Modern";
@@ -108,13 +100,13 @@
 
   .publicItem:nth-child(even){
     margin-left: 0.75rem;
-    transition-delay: 200ms;
   }
 
   .publicItem:nth-child(odd){
     margin-right: 0.75rem;
   }
 }
+
 
 .sortOptions{
   max-width: 1100px;
@@ -185,6 +177,7 @@
 }
 
 
+
 //--------------------------------RESPONSIVE--------------------------------
 
 //Mobile
@@ -201,7 +194,6 @@
 .ideaListContainer{
   .publicItem {
     width: 100%;
-
     .publicItemInfos{
       width: 70%;
       border-right: none;
@@ -228,9 +220,6 @@
     margin-right: 0;
   }
 }
-  .trendingIdeasContainer{
-    display: none;
-  }
 }
 
 //Phablet
@@ -255,9 +244,6 @@
     .publicItem:nth-child(odd){
       margin-right: 0;
     }
-  }
-  .trendingIdeasContainer{
-    display: none;
   }
 }
 
