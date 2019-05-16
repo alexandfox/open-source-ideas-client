@@ -17,17 +17,10 @@ class Modal extends Component {
 		console.log("modal rendered")
 	} 
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (this.props !== prevProps) {
-  //     this.setState({
-  //       hi : "again",
-  //     })
-  //   }
-  // }
-
 	componentWillUnmount() {
 		modalRoot.removeChild(this.div)
 	}
+	
   render() {
 		return ReactDOM.createPortal(
 			<div

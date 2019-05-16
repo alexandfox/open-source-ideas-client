@@ -99,7 +99,7 @@ class Home extends Component {
     this.setState({showModal: true})
     console.log("modal clicked")
   }
-  
+
   handleCloseModal = () => this.setState({showModal: false})
 
   // RENDER
@@ -107,7 +107,6 @@ class Home extends Component {
     // console.log("state: ", this.state)
     return (
     <div id="home-container">
-      <Signup />
       <div className="titleContainer">
         <h3 className="mainTagline">Great ideas worth sharing.</h3>
         <h1 className="mainTitle">Open source ideas<br/>in every field you<br/>could possibly think of</h1>
