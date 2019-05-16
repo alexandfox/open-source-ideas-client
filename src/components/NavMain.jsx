@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { NavLink } from "react-router-dom";
+import AuthService from '../api/auth-service';
 
 class NavMain extends Component {
+  constructor(props){
+    super(props);
+    this.service = new AuthService();
+  }
 
   activeBurger = () => {
     var bar1, bar2, bar3, expandingNav, mainNav;
@@ -15,6 +20,15 @@ class NavMain extends Component {
     bar2.classList.toggle("croix");
     expandingNav.classList.toggle("visibleNav");
     mainNav.classList.toggle("noBorderBottom");
+  }
+
+  logoutUser = () =>{
+    this.activeBurger();
+    this.service.logout()
+    .then(() => {
+      // this.setState({ loggedInUser: null });
+      this.props.getUser(null);  
+    }, this.props.history.push(`/`))
   }
 
   render(){
@@ -33,7 +47,10 @@ class NavMain extends Component {
           {!this.props.loggedIn && <NavLink className="navLinkExpanded" onClick={this.activeBurger} activeClassName="is-active" to="/login" exact>Login</NavLink>}
           <NavLink className="navLinkExpanded" onClick={this.activeBurger} to="/create-idea" >Share an Idea</NavLink>
           {this.props.loggedIn && <NavLink className="navLinkExpanded" onClick={this.activeBurger} activeClassName="is-active" to={`/@${this.props.loggedUser.name}`} exact>Profile</NavLink>}
-          {this.props.loggedIn && <NavLink className="navLinkExpanded" onClick={this.activeBurger} activeClassName="is-active" to="/signout" exact>Logout</NavLink>}
+          {this.props.loggedIn && <NavLink className="navLinkExpanded" onClick={this.logoutUser} activeClassName="is-active" to={{
+            pathname : "/",
+            logout : true,}} 
+            exact>Logout</NavLink>}
       </div>
       </React.Fragment>
     )

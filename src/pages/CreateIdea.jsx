@@ -7,7 +7,7 @@ function CreateIdea(props) {
     <div>
       <h1>Share your Idea</h1>
       <h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos eius, voluptate rerum excepturi harum.</h3>
-      <FormCreateIdea {...props} sendToParent={() => props.updateApp} />
+      <FormCreateIdea {...props} sendToParent={props.updateApp} />
     </div>
   )
 }

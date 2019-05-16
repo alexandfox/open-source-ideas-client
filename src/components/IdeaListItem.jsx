@@ -44,7 +44,6 @@ class ideaItem extends Component {
         </div>
         : 
         <div className="publicItem">
-
           <div className="publicItemInfos">
             
             <div className="publicItemInfosPrimary">
