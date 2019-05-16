@@ -21,7 +21,7 @@ class Home extends Component {
       myIdeas: [],
       draft_ideas: [],
       public_ideas: [],
-      avatar: null,
+      avatar: "",
       archived_ideas: [],
     }
     this.fileInput = React.createRef();
@@ -69,17 +69,17 @@ class Home extends Component {
 
   // add avatar feature 
   fileSelectedHandler = (e) => {
-    console.log(e.target.files[0])
     this.setState({
       avatar: e.target.files[0]
     })
   }
 
   fileUploadHandler = () => {
+
     const formData = new FormData()
-    console.log(this.state.avatar)
-    formData.append(this.state.current_user._id ,this.state.avatar)
-    console.log(formData)
+    formData.set("id", this.state.current_user._id);
+    formData.append("avatarUpload", this.state.avatar)
+    console.log("formData", formData)
     updateAvatar(formData)
       .then(res => console.log(res))
       .catch(err => console.log(err))
@@ -104,11 +104,11 @@ class Home extends Component {
 
     this.setState({
       user_page,
-      upvoted_ideas : upvoted_ideas,
-      myIdeas : myIdeas,
-      draft_ideas : myIdeas.filter( idea => !idea.isPublic ),
-      public_ideas : myIdeas.filter( idea => (idea.isPublic && !idea.isArchived)),
-      archived_ideas : myIdeas.filter(idea => idea.isArchived),
+      upvoted_ideas: upvoted_ideas,
+      myIdeas: myIdeas,
+      draft_ideas: myIdeas.filter(idea => !idea.isPublic),
+      public_ideas: myIdeas.filter(idea => (idea.isPublic && !idea.isArchived)),
+      archived_ideas: myIdeas.filter(idea => idea.isArchived),
     })
   }
 
@@ -118,17 +118,17 @@ class Home extends Component {
     var myIdeas = user_page.data.myIdeas
 
     this.setState({
-      myIdeas : myIdeas,
-      draft_ideas : myIdeas.filter( idea => !idea.isPublic ),
-      public_ideas : myIdeas.filter( idea => (idea.isPublic && !idea.isArchived)),
+      myIdeas: myIdeas,
+      draft_ideas: myIdeas.filter(idea => !idea.isPublic),
+      public_ideas: myIdeas.filter(idea => (idea.isPublic && !idea.isArchived)),
     })
   }
 
   render() {
     // console.log("user profile state: ", this.state)
-    console.log("user profile props: ", this.props)
+    // console.log("user profile props: ", this.props)
     var page = this.state.user_page
-
+    // console.log(page)
     if (this.state.redirect && this.state.edit) { return <Redirect to={`/@${this.props.loggedUser.name}/edit`} /> }
 
     return (
@@ -140,7 +140,26 @@ class Home extends Component {
               {page.social && page.social.contact_name && <h2 className="titleName">{page.social.contact_name}</h2>}
               <h4 className="userName">@{this.state.user_name}</h4>
               {page.bio && <p className="userBio">{page.bio}</p>}
-              {page.social &&
+              
+              {this.state.isMyProfile &&
+                <button className="outlineButton" onClick={this.editProfile}>Edit infos</button>}
+
+            </div>
+
+            <div className="avatar">
+              {this.state.isMyProfile && <button className="uploadButton" onClick={this.buttonAvatarUpload}>
+                <p>Change photo</p></button>}
+              <img src={page.avatar} alt="avatar" className="img" />
+              {this.state.isMyProfile &&
+                <div className="uploadContainer">
+                  <input type="file" onChange={this.fileSelectedHandler} ref={this.fileInput} className="uploadInput" />
+                  <button className="outlineButton" onClick={this.fileUploadHandler}>Upload</button>
+                </div>
+              }
+            </div>
+
+          </section>
+          {page.social &&
                 <div id="userSubInfos">
                   <div className="links">
                     {page.social.twitter &&
@@ -182,22 +201,6 @@ class Home extends Component {
                   </div>
                 </div>
               }
-              {this.state.isMyProfile &&
-                <button className="outlineButton" onClick={this.editProfile}>Edit infos</button>}
-            </div>
-
-            <div className="avatar">
-              <img src={this.state.avatar} alt="avatar" className="img" />
-              {this.state.isMyProfile &&
-                <div>
-                  <input type="file" onChange={this.fileSelectedHandler} ref={this.fileInput} className="uploadInput" />
-                  <button className="outlineButton" onClick={this.buttonAvatarUpload}>Pick file</button>
-                  <button className="outlineButton" onClick={this.fileUploadHandler}>Upload</button>
-                </div>
-              }
-            </div>
-
-          </section>
           {/* user informations container end */}
           {/* {!this.state.isMyProfile && <p>this is not my profile</p>} */}
 
@@ -222,9 +225,9 @@ class Home extends Component {
             {this.state.public_ideas && this.state.public_ideas.length > 0 &&
               (<div id="shared-ideas">
                 <h3 className="profileHeader smallCapTitle">SHARED IDEAS</h3>
-                <div className="myIdeasContainer">
+                <div className="ideaListContainer">
                   {this.state.public_ideas.map((idea, index) => (
-                    <IdeaItem key={index} {...idea} loggedUser={this.props.loggedUser} onDelete={(e) => this.removeDeletedDrafts(e)}/>
+                    <IdeaItem key={index} {...idea} loggedUser={this.props.loggedUser} onDelete={(e) => this.removeDeletedDrafts(e)} />
                   ))}
                 </div>
               </div>
@@ -234,7 +237,7 @@ class Home extends Component {
             {this.state.isMyProfile && this.state.public_ideas && this.state.public_ideas.length === 0 && (
               <div id="shared-ideas">
                 <h3 className="profileHeader smallCapTitle">SHARED IDEAS</h3>
-                <p>nothing shared yet... share an idea!</p>
+                <p className="msgForUser">nothing shared yet... share an idea!</p>
               </div>
             )}
           </section>
@@ -247,14 +250,24 @@ class Home extends Component {
                 {this.state.upvoted_ideas.map((idea, index) => (
                   <IdeaItem key={index} {...idea} loggedUser={this.props.loggedUser} />
                 ))}
-              </div> : <p>no upvoted ideas yet... browse some!</p>
+              </div> : <p className="msgForUser">No upvoted ideas yet... browse some !</p>
             }
           </section>
-        {this.props.loggedUser && <Link to={{
-        pathname : `/@${this.props.loggedUser.name}/archive`,
-        archives : this.state.archived_ideas,
-        loggedUser : this.state.current_user,
-      }}>Archived Ideas</Link>}
+
+          <section>
+
+            {this.props.loggedUser && 
+            <div>
+            <h3 className="smallCapTitle">ARCHIVED IDEAS</h3>
+
+              <Link to={{
+              pathname: `/@${this.props.loggedUser.name}/archive`,
+              archives: this.state.archived_ideas,
+              loggedUser: this.state.current_user,
+            }} className="outlineButton">Access your Archives</Link>
+            </div>}
+          </section>
+
         </div>
         {/* show upvoted ideas */}
 

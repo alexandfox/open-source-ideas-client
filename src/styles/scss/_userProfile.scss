@@ -5,27 +5,60 @@
 // }
 
 .childContainer {
-  width: 70%;
+  width: 80%;
 }
 
-hr {
-  width: 100%;
-  border: 1px solid $lightGreyDarked;
+.msgForUser {
+  font-family: 'Self Modern Text';
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  display: block;
 }
+
 
 #profileContainer {
   text-align: left;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 2rem;
+
+  #userSubInfos {
+    color: $ultraViolet;
+    margin: 1rem 0 1rem 0;
+
+    .links {
+      display: flex;
+      align-items: center;
+
+      .profileIcon.social {
+        font-size: 1.2rem;
+        margin-top: 0.2rem;
+
+        &:hover {
+          color: $darkUltraViolet;
+        }
+      }
+    }
+
+    .links>* {
+      margin-right: 20px;
+    }
+
+    .locationContainer {
+      .locationIcon {
+        margin-right: 0.2rem;
+      }
+
+      .locationText {}
+    }
+  }
 
   .userInfosContainer {
-    // border: 1px solid green;
     display: flex;
-    margin-bottom: 3rem;
 
     .userInfos {
-      // border: 1px solid black;
       width: 75%;
 
       h2.titleName {
@@ -49,44 +82,56 @@ hr {
 
       }
 
-      #userSubInfos {
-        color: $ultraViolet;
-        margin-bottom: 1rem;
 
-        // font-size: 0.9rem;
-        .links {
-          display: flex;
-
-          .profileIcon.social {
-            font-size: 1.2rem;
-            margin-top: 0.2rem;
-
-            &:hover {
-              color: $darkUltraViolet;
-            }
-          }
-        }
-
-        .links>* {
-          margin-right: 20px;
-        }
-
-        .locationContainer {
-          .locationIcon {
-            margin-right: 0.2rem;
-          }
-
-          .locationText {}
-        }
-      }
     }
 
     .avatar {
       width: 150px;
       height: 150px;
-      background: $darkUltraViolet;
       border-radius: 50%;
       margin-left: 2rem;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      .uploadContainer {
+        position: absolute;
+        top: 163px;
+      }
+
+      .uploadButtonTxt {
+        color: white;
+        position: absolute;
+        z-index: -2;
+      }
+
+      .uploadButton {
+        cursor: pointer;
+        position: absolute;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background: transparent;
+        border: none;
+        background: black;
+        opacity: 0.4;
+        transition: all 150ms ease-in;
+
+        &:hover {
+          opacity: 0.6;
+        }
+
+        p {
+          color: white;
+          font-size: 0.8rem
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
 
       .uploadInput {
         display: none;
@@ -97,6 +142,8 @@ hr {
         width: 150px;
         height: 150px;
         border-radius: 50%;
+        position: absolute;
+        z-index: -3;
       }
     }
   }
@@ -104,12 +151,159 @@ hr {
 
 // Drafts 
 
-#draftIdeas {}
+
+
+#draftIdeas {
+  .draftsContainer {
+    color: $mediumGrey;
+    margin-top: 1rem;
+
+    .draftItem:last-child {
+      border-bottom: none;
+    }
+
+    .draftItem {
+      margin-bottom: 2rem;
+      border-bottom: 1px solid $lightGreyDarked;
+
+
+      .listDraftLink {
+        font-family: 'Self Modern Text';
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        transition: all 150ms ease-in;
+
+        &:hover {
+          color: $lightBlack;
+        }
+      }
+
+      .listDescription {
+        margin: 0.5rem 0rem 1rem 0rem;
+      }
+
+      .editDelete {
+        margin-bottom: 1.8rem;
+
+
+        .iconButton {
+          cursor: pointer;
+          border: none;
+          background: none;
+          font-family: 'Plain';
+          font-weight: 500;
+          font-size: 0.9rem;
+          color: $ultraViolet;
+          // padding: 0.3rem 0.8rem 0.48rem 0.8rem;
+          transition: all 150ms ease-in;
+          margin-right: 1rem;
+          transition: all 150ms ease-in;
+
+          &:hover {
+            color: $darkUltraViolet;
+          }
+
+          .editDeleteIcon {
+            margin-right: 0.25rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+
 
 .smallCapTitle {
+  margin-bottom: 1.5rem;
   font-weight: normal;
   font-size: 1rem;
   color: $mediumGrey;
   padding: 0.5rem 0 0.5rem 0;
   border-bottom: 1px solid $lightGreyDarked;
 }
+
+@media screen and (max-width: 479px) {
+  .childContainer {
+    width: 100%;
+  }
+
+
+
+  /*user infos*/
+  #profileContainer {
+    margin-top: 1rem;
+
+    .userInfosContainer {
+      .userInfos {
+        width: 70%;
+
+        h2.titleName {
+          font-size: 2rem;
+        }
+
+        h4.userName {
+          font-size: 0.7rem;
+        }
+
+        .userBio {
+          margin-bottom: 16px;
+          font-size: 0.8rem;
+          font-weight: normal;
+        }
+      }
+
+      .avatar {
+        // border:1px solid red;
+        width: 95px;
+        height: 95px;
+        margin-left: 0;
+
+        .uploadInput {
+          display: none;
+        }
+
+        .uploadContainer {
+          top: 120px;
+        }
+
+        .uploadButton {
+          width: 95px;
+          height: 95px;
+          p {
+            font-size: 0.6rem;
+          }
+        }
+
+        .img {
+          width: 100%;
+          height: 100%
+        }
+      }
+    }
+
+    #userSubInfos {
+      .links {
+        // align-items: center;
+        font-size: 0.75rem;
+
+        .profileIcon.social {
+          font-size: 1rem;
+        }
+      }
+
+      .locationContainer {
+        .locationIcon {
+          margin-right: 0.2rem;
+        }
+
+        .locationText {}
+      }
+    }
+
+  }
+}
+
+@media screen and (min-width: 480px) and (max-width: 767px) {}
+
+@media screen and (min-width: 768px) and (max-width: 959px) {}
