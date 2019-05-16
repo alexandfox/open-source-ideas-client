@@ -5,8 +5,8 @@
   font-weight: 500;
   font-size: 0.85rem;
   border: 0;
-  border-bottom: 0.2rem solid rgba(0,0,0,0.2);
-  filter: drop-shadow(0rem 0.1rem 0.15rem rgba(0,0,0,0.1));
+  border-bottom: 0.2rem solid rgba(0, 0, 0, 0.2);
+  filter: drop-shadow(0rem 0.1rem 0.15rem rgba(0, 0, 0, 0.1));
   border-radius: 0.25rem;
   padding: 0.5rem 1rem;
   transition: all 150ms ease-in;
@@ -38,3 +38,22 @@
   background: $lightGreyDarked;
 }
 
+.outlineButton {
+  cursor: pointer;
+  font-family: 'Plain';
+  font-weight: 500;
+  font-size: 0.85rem;
+  color: $ultraViolet;
+  border: 1px solid $ultraViolet;
+  border-radius: 0.25rem;
+  padding: 0.3rem 0.8rem 0.48rem 0.8rem;
+  transition: all 150ms ease-in;
+
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    color: $darkUltraViolet;
+    border: 1px solid $darkUltraViolet;
+  }
+}

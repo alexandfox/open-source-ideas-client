@@ -15,10 +15,11 @@ import EditProfile from "./pages/EditProfile"
 import ProfileArchives from "./pages/ProfileArchives"
 import Page404 from "./pages/Page404"
 
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faPoo, faHeart, faSearch, faComment } from '@fortawesome/free-solid-svg-icons'
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faLinkedin, faTwitter, faProductHunt } from '@fortawesome/free-brands-svg-icons'
+import { faPoo, faHeart, faMapMarkerAlt, faSearch, faComment} from '@fortawesome/free-solid-svg-icons'
+library.add(faPoo, faHeart, faMapMarkerAlt, faLinkedin, faProductHunt, faTwitter, faSearch, faComment)
 
-library.add(faPoo, faHeart, faSearch, faComment)
 
 class App extends Component {
   constructor(props) {
@@ -67,7 +68,7 @@ class App extends Component {
     // this.fetchUser()
     return (
       <div className="App">
-        <NavMain {...this.state} getUser={this.getUser} />
+      <NavMain {...this.state} getUser={this.getUser} />
         <main id="main">
           <Switch>
             <Route exact path="/" render={(props) => <Home loggedUser={this.state.loggedUser} {...props} />} />
@@ -75,7 +76,7 @@ class App extends Component {
 
             <Route exact path="/signup" render={() => <Signup getUser={this.getUser} />} />
             <Route exact path="/login" render={() => (this.loggedIn ? (<Redirect to="/" />) : (<Login getUser={this.getUser} />))} />
-            
+
             <Route exact path="/@:name" render={(props) => <UserProfile loggedUser={this.state.loggedUser} {...props} />} />
             <Route exact path="/@:name/edit" render={(props) => <EditProfile loggedUser={this.state.loggedUser} {...props} />} />
             <Route exact path="/@:name/archive" render={(props) => <ProfileArchives loggedUser={this.state.loggedUser} {...props} />} />
