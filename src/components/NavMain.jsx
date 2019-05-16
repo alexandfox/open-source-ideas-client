@@ -6,6 +6,16 @@ class NavMain extends Component {
   constructor(props){
     super(props);
     this.service = new AuthService();
+    console.log("nav main props", props)
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.loggedUser !== prevProps.loggedUser) {
+      this.setState({
+        loggedIn : true,
+        loggedUser : this.props.loggedUser
+      })
+    }
   }
 
   activeBurger = () => {

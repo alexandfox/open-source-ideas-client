@@ -37,7 +37,7 @@ class Home extends Component {
   }
 
   // componentDidUpdate(prevProps, prevState) {
-  //   if (this.props.location.logout === true && this.state.logout === false) {
+  //   if (this.props.loggedUser !== prevProps.loggedUser) {
   //     this.setState({
   //       logout : true,
   //     })

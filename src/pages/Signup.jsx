@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from "react-dom";
 import LoginForm from "../components/LoginForm"
 import { Redirect } from 'react-router'
-// import Login from "./Login"
+import Login from "./Login"
 // import Modal from "../components/Modal"
 
 const modalRoot = document.querySelector("#modal")
@@ -11,7 +11,8 @@ class Signup extends Component {
   constructor(props){
     super(props);
     this.state = {
-      loggedIn : false
+      loggedIn : false,
+      route : "signup",
     }
   }
 
@@ -32,8 +33,22 @@ class Signup extends Component {
 		modalRoot.removeChild(this.div)
 	}
 
+  changeToLogin = () => {
+    console.log("clicked span. ")
+    this.setState({
+      route : "login"
+    })
+  }
+
+  changeToSignup = () => {
+    console.log("clicked span. ")
+    this.setState({
+      route : "signup"
+    })
+  }
+
   render(){
-    if (this.state.loggedIn) return <Redirect to="/" /> 
+    // if (this.state.loggedIn) return <Redirect to="/" /> 
     return ReactDOM.createPortal(
 			<div
 					style={{
@@ -63,7 +78,15 @@ class Signup extends Component {
 							justifySelf: 'center',
 						}}
 					>
-            <LoginForm route="signup" sendUser={(user) => this.sendToParent(user)} />
+            { this.state.route === "signup" ?
+              <LoginForm route="signup" closeModal={this.props.onClose} /> :
+              <LoginForm route="login" closeModal={this.props.onClose} /> }
+
+            { this.state.route === "signup" ?
+              <p>already have an account?<button onClick={this.changeToSignup} value="login">Login</button></p> :
+              <p>don't have an account? <button onClick={this.changeToLogin} value="signup">Signup</button></p>
+            }
+
 						<hr />
 						<button onClick={this.props.onClose}>Close</button>
 					</div>

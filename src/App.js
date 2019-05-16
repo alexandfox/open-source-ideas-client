@@ -38,20 +38,21 @@ class App extends Component {
   }
 
   fetchUser = () => {
-    // if( this.state.loggedUser === null ){
-    this.service.loggedin()
-      .then(response =>{
-        this.setState({
-          loggedUser:  response
-        }, console.log("fetched user: ", response)) 
-      })
-      .catch( err =>{
-        this.setState({
-          loggedUser:  false
-        }, console.log("fetch user failed")) 
-      })
-    // }
-    console.log("fetch called.")
+    if( this.state.loggedUser === null ){
+      this.service.loggedin()
+        .then(response =>{
+          this.setState({
+            loggedIn: true,
+            loggedUser:  response
+          }, console.log("fetched user: ", response)) 
+        })
+        .catch( err =>{
+          this.setState({
+            loggedUser:  null
+          }, console.log("fetch user failed")) 
+        })
+    }
+    // console.log("fetch called.")
   }
 
   getUser = (userObj) => {
@@ -93,13 +94,7 @@ class App extends Component {
             <Route exact path="/idea/:id" render={(props) => <IdeaPage loggedUser={this.state.loggedUser} {...props} />} />
             <Route path="/*" render={() => <Page404 loggedUser={this.state.loggedUser} />} />
           </Switch>
-
-          {/* <BrowserRouter>
-            <div>
-            </div>
-          </BrowserRouter> */}
         </main>
-        {/* <ModalContainer /> */}
       </div>
     )
   };

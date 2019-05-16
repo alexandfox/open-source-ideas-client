@@ -21,13 +21,14 @@ class LoginForm extends Component {
 		if (this.props.route === "signup") {
 			this.service.signup(username, name, password)
 			.then( response => {
-				this.props.sendUser(response)
+				this.props.closeModal()
+				// this.props.sendUser(response)
 			})
 			.catch( error => console.log(error) )
 		} else {
 			this.service.login(username, password)
 				.then( response => {
-					this.props.sendUser(response)
+					// this.props.sendUser(response)
 				})
 				.catch( error => console.log(error) )
 		}
