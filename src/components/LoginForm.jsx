@@ -12,8 +12,8 @@ class LoginForm extends Component {
 		this.service = new AuthService();
   }
 
-  handleFormSubmit = (event) => {
-		event.preventDefault();
+  handleFormSubmit = (e) => {
+		e.preventDefault();
 		const username = this.state.username;
 		const name = this.state.name;
 		const password = this.state.password;
@@ -21,14 +21,14 @@ class LoginForm extends Component {
 		if (this.props.route === "signup") {
 			this.service.signup(username, name, password)
 			.then( response => {
-				this.props.closeModal()
+				this.props.closeModal(e)
 				// this.props.sendUser(response)
 			})
 			.catch( error => console.log(error) )
-		} else {
+		} else if (this.props.route === "login") {
 			this.service.login(username, password)
 				.then( response => {
-					this.props.closeModal()
+					this.props.closeModal(e)
 					// this.props.sendUser(response)
 				})
 				.catch( error => console.log(error) )
@@ -42,7 +42,7 @@ class LoginForm extends Component {
 			
 	render(){
 		return(
-			<div className="loginContainer">
+			<div className="modalBody">
 				<form className="form loginForm" onSubmit={this.handleFormSubmit}>
 					<input className="textInput short" type="text" name="username" value={this.state.username} onChange={ e => this.handleChange(e)} placeholder="email" />
 

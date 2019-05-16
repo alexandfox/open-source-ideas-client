@@ -118,7 +118,10 @@ class UpvoteDownvote extends Component {
     console.log("modal clicked")
   }
 
-  handleCloseModal = (e) => (e.target.classList[0] === "modal") ? this.setState({showModal: false}) : null
+  handleCloseModal = (e) => this.setState({showModal: false})
+    // console.log("e.target.classList: ", e.target.classList)
+    // (e.target.classList[0] === "modal" || e.target.classList[0] === "button" )? this.setState({showModal: false}) : 
+    // null
   
 
   render(){

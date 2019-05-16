@@ -147,15 +147,6 @@ class Home extends Component {
             ))
           }
       </div>
-
-      <button onClick={this.handleModalClick}>
-        Show Secret Modal
-      </button>
-      {this.state.showModal ? (
-        <Modal onClose={this.handleCloseModal}>
-          This is the secret modal message!
-        </Modal>
-      ) : null}
     </div>
   )}
 }

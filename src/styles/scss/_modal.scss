@@ -10,7 +10,6 @@
 }
 
 .modal-main {
-  padding: 20;
   background: white;
   position: relative;
   width: 80%;
@@ -20,17 +19,18 @@
   transform: translate(-50%,-50%);
   border-radius: 2px;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.16);
-  justify-self: center;
   display: flex;
   flex-direction: column;
-  // justify-content: space-around;
+  justify-content: space-evenly;
 }
 
-.modal-main > * {
-  margin: 15% 15% 0;
+.modalHeading,
+.modalBody,
+.modalFootnote {
+  margin: 0 15%;
 }
 
-.modalHeading > * {
+.modalDescription {
   margin: 5% 0 0;
 }
 

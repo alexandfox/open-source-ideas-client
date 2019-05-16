@@ -48,7 +48,7 @@ class App extends Component {
         .catch( err =>{
           this.setState({
             loggedUser:  null
-          }, console.log("fetch user failed")) 
+          }) 
         })
     }
     // console.log("fetch called.")
@@ -70,13 +70,14 @@ class App extends Component {
   // }
 
   render() {
-    // this.fetchUser()
+    this.fetchUser()
     return (
       <div className="App">
       <NavMain {...this.state} getUser={this.getUser} />
         <main id="main">
           <Switch>
             <Route exact path="/" render={(props) => <Home loggedUser={this.state.loggedUser} {...props} />} />
+            
             <Route path="/search" render={(props) => <SearchResults loggedUser={this.state.loggedUser} {...props} />} />
 
             <Route exact path="/signup" render={() => <Signup getUser={this.getUser} />} />
