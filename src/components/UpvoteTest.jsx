@@ -118,7 +118,7 @@ class UpvoteDownvote extends Component {
     console.log("modal clicked")
   }
 
-  handleCloseModal = (e) => (e.target.classList[0] === "modal") ? this.setState({showModal: false}) : null
+  handleCloseModal = (e) => (e.target.classList[0] === "modal-main") ? console.log("clicked on the main body") : this.setState({showModal: false})
   
 
   render(){

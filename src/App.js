@@ -48,7 +48,7 @@ class App extends Component {
         .catch( err =>{
           this.setState({
             loggedUser:  null
-          }, console.log("fetch user failed")) 
+          }) 
         })
     }
     // console.log("fetch called.")

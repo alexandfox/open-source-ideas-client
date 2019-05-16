@@ -42,7 +42,7 @@ class LoginForm extends Component {
 			
 	render(){
 		return(
-			<div className="loginContainer">
+			<div className="modalBody">
 				<form className="form loginForm" onSubmit={this.handleFormSubmit}>
 					<input className="textInput short" type="text" name="username" value={this.state.username} onChange={ e => this.handleChange(e)} placeholder="email" />
 

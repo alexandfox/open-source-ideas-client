@@ -51,12 +51,12 @@ class Signup extends Component {
 		console.log("here's the state: ", this.state)
     return ReactDOM.createPortal(
 			<div className="modal"
-					onClick={this.props.onClose} data-backdrop="true"
+					onClick={this.props.onClose}
 				>
 					<div className="modal-main">
 						<div className="modalHeading">
 							<h1 className="signupHeading">Welcome</h1>
-							<h4 className="signupDescription">Create an account to follow your favorite idea-makers and topics. We're a community excited to share and discover new, interesting things.</h4>
+							<h4 className="modalDescription">Create an account to follow your favorite idea-makers and topics. We're a community excited to share and discover new, interesting things.</h4>
 						</div>
 
             { this.state.route === "signup" ?
