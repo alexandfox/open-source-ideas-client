@@ -44,7 +44,7 @@ class ideaItem extends Component {
           <DraftEdit id={this.props._id} creator_name={this.props.creator && this.props.creator.name} sendToParent={(e) => this.sendToParent(e)} /> 
         </div>
         : 
-        <OnVisible className="publicItem" percent={10}>
+        <OnVisible className="publicItem" percent={5}>
           <div className="publicItemInfos">
             
             <div className="publicItemInfosPrimary">

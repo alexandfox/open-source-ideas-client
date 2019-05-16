@@ -107,6 +107,77 @@ text-align:center;
   }
 }
 
+
+.sortOptions{
+  max-width: 1100px;
+  margin: 2rem auto 0;
+  text-align:left;
+  color: $ultraViolet;
+  font-size: 0.8rem;
+  font-weight: 500;
+
+  .sortOptionsDropdown{
+    font-size: 0.8rem;
+    height: 1.85rem;
+    margin-left: 0.3rem;
+  }
+}
+
+.trendingIdeasContainer{
+  max-width: 900px;
+  margin: 0 auto;
+
+  .trendingItemWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+
+    .trendingItem{
+      width: 30%;
+      padding: 10px 0;
+
+      .trendingItemTitle{
+        font-family: 'Self Modern Trial';
+        font-weight: 500;
+        font-size: 1.3rem;
+        margin-bottom: 0.25rem;
+        padding: 0 0.5rem;
+        transition: all 500ms ease;
+        
+        &:hover{
+          color: $ultraViolet;
+        }
+      }
+
+      .trendingTitleIcon{
+        color: $ultraViolet;
+      }
+      // .trendingItemUpvotes{
+      //   color: $lightBlack;
+      //   font-size: 0.8rem;
+      // }
+      .trendingItemCreator{
+        font-size: 0.75rem;
+        color: $mediumGrey;
+      }
+    }
+  }
+
+  .trendingTitleContainer{
+    display: flex;
+    color: $ultraViolet;
+    align-items: center;
+
+    .trendingIdeasTitle{
+      font-weight: 500;
+      margin-left: 0.35rem;
+    }
+  }
+}
+
+
+
 //--------------------------------RESPONSIVE--------------------------------
 
 //Mobile

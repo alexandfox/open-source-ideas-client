@@ -32,6 +32,20 @@ class NavMain extends Component {
     mainNav.classList.toggle("noBorderBottom");
   }
 
+  closeBurger = () => {
+    var bar1, bar2, bar3, expandingNav, mainNav;
+    bar1 = document.querySelector(".bar1");
+    bar3 = document.querySelector(".bar3");
+    bar2 = document.querySelector(".bar2");
+    expandingNav = document.querySelector(".expandingNav");
+    mainNav = document.querySelector(".mainNav");
+    bar1.classList.remove("croix");
+    bar3.classList.remove("croix");
+    bar2.classList.remove("croix");
+    expandingNav.classList.remove("visibleNav");
+    mainNav.classList.remove("noBorderBottom");
+  }
+
   logoutUser = () =>{
     this.activeBurger();
     this.service.logout()
@@ -45,7 +59,7 @@ class NavMain extends Component {
     return (
       <React.Fragment>
       <nav className="mainNav">
-        <NavLink className="navLogo" onClick={this.activeBurger} activeClassName="is-active" to="/" exact>OpenSource&mdash;Ideas</NavLink>
+        <NavLink className="navLogo" onClick={this.closeBurger} activeClassName="is-active" to="/" exact>OpenSource&mdash;Ideas</NavLink>
         <div id="container" className="burgerMenu" onClick={this.activeBurger}>
           <div className="burgerItem bar1"></div>
           <div className="burgerItem bar2"></div>

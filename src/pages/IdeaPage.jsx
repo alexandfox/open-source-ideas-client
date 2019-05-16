@@ -36,18 +36,15 @@ class IdeaPage extends Component {
             <p className="ideaPageCreator">{idea.creator && idea.creator.name}</p>
             <Moment className="ideaPageDate" date={idea.created_at} format="MMMM Do YYYY"/>
           </div>
-          <UpvoteTest idea={idea} loggedUser={this.props.loggedUser} />
         </section>
-      
-        
-
-        <h3>Description</h3>
-        <p>{idea.description}</p>
-
-        
+        <section className="ideaInfos">
+          <UpvoteTest orientation="horizontal" idea={idea} loggedUser={this.props.loggedUser} />
+          <div className="ideaPageDescription">
+            <p>{idea.description}</p>
+          </div>
+        </section>
         
         <h3>Tags</h3>
-
         <p>{idea.tags && idea.tags.map((tag, index) =>
           <span key={index}><Link to={`/search?tags=${tag}`}>{tag}</Link></span>
         )}</p>
