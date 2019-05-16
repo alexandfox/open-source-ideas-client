@@ -4,6 +4,11 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import NavMain from "./components/NavMain";
 import AuthService from './api/auth-service';
 
+// import { ModalContainer, ModalRoute } from 'react-router-modal';
+// import { BrowserRouter, Link } from 'react-router-dom';
+// import 'react-router-modal/css/react-router-modal.css';
+
+
 import Home from "./pages/Home"
 import Signup from "./pages/Signup"
 import Login from "./pages/Login"
@@ -27,7 +32,7 @@ class App extends Component {
     this.state = {
       loggedIn: false,
       loggedUser: null,
-      archivedIdeas: []
+      archivedIdeas: [],
     };
     this.service = new AuthService();
   }
@@ -76,6 +81,7 @@ class App extends Component {
 
             <Route exact path="/signup" render={() => <Signup getUser={this.getUser} />} />
             <Route exact path="/login" render={() => (this.loggedIn ? (<Redirect to="/" />) : (<Login getUser={this.getUser} />))} />
+            {/* <ModalRoute exact path="/login" render={() => (this.loggedIn ? (<Redirect to="/" />) : (<Login getUser={this.getUser} />))}/> */}
 
             <Route exact path="/@:name" render={(props) => <UserProfile loggedUser={this.state.loggedUser} {...props} />} />
             <Route exact path="/@:name/edit" render={(props) => <EditProfile loggedUser={this.state.loggedUser} {...props} />} />
@@ -87,7 +93,13 @@ class App extends Component {
             <Route exact path="/idea/:id" render={(props) => <IdeaPage loggedUser={this.state.loggedUser} {...props} />} />
             <Route path="/*" render={() => <Page404 loggedUser={this.state.loggedUser} />} />
           </Switch>
+
+          {/* <BrowserRouter>
+            <div>
+            </div>
+          </BrowserRouter> */}
         </main>
+        {/* <ModalContainer /> */}
       </div>
     )
   };

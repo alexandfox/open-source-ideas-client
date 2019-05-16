@@ -21,7 +21,7 @@ class Home extends Component {
       myIdeas: [],
       draft_ideas: [],
       public_ideas: [],
-      avatar: null
+      avatar: null,
       archived_ideas: [],
     }
     this.fileInput = React.createRef();
@@ -224,7 +224,7 @@ class Home extends Component {
                 <h3 className="profileHeader smallCapTitle">SHARED IDEAS</h3>
                 <div className="myIdeasContainer">
                   {this.state.public_ideas.map((idea, index) => (
-                    <IdeaItem key={index} {...idea} loggedUser={this.props.loggedUser} onDelete={(e) => this.removeDeletedDrafts(e)/>
+                    <IdeaItem key={index} {...idea} loggedUser={this.props.loggedUser} onDelete={(e) => this.removeDeletedDrafts(e)} />
                   ))}
                 </div>
               </div>

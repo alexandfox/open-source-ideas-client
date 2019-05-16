@@ -4,6 +4,8 @@ import Search from "../components/SearchBar"
 import IdeaItem from "../components/IdeaListItem"
 import { getAllIdeas } from "../api/apiHandler";
 import FilterSort from "../components/SortFilter";
+import Signup from "./Signup"
+import Modal from "../components/Modal"
 
 class Home extends Component {
   constructor(props) {
@@ -12,6 +14,7 @@ class Home extends Component {
       allIdeas : [],
       filteredIdeas: [],
       logout: false,
+      showModal : false,
     }
     console.log("home props: ", props)
   }
@@ -92,12 +95,19 @@ class Home extends Component {
 		this.setState({"filteredIdeas" : filteredIdeas})
 	}
 
+  handleModalClick = () => {
+    this.setState({showModal: true})
+    console.log("modal clicked")
+  }
+  
+  handleCloseModal = () => this.setState({showModal: false})
 
   // RENDER
   render() {
     // console.log("state: ", this.state)
     return (
     <div id="home-container">
+      <Signup />
       <div className="titleContainer">
         <h3 className="mainTagline">Great ideas worth sharing.</h3>
         <h1 className="mainTitle">Open source ideas<br/>in every field you<br/>could possibly think of</h1>
@@ -112,6 +122,15 @@ class Home extends Component {
           ))
         }
       </div>
+
+      <button onClick={this.handleModalClick}>
+        Show Secret Modal
+      </button>
+      {this.state.showModal ? (
+        <Modal onClose={this.handleCloseModal}>
+          This is the secret modal message!
+        </Modal>
+      ) : null}
     </div>
   )}
 }
