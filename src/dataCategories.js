@@ -1,21 +1,32 @@
 module.exports =
   {
-
+    // "categories": [
+    //   "Music",
+    //   "Sport",
+    //   "Books",
+    //   "Environment",
+    //   "Fashion",
+    //   "Design",
+    //   "Art & Photo",
+    //   "Food",
+    //   "Games",
+    //   "Tech",
+    //   "Craft",
+    //   "Movies & Video",
+    //   "Health",
+    //   "Education"
+    // ]
     "categories": [
-      "Music",
-      "Sport",
-      "Books",
-      "Environment",
-      "Fashion",
-      "Design",
-      "Art & Photo",
-      "Food",
-      "Games",
       "Tech",
-      "Craft",
-      "Movies & Video",
+      "Design",
+      "Environment",
+      "Entertainment",
+      "People",
+      "Fun & Games",
       "Health",
-      "Education"
+      "Education",
+      "Social Good",
+      "Food",
     ]
 
   };

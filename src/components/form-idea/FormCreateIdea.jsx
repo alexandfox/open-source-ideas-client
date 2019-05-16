@@ -132,27 +132,47 @@ class FormCreateIdea extends Component {
       loggedUser : {name: "THEATEALTJSTLKJWERJWEIRAER"}}} />}
 
     return (
-      <form id="form_product" className="form" >
-        <label htmlFor="idea-title">Title</label>
-        <input
-          value={this.state.title}
-          name="title"
-          type="text"
-          placeholder="The Holy Nut"
-          onChange={this.handleInput}
-        />
-        <label htmlFor="idea-title">Description</label>
-        <input
-          value={this.state.description}
-          name="description"
-          type="text"
-          placeholder="Description"
-          onChange={this.handleInput}
-        />
-        <AddCategories sendCatToParent={this.handleInput} category={this.state.category} {...this.props} />
-        <AddTags sendDataToParent={this.handleTags} tags={this.state.tags} />
-        <Button className="button secondary" button_name="Save draft" onClick={this.handleSave} />
-        <Button className="button primary" button_name="Publish" onClick={this.handleSubmit} />
+      <form id="idea-form" className="form" >
+        <div className="inputGroup">
+          <label className="formLabel" htmlFor="idea-title">Title - required</label>
+          <input
+            value={this.state.title}
+            className="textInput"
+            name="title"
+            type="text"
+            placeholder="what will it be/ do/ achieve?"
+            onChange={this.handleInput}
+          />
+        </div>
+        
+        <div className="inputGroup">
+          <label className="formLabel" htmlFor="idea-title">Description - required</label>
+          <textarea
+            value={this.state.description}
+            className="textInput areaInput"
+            name="description"
+            type="text"
+            placeholder="Tell us more!"
+            onChange={this.handleInput}
+          />
+        </div>
+        
+        <div className="inputGroup">
+          <label className="formLabel">Topic</label>
+          <AddCategories sendCatToParent={this.handleInput} category={this.state.category} {...this.props} />
+        </div>
+
+        <div className="inputGroup">
+          <label className="formLabel">Tags</label>
+          <AddTags sendDataToParent={this.handleTags} tags={this.state.tags} />
+        </div>
+
+        <div className="buttonGroup">
+          <Button className="button secondary" button_name="Save draft" onClick={this.handleSave} />
+          <Button className="button primary" button_name="Publish" onClick={this.handleSubmit} />
+        </div>
+        
+
         <div>{this.state.title}</div>
         <div>{this.state.description}</div>
       </form>

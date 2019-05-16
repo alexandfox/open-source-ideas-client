@@ -11,13 +11,39 @@
   outline: none;
 }
 
-.textInput {
-  padding: 5px;
-  margin: 5px 0;
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  margin: 2% 0;
+  width: inherit;
 }
 
-.textInput.short{
+.textInput {
+  padding: 5px;
+}
 
+.areaInput {
+  height: 200px;
+}
+
+.formLabel {
+  width: inherit;
+  text-align: left;
+  margin: 8px 0;
+}
+
+.formSelect {
+  height: 2rem;
+}
+
+.buttonGroup {
+  display: flex;
+  margin: 5%;
+  justify-content: center;
+
+  .button {
+    margin: 10px;
+  }
 }
 
 #form_add_comments {

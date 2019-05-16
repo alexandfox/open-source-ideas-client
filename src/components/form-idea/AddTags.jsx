@@ -31,7 +31,6 @@ class AddTags extends Component {
   }
 
   handleKey = (evt) => {
-
     if (evt.key === "Enter") {
       evt.preventDefault();
       if (!evt.target.value) return;
@@ -54,7 +53,7 @@ class AddTags extends Component {
     return (
       <React.Fragment>
         <div className="tags-big-wrapper" onBlur={() => this.props.sendDataToParent(tags)}>
-          <div className="tags-wrapper" onClick={this.focusTextInput}>
+          <div className="tags-wrapper addCustom" onClick={this.focusTextInput}>
             {/* <div className="tags-input-placeholder">add your tags</div> remove onclick adding class to parent*/}
             <ul className="list tags">
               {
@@ -63,14 +62,12 @@ class AddTags extends Component {
                 ))
               }
             </ul>
-            <div className="tags-wrapper-input">
-              <input
-                className="tags-input"
-                type="text" onKeyPress={this.handleKey}
-                style={{ width: `${inputWidth}px` }}
-                ref={this.textInput}
-              />
-            </div>
+            <input
+              className="tags-input"
+              type="text" onKeyPress={this.handleKey}
+              style={{ width: `${inputWidth}px` }}
+              ref={this.textInput}
+            />
           </div>
         </div>
       </React.Fragment>

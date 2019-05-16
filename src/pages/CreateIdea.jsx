@@ -5,8 +5,10 @@ function CreateIdea(props) {
   console.log("create idea page props: ", props)
   return (
     <div>
-      <h1>Share your Idea</h1>
-      <h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos eius, voluptate rerum excepturi harum.</h3>
+      <div className="create-Heading">
+        <h1>have something great to share with the world?</h1>
+        <h4>make it happen!</h4>
+      </div>
       <FormCreateIdea {...props} sendToParent={props.updateApp} />
     </div>
   )

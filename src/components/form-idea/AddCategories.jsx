@@ -23,8 +23,8 @@ class AddCategories extends Component {
     // console.log("addCat props---:", this.props.match.params.id)
     return (
       <React.Fragment>
-        <select name="category" id="categories-select" onChange={this.props.sendCatToParent} value={this.props.category} >
-          { !this.props.match.params.id ? <option value="default">choose a category</option> : null }
+        <select name="category" className="formSelect" onChange={this.props.sendCatToParent} value={this.props.category} >
+          { !this.props.match.params.id ? <option value="default">what kind of a thing is it?</option> : null }
           
           {this.state.categories.map((category, index) =>
             (
