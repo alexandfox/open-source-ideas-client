@@ -11,6 +11,8 @@
 @import './modal';
 @import './login';
 @import "./text";
+@import './userProfile';
+@import './ideapage';
 
 .App {
   text-align: center;
@@ -44,5 +46,5 @@
   position: relative;
   top: 50px;
   width: 90%;
-  margin: 0 auto 50px;
+  margin: 50px auto 50px;
 }

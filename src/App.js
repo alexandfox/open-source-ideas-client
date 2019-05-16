@@ -21,8 +21,8 @@ import Page404 from "./pages/Page404"
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faLinkedin, faTwitter, faProductHunt } from '@fortawesome/free-brands-svg-icons'
-import { faPoo, faHeart, faMapMarkerAlt, faSearch, faComment} from '@fortawesome/free-solid-svg-icons'
-library.add(faPoo, faHeart, faMapMarkerAlt, faLinkedin, faProductHunt, faTwitter, faSearch, faComment)
+import { faPoo, faHeart, faMapMarkerAlt, faSearch, faComment, faTrophy} from '@fortawesome/free-solid-svg-icons'
+library.add(faPoo, faHeart, faMapMarkerAlt, faLinkedin, faProductHunt, faTwitter, faSearch, faTrophy, faComment)
 
 
 class App extends Component {

@@ -1,0 +1,28 @@
+.ideaTitleInfos{
+  .ideaPageCat{
+    color: $mediumGrey;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+  }
+  .ideaPageCatName{
+    color: $ultraViolet;
+  }
+  .ideaMainTitle{
+    font: 3.5rem "Self Modern";
+    line-height: 4rem;
+    max-width: 500px;
+    margin: 0.75rem auto 0;
+  }
+  .ideaCreatorInfos{
+    display: flex;
+    justify-content: center;
+    color: $mediumGrey;
+    font-size: 0.8rem;
+    .ideaPageDate{
+      margin-left: 0.25rem;
+    }
+    .ideaPageCreator{
+      margin-right: 0.25rem;
+    }
+  }
+}

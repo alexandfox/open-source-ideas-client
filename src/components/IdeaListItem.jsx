@@ -5,6 +5,7 @@ import UpvoteTest from "../components/UpvoteTest"
 import SharedOptions from "../components/myIdeaOptions"
 import Moment from 'react-moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import OnVisible from 'react-on-visible';
 
 // accepts props:
 // {...idea} --> directly reference any keys on "idea"
@@ -43,7 +44,7 @@ class ideaItem extends Component {
           <DraftEdit id={this.props._id} creator_name={this.props.creator && this.props.creator.name} sendToParent={(e) => this.sendToParent(e)} /> 
         </div>
         : 
-        <div className="publicItem">
+        <OnVisible className="publicItem" percent={10}>
           <div className="publicItemInfos">
             
             <div className="publicItemInfosPrimary">
@@ -70,7 +71,7 @@ class ideaItem extends Component {
           <div className="publicItemUpvote">
             <UpvoteTest idea={idea} loggedUser={this.props.loggedUser} />
           </div>
-        </div>}
+        </OnVisible>}
       </React.Fragment>
     )
   }
