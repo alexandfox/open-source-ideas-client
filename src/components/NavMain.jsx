@@ -6,6 +6,16 @@ class NavMain extends Component {
   constructor(props){
     super(props);
     this.service = new AuthService();
+    console.log("nav main props", props)
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.loggedUser !== prevProps.loggedUser) {
+      this.setState({
+        loggedIn : true,
+        loggedUser : this.props.loggedUser
+      })
+    }
   }
 
   activeBurger = () => {
@@ -43,8 +53,11 @@ class NavMain extends Component {
         </div>
       </nav>
       <div className="expandingNav">
-          {!this.props.loggedIn && <NavLink className="navLinkExpanded" onClick={this.activeBurger} activeClassName="is-active" to="/signup" exact>Signup</NavLink>}
-          {!this.props.loggedIn && <NavLink className="navLinkExpanded" onClick={this.activeBurger} activeClassName="is-active" to="/login" exact>Login</NavLink>}
+          {!this.props.loggedIn && <NavLink className="navLinkExpanded" onClick={this.activeBurger} activeClassName="is-active" 
+            to="/signup" exact>
+            Signup</NavLink>}
+
+          {!this.props.loggedIn && <NavLink className="navLinkExpanded" onClick={this.activeBurger} activeClassName="is-active" to="/signup" exact>Login</NavLink>}
           <NavLink className="navLinkExpanded" onClick={this.activeBurger} to="/create-idea" >Share an Idea</NavLink>
           {this.props.loggedIn && <NavLink className="navLinkExpanded" onClick={this.activeBurger} activeClassName="is-active" to={`/@${this.props.loggedUser.name}`} exact>Profile</NavLink>}
           {this.props.loggedIn && <NavLink className="navLinkExpanded" onClick={this.logoutUser} activeClassName="is-active" to={{

@@ -21,13 +21,15 @@ class LoginForm extends Component {
 		if (this.props.route === "signup") {
 			this.service.signup(username, name, password)
 			.then( response => {
-				this.props.sendUser(response)
+				this.props.closeModal()
+				// this.props.sendUser(response)
 			})
 			.catch( error => console.log(error) )
 		} else {
 			this.service.login(username, password)
 				.then( response => {
-					this.props.sendUser(response)
+					this.props.closeModal()
+					// this.props.sendUser(response)
 				})
 				.catch( error => console.log(error) )
 		}
@@ -40,25 +42,22 @@ class LoginForm extends Component {
 			
 	render(){
 		return(
-			<form className="loginForm" onSubmit={this.handleFormSubmit}>
-				<label>Email:</label>
-				<input type="text" name="username" value={this.state.username} onChange={ e => this.handleChange(e)}/>
+			<div className="loginContainer">
+				<form className="form loginForm" onSubmit={this.handleFormSubmit}>
+					<input className="textInput short" type="text" name="username" value={this.state.username} onChange={ e => this.handleChange(e)} placeholder="email" />
 
-				{
-					this.props.route === "signup" && 
-					<div className="nameInput">
-						<label>Username:</label>
-						<input type="text" name="name" value={this.state.name} onChange={ e => this.handleChange(e)} />
-					</div>
-				}
-				
-				<label>Password:</label>
-				<input type="password" name="password" value={this.state.password} onChange={ e => this.handleChange(e)} />
-				
-				{this.props.route === "signup" && <input type="submit" value="Signup" />}
-				{this.props.route === "login" && <input type="submit" value="Login" />}
-				
-			</form>
+					{
+						this.props.route === "signup" && 
+						<input className="textInput short" type="text" name="name" value={this.state.name} onChange={ e => this.handleChange(e)} placeholder="username" />
+					}
+					
+					<input className="textInput short" type="password" name="password" value={this.state.password} onChange={ e => this.handleChange(e)} placeholder="password" />
+					
+					{this.props.route === "signup" && <input className="button primary" type="submit" value="Signup" />}
+					{this.props.route === "login" && <input className="button primary" type="submit" value="Login" />}
+					
+				</form>
+			</div>
 		)
 	}
 }

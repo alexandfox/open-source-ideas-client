@@ -1,11 +1,23 @@
 /* General style */
-.form {}
+.form {
+  display: flex;
+  flex-direction: column;
+}
 
 /* Comment form style */
 
 [contenteditable="true"]:focus {
   border: none;
   outline: none;
+}
+
+.textInput {
+  padding: 5px;
+  margin: 5px 0;
+}
+
+.textInput.short{
+
 }
 
 #form_add_comments {

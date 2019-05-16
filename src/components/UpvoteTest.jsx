@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { upvoteIdea, updateOneIdea } from "../api/apiHandler";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import Modal from "../components/Modal"
+import Signup from "../pages/Signup"
 
 class UpvoteDownvote extends Component {
   constructor(props){
@@ -14,6 +16,7 @@ class UpvoteDownvote extends Component {
       hasDownvoted: false,
       upvotedUsers: props.idea.upvotedUsers,
       downvotedUsers: props.idea.downvotedUsers,
+      showModal : false,
     }
 		// console.log("props: ", props)
   }
@@ -111,8 +114,12 @@ class UpvoteDownvote extends Component {
   };
 
   suggestLogin = () => {
-    alert("Oops! that option requires login :)")
+    this.setState({showModal: true})
+    console.log("modal clicked")
   }
+
+  handleCloseModal = (e) => (e.target.classList[0] === "modal") ? this.setState({showModal: false}) : null
+  
 
   render(){
     return (
@@ -125,10 +132,17 @@ class UpvoteDownvote extends Component {
           <FontAwesomeIcon icon="poo" className="upvoteIcon" />
           <p className="downvoteCount">{this.state.downvotes}</p>
         </div>
+        {this.state.showModal ? (
+        <Signup onClose={this.handleCloseModal} />
+      ) : null}
     </div>
     )
   }
 }
+
+        /* <Modal onClose={this.handleCloseModal}>
+          This is the secret modal message!
+        </Modal> */
 
 export default UpvoteDownvote;
 

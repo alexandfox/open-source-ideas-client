@@ -1,0 +1,48 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width:100%;
+  height: 100%;
+	justify-content: center;
+	align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-main {
+  padding: 20;
+  background: white;
+  position: relative;
+  width: 80%;
+  height: 80%;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  border-radius: 2px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.16);
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  // justify-content: space-around;
+}
+
+.modal-main > * {
+  margin: 15% 15% 0;
+}
+
+.modalHeading > * {
+  margin: 5% 0 0;
+}
+
+.modalFootnote {
+	font-size: 0.9rem;
+	color: $mediumGrey;
+  display: flex;
+  justify-content: center;
+
+	.link {
+		text-transform: uppercase;
+		color: $ultraViolet;
+		margin: 0 0 0 8px;
+	}
+}

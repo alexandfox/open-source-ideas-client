@@ -18,6 +18,7 @@
     "react-moment": "^0.9.2",
     "react-on-visible": "^1.6.0",
     "react-router-dom": "^5.0.0",
+    "react-router-modal": "^1.5.2",
     "react-scripts": "3.0.0"
   },
   "scripts": {
