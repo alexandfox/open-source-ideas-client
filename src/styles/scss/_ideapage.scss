@@ -17,12 +17,26 @@
     display: flex;
     justify-content: center;
     color: $mediumGrey;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     .ideaPageDate{
       margin-left: 0.25rem;
     }
     .ideaPageCreator{
       margin-right: 0.25rem;
     }
+  }
+}
+
+.ideaInfos{
+  display: flex;
+  flex-direction: column;
+  max-width: 700px;
+  margin: 1.4rem auto 0; 
+
+  .ideaPageDescription {
+    color: $lightBlack;
+    font-size: 1.3rem;
+    font-weight: 300;
+    margin-top: 1rem;
   }
 }

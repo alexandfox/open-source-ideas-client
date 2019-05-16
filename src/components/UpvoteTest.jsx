@@ -116,14 +116,14 @@ class UpvoteDownvote extends Component {
 
   render(){
     return (
-      <div className="upvDownvWrapper">
-        <div className={`upvDownvComponent ${this.state.hasUpvoted ? "active" : ""}`} onClick={this.state.loggedUser ? this.handleUpvote : this.suggestLogin}>
+      <div className={`upvDownvWrapper ${this.props.orientation}`}>
+        <div className={`upvDownvComponent ${this.props.orientation} ${this.state.hasUpvoted ? "active" : ""}`} onClick={this.state.loggedUser ? this.handleUpvote : this.suggestLogin}>
           <FontAwesomeIcon icon="heart" className="upvoteIcon" />
-          <p className="upvoteCount">{this.state.upvotes}</p>
+          <p className={`upvoteCount ${this.props.orientation}`}>{this.state.upvotes}</p>
         </div>
-        <div className={`upvDownvComponent ${this.state.hasDownvoted ? "active" : ""}`} onClick={this.state.loggedUser ? this.handleDownvote : this.suggestLogin}>
+        <div className={`upvDownvComponent ${this.props.orientation} ${this.state.hasDownvoted ? "active" : ""}`} onClick={this.state.loggedUser ? this.handleDownvote : this.suggestLogin}>
           <FontAwesomeIcon icon="poo" className="upvoteIcon" />
-          <p className="downvoteCount">{this.state.downvotes}</p>
+          <p className={`downvoteCount ${this.props.orientation}`}>{this.state.downvotes}</p>
         </div>
     </div>
     )
