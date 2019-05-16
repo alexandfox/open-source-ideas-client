@@ -11,7 +11,6 @@ import AuthService from './api/auth-service';
 
 import Home from "./pages/Home"
 import Signup from "./pages/Signup"
-import Login from "./pages/Login"
 import CreateIdea from "./pages/CreateIdea"
 import IdeaPage from "./pages/IdeaPage"
 import UserProfile from "./pages/UserProfile"
@@ -71,7 +70,7 @@ class App extends Component {
   // }
 
   render() {
-    // this.fetchUser()
+    this.fetchUser()
     return (
       <div className="App">
       <NavMain {...this.state} getUser={this.getUser} />
@@ -81,14 +80,12 @@ class App extends Component {
             <Route path="/search" render={(props) => <SearchResults loggedUser={this.state.loggedUser} {...props} />} />
 
             <Route exact path="/signup" render={() => <Signup getUser={this.getUser} />} />
-            <Route exact path="/login" render={() => (this.loggedIn ? (<Redirect to="/" />) : (<Login getUser={this.getUser} />))} />
-            {/* <ModalRoute exact path="/login" render={() => (this.loggedIn ? (<Redirect to="/" />) : (<Login getUser={this.getUser} />))}/> */}
 
             <Route exact path="/@:name" render={(props) => <UserProfile loggedUser={this.state.loggedUser} {...props} />} />
             <Route exact path="/@:name/edit" render={(props) => <EditProfile loggedUser={this.state.loggedUser} {...props} />} />
             <Route exact path="/@:name/archive" render={(props) => <ProfileArchives loggedUser={this.state.loggedUser} {...props} />} />
 
-            <Route exact path="/create-idea/" render={(props) => (this.state.loggedIn ? (<CreateIdea loggedUser={this.state.loggedUser} {...props} updateApp={this.fetchUser} />) : (<Login getUser={this.getUser} />))} />
+            <Route exact path="/create-idea/" render={(props) => (this.state.loggedIn ? (<CreateIdea loggedUser={this.state.loggedUser} {...props} updateApp={this.fetchUser} />) : (<Signup getUser={this.getUser} />))} />
 
             <Route exact path="/create-idea/:id" render={(props) => <CreateIdea loggedUser={this.state.loggedUser} {...props} />} />
             <Route exact path="/idea/:id" render={(props) => <IdeaPage loggedUser={this.state.loggedUser} {...props} />} />

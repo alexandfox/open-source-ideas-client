@@ -28,6 +28,7 @@ class LoginForm extends Component {
 		} else {
 			this.service.login(username, password)
 				.then( response => {
+					this.props.closeModal()
 					// this.props.sendUser(response)
 				})
 				.catch( error => console.log(error) )

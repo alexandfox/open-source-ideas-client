@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ReactDOM from "react-dom";
 import LoginForm from "../components/LoginForm"
 import { Redirect } from 'react-router'
-import Login from "./Login"
 // import Modal from "../components/Modal"
 
 const modalRoot = document.querySelector("#modal")
@@ -49,6 +48,7 @@ class Signup extends Component {
 
   render(){
     // if (this.state.loggedIn) return <Redirect to="/" /> 
+		console.log("here's the state: ", this.state)
     return ReactDOM.createPortal(
 			<div
 					style={{
@@ -83,8 +83,8 @@ class Signup extends Component {
               <LoginForm route="login" closeModal={this.props.onClose} /> }
 
             { this.state.route === "signup" ?
-              <p>already have an account?<button onClick={this.changeToSignup} value="login">Login</button></p> :
-              <p>don't have an account? <button onClick={this.changeToLogin} value="signup">Signup</button></p>
+              <p>already have an account?<span onClick={this.changeToLogin} value="login">Login</span></p> :
+              <p>don't have an account? <span onClick={this.changeToSignup} value="signup">Signup</span></p>
             }
 
 						<hr />
