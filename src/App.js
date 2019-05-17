@@ -84,7 +84,7 @@ class App extends Component {
   }
 
   render() {
-    this.fetchUser()
+    // this.fetchUser()
     return (
       <div className="App" onScroll={this.handleScroll}>
       <NavMain {...this.state} getUser={this.getUser} />
