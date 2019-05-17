@@ -3,7 +3,6 @@ import './styles/scss/main.scss';
 import { Switch, Route, Redirect } from "react-router-dom";
 import NavMain from "./components/NavMain";
 import AuthService from './api/auth-service';
-
 import Home from "./pages/Home"
 import Signup from "./pages/Signup"
 import CreateIdea from "./pages/CreateIdea"
@@ -16,8 +15,8 @@ import Page404 from "./pages/Page404"
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faLinkedin, faTwitter, faProductHunt } from '@fortawesome/free-brands-svg-icons'
-import { faPoo, faHeart, faMapMarkerAlt, faSearch, faComment, faTrashAlt, faEdit} from '@fortawesome/free-solid-svg-icons'
-library.add(faPoo, faHeart, faMapMarkerAlt, faLinkedin, faProductHunt, faTwitter, faSearch, faComment, faTrashAlt, faEdit)
+import { faPoo, faHeart, faMapMarkerAlt, faSearch, faComment, faTrophy} from '@fortawesome/free-solid-svg-icons'
+library.add(faPoo, faHeart, faMapMarkerAlt, faLinkedin, faProductHunt, faTwitter, faSearch, faTrophy, faComment)
 
 
 class App extends Component {
@@ -26,26 +25,27 @@ class App extends Component {
     this.state = {
       loggedIn: false,
       loggedUser: null,
-      archivedIdeas: []
+      archivedIdeas: [],
     };
     this.service = new AuthService();
   }
 
   fetchUser = () => {
-    // if( this.state.loggedUser === null ){
-    this.service.loggedin()
-      .then(response =>{
-        this.setState({
-          loggedUser:  response
-        }, console.log("fetched user: ", response)) 
-      })
-      .catch( err =>{
-        this.setState({
-          loggedUser:  false
-        }, console.log("fetch user failed")) 
-      })
-    // }
-    console.log("fetch called.")
+    if( this.state.loggedUser === null ){
+      this.service.loggedin()
+        .then(response =>{
+          this.setState({
+            loggedIn: true,
+            loggedUser:  response
+          }, console.log("fetched user: ", response)) 
+        })
+        .catch( err =>{
+          this.setState({
+            loggedUser:  null
+          }) 
+        })
+    }
+    // console.log("fetch called.")
   }
 
   getUser = (userObj) => {
@@ -64,16 +64,18 @@ class App extends Component {
   // }
 
   render() {
-    // this.fetchUser()
+    this.fetchUser()
     return (
       <div className="App">
       <NavMain {...this.state} getUser={this.getUser} />
         <main id="main">
           <Switch>
             <Route exact path="/" render={(props) => <Home loggedUser={this.state.loggedUser} {...props} />} />
+            
             <Route path="/search" render={(props) => <SearchResults loggedUser={this.state.loggedUser} {...props} />} />
 
             <Route exact path="/signup" render={() => <Signup getUser={this.getUser} />} />
+
             <Route exact path="/@:name" render={(props) => <UserProfile loggedUser={this.state.loggedUser} {...props} />} />
             <Route exact path="/@:name/edit" render={(props) => <EditProfile loggedUser={this.state.loggedUser} {...props} />} />
             <Route exact path="/@:name/archive" render={(props) => <ProfileArchives loggedUser={this.state.loggedUser} {...props} />} />

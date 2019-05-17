@@ -2,7 +2,6 @@ import React, {Component} from "react"
 import { updateOneUser } from "../api/apiHandler";
 import { Redirect } from "react-router-dom";
 
-
 // PROPS
 // loggedUser --> user
 

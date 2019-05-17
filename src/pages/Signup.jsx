@@ -54,19 +54,22 @@ class Signup extends Component {
 					// onClick={this.props.onClose}
 				>
 					<div className="modal-main">
-						<div className="modalHeading">
-							<h1 className="signupHeading">Welcome</h1>
-							<h4 className="modalDescription">Create an account to follow your favorite idea-makers and topics. We're a community excited to share and discover new, interesting things.</h4>
-						</div>
+            <span class="close" onClick={this.props.onClose}>&times;</span>
+            <div className="modal-content">
+              <div className="modalHeading">
+                <h1 className="signupHeading">Welcome</h1>
+                <h4 className="modalDescription">Create an account to follow your favorite idea-makers and topics. We're a community excited to share and discover new, interesting things.</h4>
+              </div>
 
-            { this.state.route === "signup" ?
-              <LoginForm route="signup" closeModal={this.props.onClose} /> :
-              <LoginForm route="login" closeModal={this.props.onClose} /> }
+              { this.state.route === "signup" ?
+                <LoginForm route="signup" closeModal={this.props.onClose} /> :
+                <LoginForm route="login" closeModal={this.props.onClose} /> }
 
-            { this.state.route === "signup" ?
-              <div className="modalFootnote" >Already have an account?<span className="link" onClick={this.changeToLogin} value="login">Login</span></div> :
-              <div className="modalFootnote">Don't have an account? <span className="link" onClick={this.changeToSignup} value="signup">Signup</span></div>
-            }
+              { this.state.route === "signup" ?
+                <div className="modalFootnote" >Already have an account?<span className="link" onClick={this.changeToLogin} value="login">Login</span></div> :
+                <div className="modalFootnote">Don't have an account? <span className="link" onClick={this.changeToSignup} value="signup">Signup</span></div>
+              }
+            </div>
 					</div>
 				</div>
 		, this.div);

@@ -140,10 +140,6 @@ class Home extends Component {
               {page.social && page.social.contact_name && <h2 className="titleName">{page.social.contact_name}</h2>}
               <h4 className="userName">@{this.state.user_name}</h4>
               {page.bio && <p className="userBio">{page.bio}</p>}
-              
-              {this.state.isMyProfile &&
-                <button className="outlineButton" onClick={this.editProfile}>Edit infos</button>}
-
             </div>
 
             <div className="avatar">
@@ -201,6 +197,8 @@ class Home extends Component {
                   </div>
                 </div>
               }
+          {this.state.isMyProfile && <button className="outlineButton" onClick={this.editProfile} loggedUser={this.props.loggedUser} >Edit</button>}
+          
           {/* user informations container end */}
           {/* {!this.state.isMyProfile && <p>this is not my profile</p>} */}
 
