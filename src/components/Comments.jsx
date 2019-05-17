@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { createOneComment } from "./../api/apiHandler"
 import Moment from 'react-moment';
+import { Link } from "react-router-dom";
 import { updateOneIdea } from "./../api/apiHandler"
 import { getOneIdea } from "./../api/apiHandler"
 const placeHolder = document.getElementsByClassName("comments-placeholder-wrapper")
@@ -88,26 +89,34 @@ class Comments extends Component {
       return (
         <section className="comments">
           <h3 className="ideaSecHeading" >Comments</h3>
-          <div>
-            {this.state.commentsDisplay.map((com, index) => (
-              <div key={index}>
-                <div className="comments">{com.content}, {com.creator.username} </div>
-                <Moment fromNow>{com.created_at}</Moment>
+          {this.state.commentsDisplay.map((com, index) => (
+            <div key={index} className="postedComment">
+              <div className="itemCreator">
+                <Link className="listPublicLink" to={`/@${ com.creator.username}`}>{ com.creator.username}</Link>
               </div>
-            ))
-            }
+              <div className="commentText">{com.content}</div>
+              <Moment className="commentDate" fromNow>{com.created_at}</Moment>
+            </div>
+          ))
+          }
 
-          </div>
-          <form id="form_add_comments" className="form" onClick={this.focusCommentInput}>
-            <div className="comments-placeholder-wrapper">
-              <div className="comments-placeholder">Your comment...</div>
-            </div>
-            <div className="input-comment-wrapper">
-              <div contentEditable="true" className="input-comment" id="input_comment" 
-                ref={this.commentInput} onKeyUp={this.handleKey}>
-               
+          <form id="form_add_comments" className="form"> 
+          {/* onClick={this.focusCommentInput}> */}
+            {/* <div className="comments-placeholder-wrapper">
+              <div className="comments-placeholder">
+                have something to say?
+                love it? hate it?
+                want to make it?
               </div>
-            </div>
+            </div> */}
+            {/* <div className="input-comment-wrapper">
+              
+            </div> */}
+            <input type="textarea" className="input-comment" id="input_comment" 
+                 onChange={this.handleKey}>
+               {/* contentEditable="true"  
+               ref={this.commentInput}*/}
+              </input>
             <button onClick={this.handleClick}>Post</button>
           </form>
         </section>

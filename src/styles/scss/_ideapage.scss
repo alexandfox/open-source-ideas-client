@@ -62,6 +62,21 @@
   }
 }
 
+.postedComment {
+  width: 100%;
+  max-width: 600px;
+  background: #f3f4f5;
+  border-radius: 0.3rem;
+  margin-bottom: 1.5rem;
+  padding: 1.25rem 0 1.25rem 1.25rem;
+  border: 0;
+  border-bottom: 0.15rem solid rgba(0,0,0,0.2);
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
 .comments {
   display: flex;
   flex-direction: column;
@@ -72,6 +87,25 @@
   color : $lightBlack;
   font-size: 1rem;
   margin: 0.5rem 0;
+}
+
+.itemCreator {
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1rem;
+  color: $ultraViolet;
+}
+
+.commentText {
+  font-size: 1rem;
+  color: $lightBlack;
+  margin: 1rem 0;
+}
+
+.commentDate {
+  font-size: 0.8rem;
+  color: $mediumGrey;
 }
 
 
