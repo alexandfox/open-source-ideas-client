@@ -54,6 +54,7 @@ class ideaOptions extends Component {
 	}
 
 	render() {
+    console.log("here i am in shared options")
 		return(
 			<select onChange={(e) => this.handleChange(e)}>
 				<option value="none">...</option>

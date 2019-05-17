@@ -83,9 +83,10 @@
   }
 }
 
-@media screen and (max-width: 479px){
-.publicItem {
-    width: 100%;
+@media screen and (max-width: 767px){
+.ideaListContainer.single{
+  .publicItem {
+    // width: 100%;
     .publicItemInfos{
       width: 70%;
       border-right: none;
@@ -104,4 +105,4 @@
       }
     }
   }
-}
+}}
