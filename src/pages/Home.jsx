@@ -94,7 +94,7 @@ class Home extends Component {
 			this.exactMatch(searchTerm, idea) || this.tagsMatch(searchTerm, idea)
 		)
 		this.setState({"filteredIdeas" : filteredIdeas})
-	}
+  }
   
   // RENDER
   render() {
