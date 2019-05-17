@@ -22,6 +22,11 @@
 
 .navLogo {
   font-weight: 500;
+  transition: all 500ms ease;
+}
+
+.logoText.hidden {
+  display: none;
 }
 
 // EXPANDING NAV----------------------------------------------------------
