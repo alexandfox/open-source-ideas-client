@@ -69,7 +69,7 @@ class Comments extends Component {
           {this.state.commentsDisplay.map((com, index) => (
             <div key={index} className="postedComment">
               <div className="itemCreator">
-                <Link className="listPublicLink" to={`/@${ com.creator.username}`}>{ com.creator.username}</Link>
+                <Link className="listPublicLink" to={`/@${com.creator.name}`}>{ com.creator.username}</Link>
               </div>
               <div className="commentText">{com.content}</div>
               <Moment className="commentDate" fromNow>{com.created_at}</Moment>
