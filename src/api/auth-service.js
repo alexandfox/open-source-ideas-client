@@ -4,7 +4,7 @@ require("dotenv").config();
 class AuthService {
   constructor() {
     let service = axios.create({
-			baseURL: "http://localhost:8888/api",
+			baseURL: process.env.REACT_APP_BACKEND_URL,
       withCredentials: true
 		});
     this.service = service;
