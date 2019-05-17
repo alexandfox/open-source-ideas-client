@@ -223,7 +223,7 @@ class Home extends Component {
             {this.state.public_ideas && this.state.public_ideas.length > 0 &&
               (<div id="shared-ideas">
                 <h3 className="profileHeader smallCapTitle">SHARED IDEAS</h3>
-                <div className="ideaListContainer">
+                <div className="ideaListContainer single">
                   {this.state.public_ideas.map((idea, index) => (
                     <IdeaItem key={index} {...idea} loggedUser={this.props.loggedUser} onDelete={(e) => this.removeDeletedDrafts(e)} />
                   ))}
@@ -231,7 +231,7 @@ class Home extends Component {
               </div>
               )}
           </section>
-          <section>
+          <section className="noneShared">
             {this.state.isMyProfile && this.state.public_ideas && this.state.public_ideas.length === 0 && (
               <div id="shared-ideas">
                 <h3 className="profileHeader smallCapTitle">SHARED IDEAS</h3>
@@ -244,7 +244,7 @@ class Home extends Component {
           <section>
             <h3 className="smallCapTitle">UPVOTES</h3>
             {page.upvotedIdeas && page.upvotedIdeas.length > 0 ?
-              <div id="">
+              <div className="ideaListContainer single">
                 {this.state.upvoted_ideas.map((idea, index) => (
                   <IdeaItem key={index} {...idea} loggedUser={this.props.loggedUser} />
                 ))}

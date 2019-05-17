@@ -46,7 +46,6 @@ class ideaItem extends Component {
         : 
         <OnVisible className="publicItem" percent={5}>
           <div className="publicItemInfos">
-            
             <div className="publicItemInfosPrimary">
               <p className="publicItemCat">CATEGORY / <span className="publicItemCatName">{this.props.category}</span></p>
               <Link to={`/idea/${this.props._id}`}>
@@ -65,7 +64,7 @@ class ideaItem extends Component {
                 <Moment className="publicItemDate" fromNow>{this.props.created_at}</Moment>
               </div>
             </div>
-            {/* <SharedOptions id={this.props._id} sendToParent={(e) => this.sendToParent(e)}/> */}
+            {/* {this.props.creator._id === this.props.loggedUser._id && <SharedOptions id={this.props._id} sendToParent={(e) => this.sendToParent(e)}/>} */}
           </div>
 
           <div className="publicItemUpvote">

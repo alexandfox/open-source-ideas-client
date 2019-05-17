@@ -139,7 +139,7 @@ class Home extends Component {
         </div>
       </div>
       <FilterSort updateSort={(sort) => this.updateSort(sort)} />
-      <div className="ideaListContainer">
+      <div className="ideaListContainer home">
           {
             this.state.filteredIdeas.map( (idea, index) => (
               (idea.isPublic && !idea.isArchived) &&
