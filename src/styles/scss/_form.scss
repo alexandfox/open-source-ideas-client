@@ -63,19 +63,19 @@
 }
 
 #form_add_comments {
-  width: 500px;
-  margin: 0 auto;
+  width: 100%;
+  margin: 2% auto;
   
   .comments-placeholder-wrapper {
     position: relative;
-
-
+    margin: 2% 0;
 
     .comments-placeholder {
       position: absolute;
       color: lightslategray;
       top: 8px;
       left: 10px;
+      padding: 2% 0;
     }
   }
   .input-comment-wrapper {
