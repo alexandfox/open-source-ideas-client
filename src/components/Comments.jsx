@@ -86,8 +86,8 @@ class Comments extends Component {
 
       // if(!this.state.commentsDisplay.length) return <p>Nothing to display</p>
       return (
-        <React.Fragment>
-          <h3>Comments</h3>
+        <section className="comments">
+          <h3 className="ideaSecHeading" >Comments</h3>
           <div>
             {this.state.commentsDisplay.map((com, index) => (
               <div key={index}>
@@ -110,7 +110,7 @@ class Comments extends Component {
             </div>
             <button onClick={this.handleClick}>Post</button>
           </form>
-        </React.Fragment >
+        </section>
       )
     }
   }

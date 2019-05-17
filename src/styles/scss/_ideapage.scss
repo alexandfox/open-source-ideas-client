@@ -1,3 +1,7 @@
+.ideaPageContainer {
+  margin: 0 1%;
+}
+
 .ideaTitleInfos{
   .ideaPageCat{
     color: $mediumGrey;
@@ -11,13 +15,15 @@
     font: 3.5rem "Self Modern";
     line-height: 4rem;
     max-width: 500px;
-    margin: 0.75rem auto 0;
+    margin: 1rem auto ;
   }
   .ideaCreatorInfos{
     display: flex;
     justify-content: center;
     color: $mediumGrey;
     font-size: 0.85rem;
+    margin: 1rem auto 3rem;
+
     .ideaPageDate{
       margin-left: 0.25rem;
     }
@@ -35,8 +41,43 @@
 
   .ideaPageDescription {
     color: $lightBlack;
-    font-size: 1.3rem;
+    font-size: 1rem;
     font-weight: 300;
-    margin-top: 1rem;
+    margin: 2rem auto 1rem;
+    text-align: justify;
   }
+
+  .ideaTags {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 1rem 0;
+
+    .tagItem {
+      margin: 0 1rem 0 0;
+      text-transform: uppercase;
+      font-size: 1rem;
+      color: $ultraViolet;
+    }
+  }
+}
+
+.comments {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.ideaSecHeading {
+  color : $lightBlack;
+  font-size: 1rem;
+  margin: 0.5rem 0;
+}
+
+
+@media screen and (min-width: 960px){
+.ideaPageContainer {
+  width: 70%;
+  margin: 0 auto;
+}
 }
