@@ -17,12 +17,13 @@
   }
 }
 
-.ideaListContainer{
+.ideaListContainer.home{
   display: flex;
   flex-wrap: wrap;
   max-width: 1100px;
   margin: 25px auto 0;
-text-align:center;
+  text-align:center;
+  
   .publicItem{
     width: calc(50% - 0.75rem);
     height: 210px;
@@ -191,7 +192,7 @@ text-align:center;
     margin-bottom: 0;
   }
 }
-.ideaListContainer{
+.ideaListContainer.home{
   .publicItem {
     width: 100%;
     .publicItemInfos{
