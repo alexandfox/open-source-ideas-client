@@ -34,7 +34,6 @@ class ideaItem extends Component {
   
   render() {
     var idea = {...this.props}
-    console.log("list item props: ", this.props)
     return (
       <React.Fragment>
         {/* MY DRAFTS */}

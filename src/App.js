@@ -16,6 +16,7 @@ import Page404 from "./pages/Page404"
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faLinkedin, faTwitter, faProductHunt } from '@fortawesome/free-brands-svg-icons'
 import { faPoo, faHeart, faMapMarkerAlt, faSearch, faComment, faTrophy} from '@fortawesome/free-solid-svg-icons'
+import { classBody } from '@babel/types';
 library.add(faPoo, faHeart, faMapMarkerAlt, faLinkedin, faProductHunt, faTwitter, faSearch, faTrophy, faComment)
 
 
@@ -28,6 +29,10 @@ class App extends Component {
       archivedIdeas: [],
     };
     this.service = new AuthService();
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll, false);
   }
 
   fetchUser = () => {
@@ -45,7 +50,6 @@ class App extends Component {
           }) 
         })
     }
-    // console.log("fetch called.")
   }
 
   getUser = (userObj) => {
@@ -63,10 +67,26 @@ class App extends Component {
   //   }
   // }
 
+  handleScroll = (e) => {
+    var logoText = document.getElementsByClassName("logoText");
+    if (window.scrollY > 300){
+      logoText[0].classList.add("hidden");
+      logoText[1].classList.add("hidden");
+      logoText[2].classList.add("hidden");
+      logoText[3].classList.add("hidden");
+    }
+    else {
+      logoText[0].classList.remove("hidden");
+      logoText[1].classList.remove("hidden");
+      logoText[2].classList.remove("hidden");
+      logoText[3].classList.remove("hidden");
+    }
+  }
+
   render() {
     this.fetchUser()
     return (
-      <div className="App">
+      <div className="App" onScroll={this.handleScroll}>
       <NavMain {...this.state} getUser={this.getUser} />
         <main id="main">
           <Switch>
