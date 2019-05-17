@@ -48,7 +48,6 @@ class Signup extends Component {
 
   render(){
     // if (this.state.loggedIn) return <Redirect to="/" /> 
-		console.log("here's the state: ", this.state)
     return ReactDOM.createPortal(
 			<div className="modal"
 					// onClick={this.props.onClose}

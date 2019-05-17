@@ -4,10 +4,6 @@
 //   display: flex
 // }
 
-.childContainer {
-  width: 80%;
-}
-
 .msgForUser {
   font-family: 'Self Modern Text';
   font-size: 1.2rem;
@@ -223,12 +219,10 @@
   border-bottom: 1px solid $lightGreyDarked;
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 767px) {
   .childContainer {
     width: 100%;
   }
-
-
 
   /*user infos*/
   #profileContainer {
@@ -304,6 +298,14 @@
   }
 }
 
-@media screen and (min-width: 480px) and (max-width: 767px) {}
+// @media screen and (min-width: 480px) and (max-width: 767px) {
+// }
 
 @media screen and (min-width: 768px) and (max-width: 959px) {}
+
+@media screen and (min-width: 960px){
+  .childContainer {
+    width: 80%;
+  }
+}
+
