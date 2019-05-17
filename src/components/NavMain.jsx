@@ -59,7 +59,7 @@ class NavMain extends Component {
     return (
       <React.Fragment>
       <nav className="mainNav">
-        <NavLink className="navLogo" onClick={this.closeBurger} activeClassName="is-active" to="/" exact>OpenSource&mdash;Ideas</NavLink>
+        <NavLink className="navLogo" onClick={this.closeBurger} activeClassName="is-active" to="/" exact>Op<span className="logoText hidden">e</span>nS<span className="logoText hidden">ou</span>rc<span className="logoText hidden">e</span>&mdash;IDEAS</NavLink>
         <div id="container" className="burgerMenu" onClick={this.activeBurger}>
           <div className="burgerItem bar1"></div>
           <div className="burgerItem bar2"></div>
