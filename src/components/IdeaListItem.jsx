@@ -65,7 +65,7 @@ class ideaItem extends Component {
                 <Moment className="publicItemDate" fromNow>{this.props.created_at}</Moment>
               </div>
             </div>
-            {!this.props.creator._id && <SharedOptions id={this.props._id} sendToParent={(e) => this.sendToParent(e)}/>}
+            {/* {!this.props.creator._id && <SharedOptions id={this.props._id} sendToParent={(e) => this.sendToParent(e)}/>} */}
           </div>
 
           <div className="publicItemUpvote">
