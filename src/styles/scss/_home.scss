@@ -108,6 +108,7 @@
 
   .publicItem:nth-child(even){
     margin-left: 0.75rem;
+    transition-delay: 200ms;
   }
 
   .publicItem:nth-child(odd){
