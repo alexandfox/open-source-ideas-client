@@ -27,7 +27,7 @@ class CreateIdea extends Component {
       <div className="create-content">
         <FormCreateIdea {...this.props} updatePreview={this.updatePreview} sendToParent={this.props.updateApp} />
       <div className="ideaPreview">
-        <div className="publicItem visible">
+        <div className="publicItem">
           <div className="publicItemInfos">
               <div className="publicItemInfosPrimary">
                 <p className="publicItemCat">CATEGORY / <span className="publicItemCatName">{this.state.category}</span></p>

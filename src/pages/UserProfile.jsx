@@ -195,9 +195,10 @@ class Home extends Component {
                         className="socialLink">{page.social.website}
                       </a>}
                   </div>
-                  {this.state.isMyProfile && <button className="outlineButton" onClick={this.editProfile} loggedUser={this.props.loggedUser} >Edit</button>}
                 </div>
               }
+          {this.state.isMyProfile && <button className="outlineButton" onClick={this.editProfile} loggedUser={this.props.loggedUser} >Edit</button>}
+          
           {/* user informations container end */}
           {/* {!this.state.isMyProfile && <p>this is not my profile</p>} */}
 
