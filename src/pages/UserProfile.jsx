@@ -260,8 +260,10 @@ class Home extends Component {
 
               <Link to={{
               pathname: `/@${this.props.loggedUser.name}/archive`,
-              archives: this.state.archived_ideas,
-              loggedUser: this.state.current_user,
+              state: {
+                archives: this.state.archived_ideas,
+                loggedUser: this.state.current_user,
+              }
             }} className="outlineButton">Access your Archives</Link>
             </div>}
           </section>
