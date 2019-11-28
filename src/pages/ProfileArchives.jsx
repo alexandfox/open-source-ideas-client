@@ -13,15 +13,15 @@ class myArchives extends Component {
   }
 
   render() {
-    console.log("archive props: ", props)
+    console.log("archive props: ", this.props)
     console.log("archive state: ", this.state)
   
     return(
       <div>
         <h3>ARCHIVED IDEAS</h3>
         <div>
-          {props.location.archives.map( (idea, index) => (
-            <IdeaItem key={index} {...idea} loggedUser={props.location.loggedUser} />
+          {this.props.location.archives.map( (idea, index) => (
+            <IdeaItem key={index} {...idea} loggedUser={this.props.location.loggedUser} />
           ))}
         </div>
       </div>
